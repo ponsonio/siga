@@ -1,0 +1,62 @@
+<server description="new server">
+
+    <!-- Enable features -->
+    <featureManager>
+        <feature>cdi-1.2</feature>
+        <feature>ejbLite-3.2</feature>
+        <feature>jdbc-4.1</feature>
+        <feature>jndi-1.0</feature>
+        <feature>jpa-2.1</feature>
+        <feature>jsf-2.2</feature>
+        <feature>localConnector-1.0</feature>
+        <feature>jaxb-2.2</feature>
+    </featureManager>
+
+	<!-- This template enables security. To get the full use of all the capabilities, a keystore and user registry are required. -->
+	
+	<!-- For the keystore, default keys are generated and stored in a keystore. To provide the keystore password, generate an 
+	     encoded password using bin/securityUtility encode and add it below in the password attribute of the keyStore element. 
+	     Then uncomment the keyStore element. -->
+	<!--
+	<keyStore password=""/> 
+	-->
+	
+	<!--For a user registry configuration, configure your user registry. For example, configure a basic user registry using the
+	    basicRegistry element. Specify your own user name below in the name attribute of the user element. For the password, 
+	    generate an encoded password using bin/securityUtility encode and add it in the password attribute of the user element. 
+	    Then uncomment the user element. -->
+	<basicRegistry id="basic" realm="BasicRealm"> 
+		<!-- <user name="yourUserName" password="" />  --> 
+	</basicRegistry>
+    
+    <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+   
+
+   <library id="DB2JCC4Lib">
+        <fileset dir="/Users/koki/Downloads/jdbc_sqlj/db2_db2driver_for_jdbc_sqlj/" includes="db2jcc4.jar"/>
+    </library>
+    
+    
+      <dataSource id="db2-catalogo" jdbcDriverRef="db2-driver" jndiName="jdbc/colegios" statementCacheSize="30" transactional="true">
+        <properties.db2.jcc databaseName="SQLDB" password="94DQHCUBotOb" portNumber="50000" serverName="75.126.155.153" user="user06279"/>
+    </dataSource>
+  
+
+  
+    <jdbcDriver id="db2-driver" libraryRef="DB2JCC4Lib"/>
+    <library id="db2-library">
+        <fileset dir="${server.config.dir}/lib" includes="db2jcc4.jar"/>
+    </library>
+
+
+    <applicationMonitor updateTrigger="mbean"/>
+
+
+   		
+   		
+
+
+
+    <webApplication id="SIGA" location="SIGA.war" name="SIGA"/>
+</server>
