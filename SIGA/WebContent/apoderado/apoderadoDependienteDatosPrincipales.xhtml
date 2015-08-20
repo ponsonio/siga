@@ -1,0 +1,40 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j">
+
+
+	<rich:panel>
+		<h:form id="viewDatosPersonaForm">
+		  
+			<h:panelGrid columns="2" width="50%" >
+				<s:div>
+					<table class="dr-table rich-table ">
+						<tr class="dr-table-row rich-table-row" >
+							<td  class="dr-table-cell rich-table-cell "><h4><h:outputText value="#{messages['label.codigo']}"/>:</h4> </td><td  class="dr-table-cell rich-table-cell "> <h:outputText value="#{alumnoHome.instance.persona.codigo}" /> </td>
+							<td  class="dr-table-cell rich-table-cell "><h4><h:outputText value="#{messages['label.nombre']}"/>:</h4> </td><td  class="dr-table-cell rich-table-cell "><h:outputText value="#{alumnoHome.instance.persona.primerNombre} #{alumnoHome.instance.persona.segundoNombre}" /></td>
+						</tr>
+						<tr class="dr-table-row rich-table-row" >
+							<td  class="dr-table-cell rich-table-cell "><h4><h:outputText value="#{messages['label.apellidos']}"/></h4> 	</td><td  class="dr-table-cell rich-table-cell "><h:outputText value="#{alumnoHome.instance.persona.apellidoPaterno} #{alumnoHome.instance.persona.apellidoMaterno}"/></td>
+							  
+							<td  class="dr-table-cell rich-table-cell "><h4><h:outputText value="#{messages['label.grado']}"/>: </h4> </td><td  class="dr-table-cell rich-table-cell "><h:outputText value="#{resumenAlumnoHome.instance.grado.nombre}"/></td>
+							
+						</tr>
+						
+						<tr class="dr-table-row rich-table-row" >
+						
+							<td  class="dr-table-cell rich-table-cell "><h4><h:outputText value="#{messages['label.colegio']}"/> : </h4> </td><td  class="dr-table-cell rich-table-cell "><h:outputText value="#{alumnoHome.instance.colegio.nombre}"/></td>
+							<td  class="dr-table-cell rich-table-cell "><h4><h:outputText value="#{messages['label.seccion']}"/>: </h4> </td><td  class="dr-table-cell rich-table-cell "><h:outputText value="#{resumenAlumnoHome.instance.seccion.etiqueta}"/></td>
+						
+						</tr>
+					</table>
+				</s:div>			     
+			</h:panelGrid>
+		</h:form>
+	</rich:panel>
+</ui:composition>

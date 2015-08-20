@@ -1,0 +1,65 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j">
+
+<h:form id="recibosPensionForm">
+		
+			<!--  
+			
+			<div>	
+	        	<h3>Código:</h3><h:outputText value=""/>
+	        	<h3>Nombres :</h3> <h:outputText value=""/>
+				<h3>Apellidos :</h3><h:outputText value=""/>
+			</div>		
+
+			-->
+        	<div>
+        	
+	         	<h:outputText value="No messages to display" rendered="#{reciboList.rowCount==0}"/>
+				<rich:dataTable var="reciboPension" value="#{reciboList}" rendered="#{reciboList.rowCount>0}">
+				
+				   <f:facet name="header">
+					  	<h:outputText value="Recibos de Pago" />
+					</f:facet> 
+					
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="Fecha Emisión"/>
+			            </f:facet>
+						<h:outputText value="#{reciboPension.fechaEmision}"/> 
+			          </h:column>
+			          
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="Fecha Vencimiento"/>
+			            </f:facet>
+						<h:outputText value="#{reciboPension.fechaMaximaPago}"/> 
+			          </h:column>
+			          
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="Estado"/>
+			            </f:facet>
+			            
+						<h:outputText value="#{reciboPension.fechaPago== null ? 'pendiente' : 'pagado'}"/> 
+			          </h:column>
+			          
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="Monto"/>
+			            </f:facet>
+						<h:outputText value="#{reciboPension.monto}"/> 
+			          </h:column>
+			          
+				</rich:dataTable>
+				
+			</div>
+ 
+          </h:form>
+</ui:composition>

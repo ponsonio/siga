@@ -1,0 +1,37 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j">
+	
+	<rich:panel>
+		<h:form id="dependientesForm">
+			<h:panelGrid columns="2" width="50%" >
+
+					 <h:outputText value=" " rendered="#{alumnoDependientes.rowCount==0}"/>
+				     <rich:dataTable var="alumno" value="#{alumnoDependientes}" rendered="#{alumnoDependientes.rowCount>0}"  >
+				          <f:facet name="header">
+							  	<h:outputText value="Dependientes" />
+							</f:facet> 
+					        <h:column>
+					           <f:facet name="header">
+					              <h:outputText value="Código"/>
+					           </f:facet>
+					           <h:outputText value="#{alumno.persona.codigo}"/>
+					        </h:column>
+				        
+					        <h:column>
+					           <f:facet name="header">
+					              <h:outputText value="Nombre"/>
+					           </f:facet>
+								<h:outputText value="#{alumno.persona.primerNombre} #{alumno.persona.segundoNombre} #{alumno.persona.apellidoPaterno} #{alumno.persona.apellidoMaterno}"/>
+					        </h:column>
+				     </rich:dataTable>
+				</h:panelGrid>
+		</h:form>
+	</rich:panel>
+	</ui:composition>

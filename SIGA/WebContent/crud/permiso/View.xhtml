@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PermisoViewDlg" widgetVar="PermisoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPermisoTitle}">
+            <h:form id="PermisoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{permisoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPermisoLabel_idPermiso}"/>
+                        <h:outputText value="#{permisoController.selected.idPermiso}" title="#{bundle.ViewPermisoTitle_idPermiso}"/>
+                        <h:outputText value="#{bundle.ViewPermisoLabel_fechaPermiso}"/>
+                        <h:outputText value="#{permisoController.selected.fechaPermiso}" title="#{bundle.ViewPermisoTitle_fechaPermiso}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPermisoLabel_fechaRegistro}"/>
+                        <h:outputText value="#{permisoController.selected.fechaRegistro}" title="#{bundle.ViewPermisoTitle_fechaRegistro}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPermisoLabel_comentarios}"/>
+                        <h:outputText value="#{permisoController.selected.comentarios}" title="#{bundle.ViewPermisoTitle_comentarios}"/>
+                        <h:outputText value="#{bundle.ViewPermisoLabel_personaIdRegistro}"/>
+                        <h:outputText value="#{permisoController.selected.personaIdRegistro}" title="#{bundle.ViewPermisoTitle_personaIdRegistro}"/>
+                        <h:outputText value="#{bundle.ViewPermisoLabel_idPersona}"/>
+                        <h:outputText value="#{permisoController.selected.idPersona}" title="#{bundle.ViewPermisoTitle_idPersona}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PermisoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

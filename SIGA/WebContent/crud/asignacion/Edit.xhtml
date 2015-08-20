@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AsignacionEditDlg" widgetVar="AsignacionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAsignacionTitle}">
+            <h:form id="AsignacionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{asignacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAsignacionLabel_idAsignacion}" for="idAsignacion" />
+                        <p:inputText id="idAsignacion" value="#{asignacionController.selected.idAsignacion}" title="#{bundle.EditAsignacionTitle_idAsignacion}" required="true" requiredMessage="#{bundle.EditAsignacionRequiredMessage_idAsignacion}"/>
+                        <p:outputLabel value="#{bundle.EditAsignacionLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{asignacionController.selected.descripcion}" title="#{bundle.EditAsignacionTitle_descripcion}" required="true" requiredMessage="#{bundle.EditAsignacionRequiredMessage_descripcion}"/>
+                        <p:outputLabel value="#{bundle.EditAsignacionLabel_fechaEntrega}" for="fechaEntrega" />
+                        <p:calendar id="fechaEntrega" pattern="MM/dd/yyyy" value="#{asignacionController.selected.fechaEntrega}" title="#{bundle.EditAsignacionTitle_fechaEntrega}" required="true" requiredMessage="#{bundle.EditAsignacionRequiredMessage_fechaEntrega}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAsignacionLabel_etiqueta}" for="etiqueta" />
+                        <p:inputText id="etiqueta" value="#{asignacionController.selected.etiqueta}" title="#{bundle.EditAsignacionTitle_etiqueta}" required="true" requiredMessage="#{bundle.EditAsignacionRequiredMessage_etiqueta}"/>
+                        <p:outputLabel value="#{bundle.EditAsignacionLabel_idTipoAsignacion}" for="idTipoAsignacion" />
+                        <p:selectOneMenu id="idTipoAsignacion" value="#{asignacionController.selected.idTipoAsignacion}" required="true" requiredMessage="#{bundle.EditAsignacionRequiredMessage_idTipoAsignacion}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoAsignacionController.itemsAvailableSelectOne}"
+                                           var="idTipoAsignacionItem"
+                                           itemValue="#{idTipoAsignacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAsignacionLabel_idSubPeriodoAcademicoSeccionCurso}" for="idSubPeriodoAcademicoSeccionCurso" />
+                        <p:selectOneMenu id="idSubPeriodoAcademicoSeccionCurso" value="#{asignacionController.selected.idSubPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditAsignacionRequiredMessage_idSubPeriodoAcademicoSeccionCurso}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{subPeriodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"
+                                           var="idSubPeriodoAcademicoSeccionCursoItem"
+                                           itemValue="#{idSubPeriodoAcademicoSeccionCursoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{asignacionController.update}" value="#{bundle.Save}" update="display,:AsignacionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AsignacionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AsignacionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

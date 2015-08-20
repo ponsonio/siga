@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FotoPersonaEditDlg" widgetVar="FotoPersonaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFotoPersonaTitle}">
+            <h:form id="FotoPersonaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{fotoPersonaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditFotoPersonaLabel_idFoto}" for="idFoto" />
+                        <p:inputText id="idFoto" value="#{fotoPersonaController.selected.idFoto}" title="#{bundle.EditFotoPersonaTitle_idFoto}" required="true" requiredMessage="#{bundle.EditFotoPersonaRequiredMessage_idFoto}"/>
+                        <p:outputLabel value="#{bundle.EditFotoPersonaLabel_vigente}" for="vigente" />
+                        <p:inputText id="vigente" value="#{fotoPersonaController.selected.vigente}" title="#{bundle.EditFotoPersonaTitle_vigente}" required="true" requiredMessage="#{bundle.EditFotoPersonaRequiredMessage_vigente}"/>
+                        <p:outputLabel value="#{bundle.EditFotoPersonaLabel_nombreArchivo}" for="nombreArchivo" />
+                        <p:inputText id="nombreArchivo" value="#{fotoPersonaController.selected.nombreArchivo}" title="#{bundle.EditFotoPersonaTitle_nombreArchivo}" required="true" requiredMessage="#{bundle.EditFotoPersonaRequiredMessage_nombreArchivo}"/>
+                        <p:outputLabel value="#{bundle.EditFotoPersonaLabel_idRepositorio}" for="idRepositorio" />
+                        <p:selectOneMenu id="idRepositorio" value="#{fotoPersonaController.selected.idRepositorio}" required="true" requiredMessage="#{bundle.EditFotoPersonaRequiredMessage_idRepositorio}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{repositorioArchivosController.itemsAvailableSelectOne}"
+                                           var="idRepositorioItem"
+                                           itemValue="#{idRepositorioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditFotoPersonaLabel_idPersona}" for="idPersona" />
+                        <p:selectOneMenu id="idPersona" value="#{fotoPersonaController.selected.idPersona}" required="true" requiredMessage="#{bundle.EditFotoPersonaRequiredMessage_idPersona}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
+                                           var="idPersonaItem"
+                                           itemValue="#{idPersonaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{fotoPersonaController.update}" value="#{bundle.Save}" update="display,:FotoPersonaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FotoPersonaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FotoPersonaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

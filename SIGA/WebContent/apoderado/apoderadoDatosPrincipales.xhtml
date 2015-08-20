@@ -1,0 +1,33 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j">
+
+
+	<rich:panel>
+		<h:form id="viewDatosPersonaForm">
+ 			<rich:panel  columns="2" width="50%" >
+ 				<f:facet name="header">
+					<h:outputText value="#{messages['label.datosPrincipales']}"/>
+				</f:facet>
+					<table class="dr-table rich-table" >
+						<tr>
+							<td class="dr-table-cell rich-table-cell "><h:outputText value="#{messages['label.codigo']}"/> : </td><td class="dr-table-cell rich-table-cell "><h:outputText value="#{personaHome.instance.codigo}" /> </td> 
+						</tr>
+						<tr>
+							<td class="dr-table-cell rich-table-cell "> <h:outputText value="#{messages['label.nombre']}"/> : </td><td class="dr-table-cell rich-table-cell "><h:outputText value="#{personaHome.instance.primerNombre} #{personaHome.instance.segundoNombre}"/>  </td>
+						</tr>
+						<tr>
+							<td class="dr-table-cell rich-table-cell "> <h:outputText value="#{messages['label.apellidos']}"/> : </td><td class="dr-table-cell rich-table-cell "> <h:outputText value="#{personaHome.instance.apellidoPaterno} #{personaHome.instance.apellidoMaterno}"/> </td>
+ 						</tr>
+ 					</table>
+ 			</rich:panel>
+		</h:form>
+		
+	</rich:panel>
+</ui:composition>

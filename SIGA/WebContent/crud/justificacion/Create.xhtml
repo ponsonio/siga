@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="JustificacionCreateDlg" widgetVar="JustificacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateJustificacionTitle}">
+            <h:form id="JustificacionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{justificacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateJustificacionLabel_idJustificacion}" for="idJustificacion" />
+                        <p:inputText id="idJustificacion" value="#{justificacionController.selected.idJustificacion}" title="#{bundle.CreateJustificacionTitle_idJustificacion}" required="true" requiredMessage="#{bundle.CreateJustificacionRequiredMessage_idJustificacion}"/>
+                        <p:outputLabel value="#{bundle.CreateJustificacionLabel_tipoJustificacion}" for="tipoJustificacion" />
+                        <p:inputText id="tipoJustificacion" value="#{justificacionController.selected.tipoJustificacion}" title="#{bundle.CreateJustificacionTitle_tipoJustificacion}" required="true" requiredMessage="#{bundle.CreateJustificacionRequiredMessage_tipoJustificacion}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{justificacionController.create}" value="#{bundle.Save}" update="display,:JustificacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'JustificacionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="JustificacionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

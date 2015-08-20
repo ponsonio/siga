@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="JustificacionEditDlg" widgetVar="JustificacionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditJustificacionTitle}">
+            <h:form id="JustificacionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{justificacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditJustificacionLabel_idJustificacion}" for="idJustificacion" />
+                        <p:inputText id="idJustificacion" value="#{justificacionController.selected.idJustificacion}" title="#{bundle.EditJustificacionTitle_idJustificacion}" required="true" requiredMessage="#{bundle.EditJustificacionRequiredMessage_idJustificacion}"/>
+                        <p:outputLabel value="#{bundle.EditJustificacionLabel_tipoJustificacion}" for="tipoJustificacion" />
+                        <p:inputText id="tipoJustificacion" value="#{justificacionController.selected.tipoJustificacion}" title="#{bundle.EditJustificacionTitle_tipoJustificacion}" required="true" requiredMessage="#{bundle.EditJustificacionRequiredMessage_tipoJustificacion}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{justificacionController.update}" value="#{bundle.Save}" update="display,:JustificacionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'JustificacionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="JustificacionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

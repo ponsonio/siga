@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonaCreateDlg" widgetVar="PersonaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonaTitle}">
+            <h:form id="PersonaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_idPersona}" for="idPersona" />
+                        <p:inputText id="idPersona" value="#{personaController.selected.idPersona}" title="#{bundle.CreatePersonaTitle_idPersona}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_idPersona}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_primerNombre}" for="primerNombre" />
+                        <p:inputText id="primerNombre" value="#{personaController.selected.primerNombre}" title="#{bundle.CreatePersonaTitle_primerNombre}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_primerNombre}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_fechaNacimiento}" for="fechaNacimiento" />
+                        <p:calendar id="fechaNacimiento" pattern="MM/dd/yyyy" value="#{personaController.selected.fechaNacimiento}" title="#{bundle.EditPersonaTitle_fechaNacimiento}" required="true" requiredMessage="#{bundle.EditPersonaRequiredMessage_fechaNacimiento}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_segundoNombre}" for="segundoNombre" />
+                        <p:inputText id="segundoNombre" value="#{personaController.selected.segundoNombre}" title="#{bundle.CreatePersonaTitle_segundoNombre}" />
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_apellidoPaterno}" for="apellidoPaterno" />
+                        <p:inputText id="apellidoPaterno" value="#{personaController.selected.apellidoPaterno}" title="#{bundle.CreatePersonaTitle_apellidoPaterno}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_apellidoPaterno}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_apellidoMaterno}" for="apellidoMaterno" />
+                        <p:inputText id="apellidoMaterno" value="#{personaController.selected.apellidoMaterno}" title="#{bundle.CreatePersonaTitle_apellidoMaterno}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_apellidoMaterno}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_codigo}" for="codigo" />
+                        <p:inputText id="codigo" value="#{personaController.selected.codigo}" title="#{bundle.CreatePersonaTitle_codigo}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_codigo}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_docente}" for="docente" />
+                        <p:selectOneMenu id="docente" value="#{personaController.selected.docente}" >
+                            <f:selectItems value="#{docenteController.itemsAvailableSelectOne}"
+                                           var="docenteItem"
+                                           itemValue="#{docenteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_apoderado}" for="apoderado" />
+                        <p:selectOneMenu id="apoderado" value="#{personaController.selected.apoderado}" >
+                            <f:selectItems value="#{apoderadoController.itemsAvailableSelectOne}"
+                                           var="apoderadoItem"
+                                           itemValue="#{apoderadoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_alumno}" for="alumno" />
+                        <p:selectOneMenu id="alumno" value="#{personaController.selected.alumno}" >
+                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
+                                           var="alumnoItem"
+                                           itemValue="#{alumnoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personaController.create}" value="#{bundle.Save}" update="display,:PersonaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

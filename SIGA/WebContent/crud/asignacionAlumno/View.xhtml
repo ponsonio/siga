@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AsignacionAlumnoViewDlg" widgetVar="AsignacionAlumnoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAsignacionAlumnoTitle}">
+            <h:form id="AsignacionAlumnoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{asignacionAlumnoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idAsignacionAlumno}"/>
+                        <h:outputText value="#{asignacionAlumnoController.selected.idAsignacionAlumno}" title="#{bundle.ViewAsignacionAlumnoTitle_idAsignacionAlumno}"/>
+                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_nota}"/>
+                        <h:outputText value="#{asignacionAlumnoController.selected.nota}" title="#{bundle.ViewAsignacionAlumnoTitle_nota}"/>
+                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idSubPeriodo}"/>
+                        <h:outputText value="#{asignacionAlumnoController.selected.idSubPeriodo}" title="#{bundle.ViewAsignacionAlumnoTitle_idSubPeriodo}"/>
+                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idAsignacion}"/>
+                        <h:outputText value="#{asignacionAlumnoController.selected.idAsignacion}" title="#{bundle.ViewAsignacionAlumnoTitle_idAsignacion}"/>
+                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idAlumno}"/>
+                        <h:outputText value="#{asignacionAlumnoController.selected.idAlumno}" title="#{bundle.ViewAsignacionAlumnoTitle_idAlumno}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AsignacionAlumnoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

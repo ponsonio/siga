@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AsignacionViewDlg" widgetVar="AsignacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAsignacionTitle}">
+            <h:form id="AsignacionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{asignacionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAsignacionLabel_idAsignacion}"/>
+                        <h:outputText value="#{asignacionController.selected.idAsignacion}" title="#{bundle.ViewAsignacionTitle_idAsignacion}"/>
+                        <h:outputText value="#{bundle.ViewAsignacionLabel_descripcion}"/>
+                        <h:outputText value="#{asignacionController.selected.descripcion}" title="#{bundle.ViewAsignacionTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewAsignacionLabel_fechaEntrega}"/>
+                        <h:outputText value="#{asignacionController.selected.fechaEntrega}" title="#{bundle.ViewAsignacionTitle_fechaEntrega}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAsignacionLabel_etiqueta}"/>
+                        <h:outputText value="#{asignacionController.selected.etiqueta}" title="#{bundle.ViewAsignacionTitle_etiqueta}"/>
+                        <h:outputText value="#{bundle.ViewAsignacionLabel_idTipoAsignacion}"/>
+                        <h:outputText value="#{asignacionController.selected.idTipoAsignacion}" title="#{bundle.ViewAsignacionTitle_idTipoAsignacion}"/>
+                        <h:outputText value="#{bundle.ViewAsignacionLabel_idSubPeriodoAcademicoSeccionCurso}"/>
+                        <h:outputText value="#{asignacionController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewAsignacionTitle_idSubPeriodoAcademicoSeccionCurso}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AsignacionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

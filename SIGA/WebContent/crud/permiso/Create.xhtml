@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PermisoCreateDlg" widgetVar="PermisoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePermisoTitle}">
+            <h:form id="PermisoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{permisoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePermisoLabel_idPermiso}" for="idPermiso" />
+                        <p:inputText id="idPermiso" value="#{permisoController.selected.idPermiso}" title="#{bundle.CreatePermisoTitle_idPermiso}" required="true" requiredMessage="#{bundle.CreatePermisoRequiredMessage_idPermiso}"/>
+                        <p:outputLabel value="#{bundle.CreatePermisoLabel_fechaPermiso}" for="fechaPermiso" />
+                        <p:calendar id="fechaPermiso" pattern="MM/dd/yyyy" value="#{permisoController.selected.fechaPermiso}" title="#{bundle.EditPermisoTitle_fechaPermiso}" required="true" requiredMessage="#{bundle.EditPermisoRequiredMessage_fechaPermiso}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePermisoLabel_fechaRegistro}" for="fechaRegistro" />
+                        <p:calendar id="fechaRegistro" pattern="MM/dd/yyyy" value="#{permisoController.selected.fechaRegistro}" title="#{bundle.EditPermisoTitle_fechaRegistro}" required="true" requiredMessage="#{bundle.EditPermisoRequiredMessage_fechaRegistro}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePermisoLabel_comentarios}" for="comentarios" />
+                        <p:inputText id="comentarios" value="#{permisoController.selected.comentarios}" title="#{bundle.CreatePermisoTitle_comentarios}" required="true" requiredMessage="#{bundle.CreatePermisoRequiredMessage_comentarios}"/>
+                        <p:outputLabel value="#{bundle.CreatePermisoLabel_personaIdRegistro}" for="personaIdRegistro" />
+                        <p:selectOneMenu id="personaIdRegistro" value="#{permisoController.selected.personaIdRegistro}" required="true" requiredMessage="#{bundle.EditPermisoRequiredMessage_personaIdRegistro}">
+                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
+                                           var="personaIdRegistroItem"
+                                           itemValue="#{personaIdRegistroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePermisoLabel_idPersona}" for="idPersona" />
+                        <p:selectOneMenu id="idPersona" value="#{permisoController.selected.idPersona}" required="true" requiredMessage="#{bundle.EditPermisoRequiredMessage_idPersona}">
+                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
+                                           var="idPersonaItem"
+                                           itemValue="#{idPersonaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{permisoController.create}" value="#{bundle.Save}" update="display,:PermisoListForm:datalist,:growl" oncomplete="handleSubmit(args,'PermisoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PermisoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

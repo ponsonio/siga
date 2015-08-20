@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+  
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListAsignacionTitle}"></h:outputText>
+        </ui:define>
+
+		<ui:define name="body">
+		<div class="ui-grid ui-grid-responsive">
+		
+	<!-- 
+    	
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+				
+					<p align="center"> Bienvenido a nuestra Intranet Escolar </p>
+
+								<img src="../img/aula.jpg" align="middle" height="200" width="200"/>
+
+								<p>
+								Nuestra bla bla bla bla bla bla bla bla bla bla bla 
+								bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+								bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+								bla bla bla bla bla bla bla bla bla bla bla bla bla
+
+								Nuestra bla bla bla bla bla bla bla bla bla bla bla 
+								bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+								bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+								bla bla bla bla bla bla bla bla bla bla bla bla bla
+								
+								</p>
+								
+								<p>Por favor incie session, para acceder al sistema...</p> 
+
+				</p:panelGrid>
+				    -->
+			
+					<h:form> 
+						<script type="text/javascript">
+						    function handleLoginRequest(xhr, status, args) {
+						        if(args.validationFailed || !args.loggedIn) {
+						            PF('dlg').jq.effect("shake", {times:5}, 100);
+						        }
+						        else {
+						            PF('dlg').hide();
+						            $('#loginLink').fadeOut();
+						        }
+						    }
+						</script>           
+						
+							<!-- 
+				    <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
+				
+				        	<p:graphicImage name="/img/index.jpg" />
+				  
+				    </h:outputLink>
+				 
+				  
+				    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+				 	<p:dialog header="Login" widgetVar="dlg" resizable="false">
+				    -->
+				    
+				        <h:panelGrid columns="2" cellpadding="5" columnClasses="ui-grid-col-5,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+				            <h:outputLabel for="username" value="Username:" />
+				            <p:inputText id="username" value="#{loginController.username}" required="true" label="username" />
+				 
+				            <h:outputLabel for="password" value="Password:" />
+				            <p:password id="password" value="#{loginController.password}" required="true" label="password" />
+
+				         <p:selectOneListbox id="colegio" value="#{loginController.idColegio}">
+										<f:selectItems value="#{loginController.listaColegios()}" var="colegio"
+										   			itemLabel="#{colegio.nombre}" itemValue="#{colegio.idColegio}" />
+				        </p:selectOneListbox>
+        
+				            <f:facet name="footer">
+				                <p:commandButton value="Login" update="growl" actionListener="#{loginController.login}"
+				                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+				            </f:facet>  
+				        </h:panelGrid>
+				        <!--
+				    </p:dialog>
+				    	-->
+				</h:form>
+			</div>
+		    </ui:define>
+    </ui:composition>
+
+</html>

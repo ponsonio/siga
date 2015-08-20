@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReciboPensionCreateDlg" widgetVar="ReciboPensionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateReciboPensionTitle}">
+            <h:form id="ReciboPensionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{reciboPensionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_idReciboPension}" for="idReciboPension" />
+                        <p:inputText id="idReciboPension" value="#{reciboPensionController.selected.idReciboPension}" title="#{bundle.CreateReciboPensionTitle_idReciboPension}" required="true" requiredMessage="#{bundle.CreateReciboPensionRequiredMessage_idReciboPension}"/>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_fechaEmision}" for="fechaEmision" />
+                        <p:calendar id="fechaEmision" pattern="MM/dd/yyyy" value="#{reciboPensionController.selected.fechaEmision}" title="#{bundle.EditReciboPensionTitle_fechaEmision}" required="true" requiredMessage="#{bundle.EditReciboPensionRequiredMessage_fechaEmision}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_fechaMaximaPago}" for="fechaMaximaPago" />
+                        <p:calendar id="fechaMaximaPago" pattern="MM/dd/yyyy" value="#{reciboPensionController.selected.fechaMaximaPago}" title="#{bundle.EditReciboPensionTitle_fechaMaximaPago}" required="true" requiredMessage="#{bundle.EditReciboPensionRequiredMessage_fechaMaximaPago}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_fechaPago}" for="fechaPago" />
+                        <p:calendar id="fechaPago" pattern="MM/dd/yyyy" value="#{reciboPensionController.selected.fechaPago}" title="#{bundle.EditReciboPensionTitle_fechaPago}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_idColegio}" for="idColegio" />
+                        <p:inputText id="idColegio" value="#{reciboPensionController.selected.idColegio}" title="#{bundle.CreateReciboPensionTitle_idColegio}" required="true" requiredMessage="#{bundle.CreateReciboPensionRequiredMessage_idColegio}"/>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_mora}" for="mora" />
+                        <p:inputText id="mora" value="#{reciboPensionController.selected.mora}" title="#{bundle.CreateReciboPensionTitle_mora}" required="true" requiredMessage="#{bundle.CreateReciboPensionRequiredMessage_mora}"/>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_monto}" for="monto" />
+                        <p:inputText id="monto" value="#{reciboPensionController.selected.monto}" title="#{bundle.CreateReciboPensionTitle_monto}" required="true" requiredMessage="#{bundle.CreateReciboPensionRequiredMessage_monto}"/>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_idBanco}" for="idBanco" />
+                        <p:inputText id="idBanco" value="#{reciboPensionController.selected.idBanco}" title="#{bundle.CreateReciboPensionTitle_idBanco}" required="true" requiredMessage="#{bundle.CreateReciboPensionRequiredMessage_idBanco}"/>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_idPeriodoAcademico}" for="idPeriodoAcademico" />
+                        <p:selectOneMenu id="idPeriodoAcademico" value="#{reciboPensionController.selected.idPeriodoAcademico}" required="true" requiredMessage="#{bundle.EditReciboPensionRequiredMessage_idPeriodoAcademico}">
+                            <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"
+                                           var="idPeriodoAcademicoItem"
+                                           itemValue="#{idPeriodoAcademicoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_idMoneda}" for="idMoneda" />
+                        <p:selectOneMenu id="idMoneda" value="#{reciboPensionController.selected.idMoneda}" required="true" requiredMessage="#{bundle.EditReciboPensionRequiredMessage_idMoneda}">
+                            <f:selectItems value="#{monedaController.itemsAvailableSelectOne}"
+                                           var="idMonedaItem"
+                                           itemValue="#{idMonedaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateReciboPensionLabel_idAlumno}" for="idAlumno" />
+                        <p:selectOneMenu id="idAlumno" value="#{reciboPensionController.selected.idAlumno}" required="true" requiredMessage="#{bundle.EditReciboPensionRequiredMessage_idAlumno}">
+                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
+                                           var="idAlumnoItem"
+                                           itemValue="#{idAlumnoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{reciboPensionController.create}" value="#{bundle.Save}" update="display,:ReciboPensionListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReciboPensionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReciboPensionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j">
+
+	<rich:panel>
+		<h:form id="viewMedioContactoForm">
+			<h:panelGrid columns="2" width="50%" >
+				  
+					 <h:outputText value="#{messages['label.sin_infomacion']}" rendered="#{beanDocenteAsistencias.rowCount ==0}"/>
+
+				     <rich:dataTable var="beanDocenteAsistencia" value="#{beanDocenteAsistencias}" rendered="#{beanDocenteAsistencias.rowCount >0}">
+						   <f:facet name="header">
+							  	<h:outputText value="#{messages['label.informacion_contacto']}"/>
+							</f:facet> 
+
+				        <h:column>
+				           <f:facet name="header">
+				              <h:outputText value="Alumno"/>
+				           </f:facet>
+				           	<h:outputText value="#{beanDocenteAsistencia.alumno.persona.obtenerNombreCompleto()}"/>
+				           <!--  <h:selectManyCheckbox value="#{beanDocenteAsistencia.falta}"> </h:selectManyCheckbox> -->
+				        </h:column>
+							
+				        <h:column>
+				           <f:facet name="header">
+				              <h:outputText value="Fecha"/>
+				           </f:facet>
+				           	<h:outputText value="#{beanDocenteAsistencia.fecha}"/>
+				           <!--  <h:selectManyCheckbox value="#{beanDocenteAsistencia.falta}"> </h:selectManyCheckbox> -->
+				        </h:column>
+					
+						<h:column>
+				           <f:facet name="header">
+				              <h:outputText value="Asistencia"/>
+				           </f:facet>
+				           	  <h:selectOneRadio value="#{beanDocenteAsistencia.falta}">
+				           	  	<f:selectItem id="si1" itemLabel="Presente"  itemValue="false" />
+				           	  	<f:selectItem id="si2" itemLabel="Ausente"  itemValue="true" />
+				           	  </h:selectOneRadio> 
+				        </h:column>
+										   
+				    </rich:dataTable>
+			</h:panelGrid>	    				    
+		  <h:commandButton action="#{CDocenteAsistenciaAlumno.ingresarAsistencia}" value="Ingresar Asistencia"/> 					
+		</h:form>
+	</rich:panel>
+</ui:composition>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AsistenciaEditDlg" widgetVar="AsistenciaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAsistenciaTitle}">
+            <h:form id="AsistenciaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{asistenciaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAsistenciaLabel_idAsistencia}" for="idAsistencia" />
+                        <p:inputText id="idAsistencia" value="#{asistenciaController.selected.idAsistencia}" title="#{bundle.EditAsistenciaTitle_idAsistencia}" required="true" requiredMessage="#{bundle.EditAsistenciaRequiredMessage_idAsistencia}"/>
+                        <p:outputLabel value="#{bundle.EditAsistenciaLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{asistenciaController.selected.fecha}" title="#{bundle.EditAsistenciaTitle_fecha}" required="true" requiredMessage="#{bundle.EditAsistenciaRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAsistenciaLabel_asistio}" for="asistio" />
+                        <p:inputText id="asistio" value="#{asistenciaController.selected.asistio}" title="#{bundle.EditAsistenciaTitle_asistio}" required="true" requiredMessage="#{bundle.EditAsistenciaRequiredMessage_asistio}"/>
+                        <p:outputLabel value="#{bundle.EditAsistenciaLabel_justificada}" for="justificada" />
+                        <p:inputText id="justificada" value="#{asistenciaController.selected.justificada}" title="#{bundle.EditAsistenciaTitle_justificada}" required="true" requiredMessage="#{bundle.EditAsistenciaRequiredMessage_justificada}"/>
+                        <p:outputLabel value="#{bundle.EditAsistenciaLabel_idSubPeriodoAcademicoSeccionCurso}" for="idSubPeriodoAcademicoSeccionCurso" />
+                        <p:selectOneMenu id="idSubPeriodoAcademicoSeccionCurso" value="#{asistenciaController.selected.idSubPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditAsistenciaRequiredMessage_idSubPeriodoAcademicoSeccionCurso}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{subPeriodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"
+                                           var="idSubPeriodoAcademicoSeccionCursoItem"
+                                           itemValue="#{idSubPeriodoAcademicoSeccionCursoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAsistenciaLabel_idSubPeriodoAcademico}" for="idSubPeriodoAcademico" />
+                        <p:selectOneMenu id="idSubPeriodoAcademico" value="#{asistenciaController.selected.idSubPeriodoAcademico}" required="true" requiredMessage="#{bundle.EditAsistenciaRequiredMessage_idSubPeriodoAcademico}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"
+                                           var="idSubPeriodoAcademicoItem"
+                                           itemValue="#{idSubPeriodoAcademicoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAsistenciaLabel_idJustificacion}" for="idJustificacion" />
+                        <p:selectOneMenu id="idJustificacion" value="#{asistenciaController.selected.idJustificacion}" required="true" requiredMessage="#{bundle.EditAsistenciaRequiredMessage_idJustificacion}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{justificacionController.itemsAvailableSelectOne}"
+                                           var="idJustificacionItem"
+                                           itemValue="#{idJustificacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAsistenciaLabel_idCurso}" for="idCurso" />
+                        <p:selectOneMenu id="idCurso" value="#{asistenciaController.selected.idCurso}" required="true" requiredMessage="#{bundle.EditAsistenciaRequiredMessage_idCurso}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"
+                                           var="idCursoItem"
+                                           itemValue="#{idCursoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAsistenciaLabel_idAlumno}" for="idAlumno" />
+                        <p:selectOneMenu id="idAlumno" value="#{asistenciaController.selected.idAlumno}" required="true" requiredMessage="#{bundle.EditAsistenciaRequiredMessage_idAlumno}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
+                                           var="idAlumnoItem"
+                                           itemValue="#{idAlumnoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{asistenciaController.update}" value="#{bundle.Save}" update="display,:AsistenciaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AsistenciaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AsistenciaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

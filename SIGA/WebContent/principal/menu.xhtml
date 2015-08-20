@@ -1,0 +1,343 @@
+<rich:toolBar
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:rich="http://richfaces.org/rich">
+    <rich:toolBarGroup>
+        <h:outputText value="#{projectName}:"/>
+        <s:link id="menuHomeId" view="/home.xhtml" value="Home" propagation="none"/>
+    </rich:toolBarGroup>
+    <rich:dropDownMenu showDelay="250" hideDelay="0" submitMode="none">
+        <f:facet name="label">Browse data</f:facet>
+	<rich:menuItem>
+    	<s:link view="/AlumnoList.xhtml"
+           	value="Alumno List"
+           	id="AlumnoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/CursoList.xhtml"
+           	value="Curso List"
+           	id="CursoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PermisoList.xhtml"
+           	value="Permiso List"
+           	id="PermisoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/TipoApoderadoList.xhtml"
+           	value="TipoApoderado List"
+           	id="TipoApoderadoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/RepositorioArchivosList.xhtml"
+           	value="RepositorioArchivos List"
+           	id="RepositorioArchivosId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/EvaluacionAlumnoList.xhtml"
+           	value="EvaluacionAlumno List"
+           	id="EvaluacionAlumnoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PeriodoAcademicoSeccionCursoNotaList.xhtml"
+           	value="PeriodoAcademicoSeccionCursoNota List"
+           	id="PeriodoAcademicoSeccionCursoNotaId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/CuentaBancoList.xhtml"
+           	value="CuentaBanco List"
+           	id="CuentaBancoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PersonaMedioContactoList.xhtml"
+           	value="PersonaMedioContacto List"
+           	id="PersonaMedioContactoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/SubPeriodoAcademicoSeccionCursoList.xhtml"
+           	value="SubPeriodoAcademicoSeccionCurso List"
+           	id="SubPeriodoAcademicoSeccionCursoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/MaterialAsignacionList.xhtml"
+           	value="MaterialAsignacion List"
+           	id="MaterialAsignacionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/DocenteList.xhtml"
+           	value="Docente List"
+           	id="DocenteId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PeriodoAcademicoList.xhtml"
+           	value="PeriodoAcademico List"
+           	id="PeriodoAcademicoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/AvisoList.xhtml"
+           	value="Aviso List"
+           	id="AvisoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/ColegioMedioContactoList.xhtml"
+           	value="ColegioMedioContacto List"
+           	id="ColegioMedioContactoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/GradoList.xhtml"
+           	value="Grado List"
+           	id="GradoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/ConceptoList.xhtml"
+           	value="Concepto List"
+           	id="ConceptoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/SeccionList.xhtml"
+           	value="Seccion List"
+           	id="SeccionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/AsistenciaList.xhtml"
+           	value="Asistencia List"
+           	id="AsistenciaId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/MonedaList.xhtml"
+           	value="Moneda List"
+           	id="MonedaId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/AsignacionAlumnoList.xhtml"
+           	value="AsignacionAlumno List"
+           	id="AsignacionAlumnoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/ReciboPensionDetalleList.xhtml"
+           	value="ReciboPensionDetalle List"
+           	id="ReciboPensionDetalleId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/FotoPersonaList.xhtml"
+           	value="FotoPersona List"
+           	id="FotoPersonaId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/MatriculaAlumnoList.xhtml"
+           	value="MatriculaAlumno List"
+           	id="MatriculaAlumnoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/LibretaNotasSubperiodoList.xhtml"
+           	value="LibretaNotasSubperiodo List"
+           	id="LibretaNotasSubperiodoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/ColegioList.xhtml"
+           	value="Colegio List"
+           	id="ColegioId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/BancoList.xhtml"
+           	value="Banco List"
+           	id="BancoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/MaterialesList.xhtml"
+           	value="Materiales List"
+           	id="MaterialesId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PeriodoAcademicoSeccionCursoList.xhtml"
+           	value="PeriodoAcademicoSeccionCurso List"
+           	id="PeriodoAcademicoSeccionCursoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/ResumenAlumnoList.xhtml"
+           	value="ResumenAlumno List"
+           	id="ResumenAlumnoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PeriodoAcademicoSeccionList.xhtml"
+           	value="PeriodoAcademicoSeccion List"
+           	id="PeriodoAcademicoSeccionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/AvisoSeccionList.xhtml"
+           	value="AvisoSeccion List"
+           	id="AvisoSeccionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/EvaluacionList.xhtml"
+           	value="Evaluacion List"
+           	id="EvaluacionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/PersonaList.xhtml"
+           	value="Persona List"
+           	id="PersonaId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/MensajeDestinatarioList.xhtml"
+           	value="MensajeDestinatario List"
+           	id="MensajeDestinatarioId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/AsignacionList.xhtml"
+           	value="Asignacion List"
+           	id="AsignacionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/TipoAsignacionList.xhtml"
+           	value="TipoAsignacion List"
+           	id="TipoAsignacionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/LibretaNotasFinalesCursoList.xhtml"
+           	value="LibretaNotasFinalesCurso List"
+           	id="LibretaNotasFinalesCursoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/MensajeList.xhtml"
+           	value="Mensaje List"
+           	id="MensajeId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/LibretaNotasList.xhtml"
+           	value="LibretaNotas List"
+           	id="LibretaNotasId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/ApoderadoList.xhtml"
+           	value="Apoderado List"
+           	id="ApoderadoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/ReciboPensionList.xhtml"
+           	value="ReciboPension List"
+           	id="ReciboPensionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/MaterialEvaluacionList.xhtml"
+           	value="MaterialEvaluacion List"
+           	id="MaterialEvaluacionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/TipoEvaluacionList.xhtml"
+           	value="TipoEvaluacion List"
+           	id="TipoEvaluacionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/MedioContactoList.xhtml"
+           	value="MedioContacto List"
+           	id="MedioContactoId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+	<rich:menuItem>
+    	<s:link view="/JustificacionList.xhtml"
+           	value="Justificacion List"
+           	id="JustificacionId"
+			includePageParams="false"
+     		propagation="none"/>
+     </rich:menuItem>
+    </rich:dropDownMenu>
+    <!-- @newMenuItem@ -->
+    <rich:toolBarGroup location="right">
+        <h:outputText id="menuWelcomeId" value="signed in as: #{credentials.username}" rendered="#{identity.loggedIn}"/>
+        <s:link id="menuLoginId" view="/login.xhtml" value="Login" rendered="#{not identity.loggedIn}" propagation="none"/>
+        <s:link id="menuLogoutId" view="/home.xhtml" action="#{identity.logout}" value="Logout" rendered="#{identity.loggedIn}" propagation="none"/>
+    </rich:toolBarGroup>
+</rich:toolBar>

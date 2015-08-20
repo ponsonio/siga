@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EvaluacionCreateDlg" widgetVar="EvaluacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEvaluacionTitle}">
+            <h:form id="EvaluacionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{evaluacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_idEvaluacion}" for="idEvaluacion" />
+                        <p:inputText id="idEvaluacion" value="#{evaluacionController.selected.idEvaluacion}" title="#{bundle.CreateEvaluacionTitle_idEvaluacion}" required="true" requiredMessage="#{bundle.CreateEvaluacionRequiredMessage_idEvaluacion}"/>
+                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_fechaProgramada}" for="fechaProgramada" />
+                        <p:calendar id="fechaProgramada" pattern="MM/dd/yyyy" value="#{evaluacionController.selected.fechaProgramada}" title="#{bundle.EditEvaluacionTitle_fechaProgramada}" required="true" requiredMessage="#{bundle.EditEvaluacionRequiredMessage_fechaProgramada}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_etiqueta}" for="etiqueta" />
+                        <p:inputText id="etiqueta" value="#{evaluacionController.selected.etiqueta}" title="#{bundle.CreateEvaluacionTitle_etiqueta}" required="true" requiredMessage="#{bundle.CreateEvaluacionRequiredMessage_etiqueta}"/>
+                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_fechaEvaluacion}" for="fechaEvaluacion" />
+                        <p:calendar id="fechaEvaluacion" pattern="MM/dd/yyyy" value="#{evaluacionController.selected.fechaEvaluacion}" title="#{bundle.EditEvaluacionTitle_fechaEvaluacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_idTipoEvaluacion}" for="idTipoEvaluacion" />
+                        <p:selectOneMenu id="idTipoEvaluacion" value="#{evaluacionController.selected.idTipoEvaluacion}" required="true" requiredMessage="#{bundle.EditEvaluacionRequiredMessage_idTipoEvaluacion}">
+                            <f:selectItems value="#{tipoEvaluacionController.itemsAvailableSelectOne}"
+                                           var="idTipoEvaluacionItem"
+                                           itemValue="#{idTipoEvaluacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_idSubPeriodoAcademicoSeccionCurso}" for="idSubPeriodoAcademicoSeccionCurso" />
+                        <p:selectOneMenu id="idSubPeriodoAcademicoSeccionCurso" value="#{evaluacionController.selected.idSubPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditEvaluacionRequiredMessage_idSubPeriodoAcademicoSeccionCurso}">
+                            <f:selectItems value="#{subPeriodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"
+                                           var="idSubPeriodoAcademicoSeccionCursoItem"
+                                           itemValue="#{idSubPeriodoAcademicoSeccionCursoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{evaluacionController.create}" value="#{bundle.Save}" update="display,:EvaluacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'EvaluacionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EvaluacionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

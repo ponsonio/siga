@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MatriculaAlumnoEditDlg" widgetVar="MatriculaAlumnoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMatriculaAlumnoTitle}">
+            <h:form id="MatriculaAlumnoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{matriculaAlumnoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMatriculaAlumnoLabel_idMatricula}" for="idMatricula" />
+                        <p:inputText id="idMatricula" value="#{matriculaAlumnoController.selected.idMatricula}" title="#{bundle.EditMatriculaAlumnoTitle_idMatricula}" required="true" requiredMessage="#{bundle.EditMatriculaAlumnoRequiredMessage_idMatricula}"/>
+                        <p:outputLabel value="#{bundle.EditMatriculaAlumnoLabel_usuario}" for="usuario" />
+                        <p:inputText id="usuario" value="#{matriculaAlumnoController.selected.usuario}" title="#{bundle.EditMatriculaAlumnoTitle_usuario}" required="true" requiredMessage="#{bundle.EditMatriculaAlumnoRequiredMessage_usuario}"/>
+                        <p:outputLabel value="#{bundle.EditMatriculaAlumnoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{matriculaAlumnoController.selected.fecha}" title="#{bundle.EditMatriculaAlumnoTitle_fecha}" required="true" requiredMessage="#{bundle.EditMatriculaAlumnoRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMatriculaAlumnoLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
+                        <p:inputText id="idPeriodoAcademicoSeccion" value="#{matriculaAlumnoController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.EditMatriculaAlumnoTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.EditMatriculaAlumnoRequiredMessage_idPeriodoAcademicoSeccion}"/>
+                        <p:outputLabel value="#{bundle.EditMatriculaAlumnoLabel_idAlumno}" for="idAlumno" />
+                        <p:selectOneMenu id="idAlumno" value="#{matriculaAlumnoController.selected.idAlumno}" required="true" requiredMessage="#{bundle.EditMatriculaAlumnoRequiredMessage_idAlumno}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
+                                           var="idAlumnoItem"
+                                           itemValue="#{idAlumnoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{matriculaAlumnoController.update}" value="#{bundle.Save}" update="display,:MatriculaAlumnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MatriculaAlumnoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MatriculaAlumnoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a="http://richfaces.org/a4j">
+
+
+
+	<h:outputText value="#{messages['label.sin_infomacion']}"
+		rendered="#{avisoLista.rowCount==0}" />
+	<rich:dataTable var="aviso" value="#{avisoLista}"
+		rendered="#{avisoLista.rowCount>0}">
+		<f:facet name="header">
+			<h:outputText value="#{messages['label.avisos']}" />
+		</f:facet>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages['label.referencia']}" />
+			</f:facet>
+			<h:outputText value="#{aviso.nombre}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages['label.descripcion']}" />
+			</f:facet>
+			<h:outputText value="#{aviso.descripcion}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages['label.fechaInicio']}" />
+			</f:facet>
+			<h:outputText value="#{aviso.fechaInicioPublicacion}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages['label.fechaFin']}" />
+			</f:facet>
+			<h:outputText value="#{aviso.fechaFinPublicacion}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages['label.lugar']}" />
+			</f:facet>
+			<h:outputText value="#{aviso.lugar}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="#{messages['label.general']}" />
+			</f:facet>
+			<h:outputText rendered="#{(aviso.general == '1')}"
+				value="#{messages['label.si']}" />
+			<h:outputText rendered="#{(aviso.general == '0')}"
+				value="#{messages['label.no']}" />
+		</h:column>
+
+	</rich:dataTable>
+
+
+</ui:composition>

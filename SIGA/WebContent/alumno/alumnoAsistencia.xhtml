@@ -1,0 +1,52 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a="http://richfaces.org/a4j">
+    
+<rich:panel>
+
+        <h:form id="inasistenciaPeriodoAlumnoForm">
+
+
+	         	<h:outputText value="#{messages['label.sin_infomacion']}" rendered="#{asistenciasDependienteList.rowCount==0}"/>
+				<rich:dataTable var="asistencia" value="#{asistenciasDependienteList}" rendered="#{asistenciasDependienteList.rowCount>0}">
+				   <f:facet name="header">
+					  	<h:outputText value="#{messages['label.inasistencias']}" />
+					</f:facet> 
+					
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="#{messages['label.alumno']}"/>
+			            </f:facet>
+						<h:outputText value="#{asistencia.alumno.persona.primerNombre}"/> 
+			          </h:column>
+			          
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="#{messages['label.fecha']}"/>
+			            </f:facet>
+						<h:outputText value="#{asistencia.fecha}"/> 
+			          </h:column>
+			          
+			     	<h:column>
+			            <f:facet name="header">
+			              <h:outputText value="#{messages['label.curso']}"/>
+			            </f:facet>
+						<h:outputText value="#{asistencia.curso.nombre}"/> 
+			          </h:column>
+
+			          
+				</rich:dataTable>
+			
+
+         </h:form>
+
+
+	</rich:panel>
+
+</ui:composition>

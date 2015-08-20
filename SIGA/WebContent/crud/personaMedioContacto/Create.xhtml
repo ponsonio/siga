@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonaMedioContactoCreateDlg" widgetVar="PersonaMedioContactoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonaMedioContactoTitle}">
+            <h:form id="PersonaMedioContactoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personaMedioContactoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePersonaMedioContactoLabel_personaMedioContactoPK_idMedioContacto}" for="personaMedioContactoPK_idMedioContacto" />
+                        <p:inputText id="personaMedioContactoPK_idMedioContacto" value="#{personaMedioContactoController.selected.personaMedioContactoPK.idMedioContacto}" title="#{bundle.CreatePersonaMedioContactoTitle_personaMedioContactoPK_idMedioContacto}" required="true" requiredMessage="#{bundle.CreatePersonaMedioContactoRequiredMessage_personaMedioContactoPK_idMedioContacto}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaMedioContactoLabel_referencia}" for="referencia" />
+                        <p:inputText id="referencia" value="#{personaMedioContactoController.selected.referencia}" title="#{bundle.CreatePersonaMedioContactoTitle_referencia}" required="true" requiredMessage="#{bundle.CreatePersonaMedioContactoRequiredMessage_referencia}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaMedioContactoLabel_persona}" for="persona" />
+                        <p:selectOneMenu id="persona" value="#{personaMedioContactoController.selected.persona}" required="true" requiredMessage="#{bundle.EditPersonaMedioContactoRequiredMessage_persona}">
+                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
+                                           var="personaItem"
+                                           itemValue="#{personaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personaMedioContactoController.create}" value="#{bundle.Save}" update="display,:PersonaMedioContactoListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonaMedioContactoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonaMedioContactoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

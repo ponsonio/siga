@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LibretaNotasViewDlg" widgetVar="LibretaNotasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLibretaNotasTitle}">
+            <h:form id="LibretaNotasViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{libretaNotasController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLibretaNotasLabel_idLibretaNotas}"/>
+                        <h:outputText value="#{libretaNotasController.selected.idLibretaNotas}" title="#{bundle.ViewLibretaNotasTitle_idLibretaNotas}"/>
+                        <h:outputText value="#{bundle.ViewLibretaNotasLabel_idPeriodoAcademicoSeccion}"/>
+                        <h:outputText value="#{libretaNotasController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.ViewLibretaNotasTitle_idPeriodoAcademicoSeccion}"/>
+                        <h:outputText value="#{bundle.ViewLibretaNotasLabel_idSeccion}"/>
+                        <h:outputText value="#{libretaNotasController.selected.idSeccion}" title="#{bundle.ViewLibretaNotasTitle_idSeccion}"/>
+                        <h:outputText value="#{bundle.ViewLibretaNotasLabel_idPeriodoAcademico}"/>
+                        <h:outputText value="#{libretaNotasController.selected.idPeriodoAcademico}" title="#{bundle.ViewLibretaNotasTitle_idPeriodoAcademico}"/>
+                        <h:outputText value="#{bundle.ViewLibretaNotasLabel_idAlumno}"/>
+                        <h:outputText value="#{libretaNotasController.selected.idAlumno}" title="#{bundle.ViewLibretaNotasTitle_idAlumno}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LibretaNotasViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

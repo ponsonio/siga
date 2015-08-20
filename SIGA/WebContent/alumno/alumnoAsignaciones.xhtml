@@ -1,0 +1,69 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+     xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a="http://richfaces.org/a4j">
+    
+<rich:panel>
+	         	<h:outputText value="#{messages['label.sin_infomacion']}" rendered="#{asignacionLista.rowCount==0}"/>
+				<rich:dataTable var="asignacion" value="#{asignacionLista}" rendered="#{asignacionLista.rowCount>0}">
+				   <f:facet name="header">
+					  	<h:outputText value="#{messages['label.asignacionesyTareas']}" />
+					</f:facet> 
+					
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="#{messages['label.titulo']}"/>
+			            </f:facet>
+						<h:outputText value="#{asignacion.descripcion}"/> 
+			          </h:column>
+			          
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="#{messages['label.curso']}"/>
+			            </f:facet>
+						<h:outputText value="#{asignacion.subPeriodoAcademicoSeccionCurso.curso.nombre}"/> 
+			          </h:column>
+			          			          
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="#{messages['label.referencia']}"/>
+			            </f:facet>
+						<h:outputText value="#{asignacion.etiqueta}"/> 
+			          </h:column>
+
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="#{messages['label.fechaEntrega']}"/>
+			            </f:facet>
+						<h:outputText value="#{asignacion.fechaEntrega}"/> 
+			          </h:column>
+
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="#{messages['label.tipo']}"/>
+			            </f:facet>
+						<h:outputText value="#{asignacion.tipoAsignacion.nombre}"/> 
+			          </h:column>
+
+			          <h:column>
+			            <f:facet name="header">
+			              <h:outputText value="Materiales"/>
+			            </f:facet>
+
+				         		<c:forEach items="#{asignacion.materialAsignacions}" 
+				         			var="${materialAsignacion}" begin= "0" end="10"> 
+				         				<h:outputText value="#{materialAsignacion}"/><br/> 
+				         		</c:forEach>
+			          </h:column>
+				</rich:dataTable>
+
+
+</rich:panel>
+
+</ui:composition>

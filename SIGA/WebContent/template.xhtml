@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+
+    <h:body>
+
+        <p:growl id="growl" life="3000" />
+
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
+                <h:form id="menuForm">
+                    <p:menubar>
+                        <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                        <p:submenu label="#{bundle.Maintenance}">
+                            <p:menuitem value="Alumno" outcome="/crud/alumno/List.xhtml" />
+                            <p:menuitem value="Apoderado" outcome="/crud/apoderado/List.xhtml" />
+                            <p:menuitem value="Asignacion" outcome="/crud/asignacion/List.xhtml" />
+                            <p:menuitem value="AsignacionAlumno" outcome="/crud/asignacionAlumno/List.xhtml" />
+                            <p:menuitem value="Asistencia" outcome="/crud/asistencia/List.xhtml" />
+                            <p:menuitem value="Aviso" outcome="/crud/aviso/List.xhtml" />
+                            <p:menuitem value="Banco" outcome="/crud/banco/List.xhtml" />
+                            <p:menuitem value="Colegio" outcome="/crud/colegio/List.xhtml" />
+                            <p:menuitem value="Concepto" outcome="/crud/concepto/List.xhtml" />
+                            <p:menuitem value="CuentaBanco" outcome="/crud/cuentaBanco/List.xhtml" />
+                            <p:menuitem value="Curso" outcome="/crud/curso/List.xhtml" />
+                            <p:menuitem value="Docente" outcome="/crud/docente/List.xhtml" />
+                            <p:menuitem value="Evaluacion" outcome="/crud/evaluacion/List.xhtml" />
+                            <p:menuitem value="FotoPersona" outcome="/crud/fotoPersona/List.xhtml" />
+                            <p:menuitem value="Grado" outcome="/crud/grado/List.xhtml" />
+                            <p:menuitem value="Justificacion" outcome="/crud/justificacion/List.xhtml" />
+                            <p:menuitem value="LibretaNotas" outcome="/crud/libretaNotas/List.xhtml" />
+                            <p:menuitem value="LibretaNotasFinalesCurso" outcome="/crud/libretaNotasFinalesCurso/List.xhtml" />
+                            <p:menuitem value="LibretaNotasSubperiodo" outcome="/crud/libretaNotasSubperiodo/List.xhtml" />
+                            <p:menuitem value="MaterialSeccionCursoPeriodo" outcome="/crud/materialSeccionCursoPeriodo/List.xhtml" />
+                            <p:menuitem value="Materiales" outcome="/crud/materiales/List.xhtml" />
+                            <p:menuitem value="MatriculaAlumno" outcome="/crud/matriculaAlumno/List.xhtml" />
+                            <p:menuitem value="Mensaje" outcome="/crud/mensaje/List.xhtml" />
+                            <p:menuitem value="Moneda" outcome="/crud/moneda/List.xhtml" />
+                            <p:menuitem value="PeriodoAcademico" outcome="/crud/periodoAcademico/List.xhtml" />
+                            <p:menuitem value="PeriodoAcademicoSeccionCursoNota" outcome="/crud/periodoAcademicoSeccionCursoNota/List.xhtml" />
+                            <p:menuitem value="Permiso" outcome="/crud/permiso/List.xhtml" />
+                            <p:menuitem value="Persona" outcome="/crud/persona/List.xhtml" />
+                            <p:menuitem value="PersonaMedioContacto" outcome="/crud/personaMedioContacto/List.xhtml" />
+                            <p:menuitem value="ReciboPension" outcome="/crud/reciboPension/List.xhtml" />
+                            <p:menuitem value="RepositorioArchivos" outcome="/crud/repositorioArchivos/List.xhtml" />
+                            <p:menuitem value="ResumenAlumno" outcome="/crud/resumenAlumno/List.xhtml" />
+                            <p:menuitem value="RolUsuario" outcome="/crud/rolUsuario/List.xhtml" />
+                            <p:menuitem value="Seccion" outcome="/crud/seccion/List.xhtml" />
+                            <p:menuitem value="SubPeriodoAcademicoSeccionCurso" outcome="/crud/subPeriodoAcademicoSeccionCurso/List.xhtml" />
+                            <p:menuitem value="TipoAsignacion" outcome="/crud/tipoAsignacion/List.xhtml" />
+                            <p:menuitem value="TipoEvaluacion" outcome="/crud/tipoEvaluacion/List.xhtml" />
+                        </p:submenu>
+                    </p:menubar>
+                </h:form>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="60">
+                <ui:insert name="footer"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>

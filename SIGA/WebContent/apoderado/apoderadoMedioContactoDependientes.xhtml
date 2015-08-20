@@ -1,0 +1,36 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j">
+
+	<rich:panel>
+		<h:form id="viewMedioContactoForm">
+			<h:panelGrid columns="2" width="50%" >
+					 <h:outputText value="#{messages['label.sin_infomacion']}" rendered="#{mediosContactoLista.rowCount==0}"/>
+
+				     <rich:dataTable var="personaMedioContacto" value="#{mediosContactoLista}" rendered="#{mediosContactoLista.rowCount>0}">
+						   <f:facet name="header">
+							  	<h:outputText value="#{messages['label.informacion_contacto']}"/>
+							</f:facet> 
+				        <h:column>
+				           <f:facet name="header">
+				              <h:outputText value="#{messages['label.medio']}"/>
+				           </f:facet>
+				           <h:outputText value="#{personaMedioContacto.medioContacto.nombre}"/>
+				        </h:column>
+				        <h:column>
+				           <f:facet name="header">
+				              <h:outputText value="#{messages['label.referencia']}"/>
+				           </f:facet>
+				           <h:outputText value="#{personaMedioContacto.id.referencia}"/>
+				        </h:column>
+				    </rich:dataTable>
+			</h:panelGrid>
+		</h:form>
+	</rich:panel>
+</ui:composition>

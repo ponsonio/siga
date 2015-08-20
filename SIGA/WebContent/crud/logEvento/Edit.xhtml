@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LogEventoEditDlg" widgetVar="LogEventoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLogEventoTitle}">
+            <h:form id="LogEventoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{logEventoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditLogEventoLabel_idLogEvento}" for="idLogEvento" />
+                        <p:inputText id="idLogEvento" value="#{logEventoController.selected.idLogEvento}" title="#{bundle.EditLogEventoTitle_idLogEvento}" required="true" requiredMessage="#{bundle.EditLogEventoRequiredMessage_idLogEvento}"/>
+                        <p:outputLabel value="#{bundle.EditLogEventoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{logEventoController.selected.fecha}" title="#{bundle.EditLogEventoTitle_fecha}" required="true" requiredMessage="#{bundle.EditLogEventoRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditLogEventoLabel_clase}" for="clase" />
+                        <p:inputText id="clase" value="#{logEventoController.selected.clase}" title="#{bundle.EditLogEventoTitle_clase}" />
+                        <p:outputLabel value="#{bundle.EditLogEventoLabel_usuario}" for="usuario" />
+                        <p:inputText id="usuario" value="#{logEventoController.selected.usuario}" title="#{bundle.EditLogEventoTitle_usuario}" />
+                        <p:outputLabel value="#{bundle.EditLogEventoLabel_mensaje}" for="mensaje" />
+                        <p:inputText id="mensaje" value="#{logEventoController.selected.mensaje}" title="#{bundle.EditLogEventoTitle_mensaje}" />
+                        <p:outputLabel value="#{bundle.EditLogEventoLabel_mensajeDetallado}" for="mensajeDetallado" />
+                        <p:inputText id="mensajeDetallado" value="#{logEventoController.selected.mensajeDetallado}" title="#{bundle.EditLogEventoTitle_mensajeDetallado}" />
+                        <p:outputLabel value="#{bundle.EditLogEventoLabel_severidad}" for="severidad" />
+                        <p:inputText id="severidad" value="#{logEventoController.selected.severidad}" title="#{bundle.EditLogEventoTitle_severidad}" required="true" requiredMessage="#{bundle.EditLogEventoRequiredMessage_severidad}"/>
+                        <p:outputLabel value="#{bundle.EditLogEventoLabel_referencia}" for="referencia" />
+                        <p:inputText id="referencia" value="#{logEventoController.selected.referencia}" title="#{bundle.EditLogEventoTitle_referencia}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{logEventoController.update}" value="#{bundle.Save}" update="display,:LogEventoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LogEventoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LogEventoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

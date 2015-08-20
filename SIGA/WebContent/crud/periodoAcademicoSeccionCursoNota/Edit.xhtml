@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PeriodoAcademicoSeccionCursoNotaEditDlg" widgetVar="PeriodoAcademicoSeccionCursoNotaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPeriodoAcademicoSeccionCursoNotaTitle}">
+            <h:form id="PeriodoAcademicoSeccionCursoNotaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{periodoAcademicoSeccionCursoNotaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoSeccionCursoNotaLabel_idPersona}" for="idPersona" />
+                        <p:inputText id="idPersona" value="#{periodoAcademicoSeccionCursoNotaController.selected.idPersona}" title="#{bundle.EditPeriodoAcademicoSeccionCursoNotaTitle_idPersona}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoSeccionCursoNotaRequiredMessage_idPersona}"/>
+                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccionCurso}" for="idPeriodoAcademicoSeccionCurso" />
+                        <p:inputText id="idPeriodoAcademicoSeccionCurso" value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.EditPeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoSeccionCursoNotaRequiredMessage_idPeriodoAcademicoSeccionCurso}"/>
+                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoSeccionCursoNotaLabel_notaFinalCurso}" for="notaFinalCurso" />
+                        <p:inputText id="notaFinalCurso" value="#{periodoAcademicoSeccionCursoNotaController.selected.notaFinalCurso}" title="#{bundle.EditPeriodoAcademicoSeccionCursoNotaTitle_notaFinalCurso}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoSeccionCursoNotaRequiredMessage_notaFinalCurso}"/>
+                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
+                        <p:inputText id="idPeriodoAcademicoSeccion" value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.EditPeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoSeccionCursoNotaRequiredMessage_idPeriodoAcademicoSeccion}"/>
+                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoSeccionCursoNotaLabel_alumno}" for="alumno" />
+                        <p:selectOneMenu id="alumno" value="#{periodoAcademicoSeccionCursoNotaController.selected.alumno}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoSeccionCursoNotaRequiredMessage_alumno}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
+                                           var="alumnoItem"
+                                           itemValue="#{alumnoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{periodoAcademicoSeccionCursoNotaController.update}" value="#{bundle.Save}" update="display,:PeriodoAcademicoSeccionCursoNotaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PeriodoAcademicoSeccionCursoNotaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PeriodoAcademicoSeccionCursoNotaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

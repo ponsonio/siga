@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ResumenAlumnoViewDlg" widgetVar="ResumenAlumnoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewResumenAlumnoTitle}">
+            <h:form id="ResumenAlumnoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{resumenAlumnoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_idSeccion}"/>
+                        <h:outputText value="#{resumenAlumnoController.selected.idSeccion}" title="#{bundle.ViewResumenAlumnoTitle_idSeccion}"/>
+                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_periodoAcademico}"/>
+                        <h:outputText value="#{resumenAlumnoController.selected.periodoAcademico}" title="#{bundle.ViewResumenAlumnoTitle_periodoAcademico}"/>
+                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_idGrado}"/>
+                        <h:outputText value="#{resumenAlumnoController.selected.idGrado}" title="#{bundle.ViewResumenAlumnoTitle_idGrado}"/>
+                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_idColegio}"/>
+                        <h:outputText value="#{resumenAlumnoController.selected.idColegio}" title="#{bundle.ViewResumenAlumnoTitle_idColegio}"/>
+                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_alumno}"/>
+                        <h:outputText value="#{resumenAlumnoController.selected.alumno}" title="#{bundle.ViewResumenAlumnoTitle_alumno}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ResumenAlumnoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

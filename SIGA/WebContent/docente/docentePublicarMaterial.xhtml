@@ -1,0 +1,53 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j">
+	
+       	<div>
+			<rich:panel>
+				<h:form id="publicarMaterialForm"  enctype="multipart/form-data">
+					<h:panelGrid columns="2" width="50%" >
+						<s:div>
+							<table class="dr-table rich-table ">
+								<tr class="dr-table-row rich-table-row" >
+									<td  class="dr-table-cell rich-table-cell "><h4><h:outputText value="#{messages['label.secciones']}"/>:</h4> </td>
+									<td  class="dr-table-cell rich-table-cell "> 
+										  
+										 
+										<h:selectOneListbox  value="#{periodoAcademicoSeccionCursoSelect}"  layout="pageDirection">  
+											<s:selectItems value="#{periodoAcademicoSeccionCursoList}" 
+											var="periodoAcademicoSeccionCurso" label="#{periodoAcademicoSeccionCurso.curso.nombre}"/>  
+											
+										</h:selectOneListbox>
+										
+									</td>
+									</tr>
+								<tr class="dr-table-row rich-table-row" >
+									<td  class="dr-table-cell rich-table-cell "><h4><h:outputText value="#{messages['label.nombre']}"/>:</h4> </td>
+									<td  class="dr-table-cell rich-table-cell "><h:inputText value="#{materiales.nombreArchivo}" size="40"/></td>
+								</tr>
+								<tr class="dr-table-row rich-table-row" >
+									<td  class="dr-table-cell rich-table-cell "><h4><h:outputText value="#{messages['label.descripcion']}"/></h4></td>
+									<td  class="dr-table-cell rich-table-cell "><h:inputText value="#{materiales.descripcion}" size="100"/></td>
+								</tr>
+								<tr class="dr-table-row rich-table-row" >
+									<td  class="dr-table-cell rich-table-cell ">
+										<!--  
+										<s:fileUpload id="picture"  accept="image/png" />
+										-->
+									</td>
+								</tr>
+							</table>
+						</s:div>			     
+					</h:panelGrid>
+					<a:commandButton value="Publicar" action="#{CDocenteMateriales.publicarMaterial}"  />
+				</h:form>
+			</rich:panel>
+		</div>
+
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AsignacionAlumnoCreateDlg" widgetVar="AsignacionAlumnoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAsignacionAlumnoTitle}">
+            <h:form id="AsignacionAlumnoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{asignacionAlumnoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAsignacionAlumnoLabel_idAsignacionAlumno}" for="idAsignacionAlumno" />
+                        <p:inputText id="idAsignacionAlumno" value="#{asignacionAlumnoController.selected.idAsignacionAlumno}" title="#{bundle.CreateAsignacionAlumnoTitle_idAsignacionAlumno}" required="true" requiredMessage="#{bundle.CreateAsignacionAlumnoRequiredMessage_idAsignacionAlumno}"/>
+                        <p:outputLabel value="#{bundle.CreateAsignacionAlumnoLabel_nota}" for="nota" />
+                        <p:inputText id="nota" value="#{asignacionAlumnoController.selected.nota}" title="#{bundle.CreateAsignacionAlumnoTitle_nota}" />
+                        <p:outputLabel value="#{bundle.CreateAsignacionAlumnoLabel_idSubPeriodo}" for="idSubPeriodo" />
+                        <p:selectOneMenu id="idSubPeriodo" value="#{asignacionAlumnoController.selected.idSubPeriodo}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idSubPeriodo}">
+                            <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"
+                                           var="idSubPeriodoItem"
+                                           itemValue="#{idSubPeriodoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAsignacionAlumnoLabel_idAsignacion}" for="idAsignacion" />
+                        <p:selectOneMenu id="idAsignacion" value="#{asignacionAlumnoController.selected.idAsignacion}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idAsignacion}">
+                            <f:selectItems value="#{asignacionController.itemsAvailableSelectOne}"
+                                           var="idAsignacionItem"
+                                           itemValue="#{idAsignacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAsignacionAlumnoLabel_idAlumno}" for="idAlumno" />
+                        <p:selectOneMenu id="idAlumno" value="#{asignacionAlumnoController.selected.idAlumno}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idAlumno}">
+                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
+                                           var="idAlumnoItem"
+                                           itemValue="#{idAlumnoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{asignacionAlumnoController.create}" value="#{bundle.Save}" update="display,:AsignacionAlumnoListForm:datalist,:growl" oncomplete="handleSubmit(args,'AsignacionAlumnoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AsignacionAlumnoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

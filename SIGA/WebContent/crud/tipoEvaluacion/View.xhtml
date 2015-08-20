@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoEvaluacionViewDlg" widgetVar="TipoEvaluacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTipoEvaluacionTitle}">
+            <h:form id="TipoEvaluacionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoEvaluacionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_idTipoEvaluacion}"/>
+                        <h:outputText value="#{tipoEvaluacionController.selected.idTipoEvaluacion}" title="#{bundle.ViewTipoEvaluacionTitle_idTipoEvaluacion}"/>
+                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_nombre}"/>
+                        <h:outputText value="#{tipoEvaluacionController.selected.nombre}" title="#{bundle.ViewTipoEvaluacionTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_descripcion}"/>
+                        <h:outputText value="#{tipoEvaluacionController.selected.descripcion}" title="#{bundle.ViewTipoEvaluacionTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_codigo}"/>
+                        <h:outputText value="#{tipoEvaluacionController.selected.codigo}" title="#{bundle.ViewTipoEvaluacionTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_idColegio}"/>
+                        <h:outputText value="#{tipoEvaluacionController.selected.idColegio}" title="#{bundle.ViewTipoEvaluacionTitle_idColegio}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TipoEvaluacionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

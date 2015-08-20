@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SubPeriodoAcademicoSeccionCursoViewDlg" widgetVar="SubPeriodoAcademicoSeccionCursoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle}">
+            <h:form id="SubPeriodoAcademicoSeccionCursoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{subPeriodoAcademicoSeccionCursoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademicoSeccionCurso}"/>
+                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademicoSeccionCurso}"/>
+                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_formulaNotaSubPeriodo}"/>
+                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.formulaNotaSubPeriodo}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_formulaNotaSubPeriodo}"/>
+                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccionCurso}"/>
+                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccionCurso}"/>
+                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccion}"/>
+                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccion}"/>
+                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idSeccion}"/>
+                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idSeccion}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idSeccion}"/>
+                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademico}"/>
+                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademico}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademico}"/>
+                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idCurso}"/>
+                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idCurso}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SubPeriodoAcademicoSeccionCursoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
