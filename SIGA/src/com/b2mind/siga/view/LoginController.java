@@ -68,7 +68,7 @@ public class LoginController implements Serializable {
 
 
     public void login(ActionEvent event) {
-        RequestContext context = RequestContext.getCurrentInstance();
+        //RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
         boolean loggedIn = false;
         
@@ -82,7 +82,7 @@ public class LoginController implements Serializable {
 	        	loggedIn = true;
 	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", username);
 
-	            context.addCallbackParam("loggedIn", loggedIn);
+	            //context.addCallbackParam("loggedIn", loggedIn);
 	            //collectionRoles = usuario.getRolCollection() ;
 	            
 	           // System.out.println("roles :" + collectionRoles.toString());
@@ -123,6 +123,9 @@ public class LoginController implements Serializable {
     		collectionRoles = usuario.getRolCollection() ;
     		System.out.println("collectionRoles:"+collectionRoles);		
             persona = usuario.getIdPersona() ;
+            persona.getPersonaMedioContactoCollection();
+            
+            System.out.println("numeroMediosContacto:"+persona.getPersonaMedioContactoCollection().size());
             //System.out.println("persona:"+persona.toString());
             alumno = persona.getAlumno();
             

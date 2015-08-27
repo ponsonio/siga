@@ -5,10 +5,15 @@
  */
 package com.b2mind.siga.session;
 
+import com.b2mind.siga.jpa.Asignacion;
 import com.b2mind.siga.jpa.PersonaMedioContacto;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 
 /**
  *
@@ -26,6 +31,13 @@ public class PersonaMedioContactoFacade extends AbstractFacade<PersonaMedioConta
 
     public PersonaMedioContactoFacade() {
         super(PersonaMedioContacto.class);
+    }
+    
+    public List<PersonaMedioContacto> obtenerMedioContactoPersona(long idPersona){
+		return (List<PersonaMedioContacto>)em.createQuery("select pmc from PersonaMedioContacto pmc ")
+				//"where pmc.personaMedioContactoPK.idPersona = :idPersona " )
+        		//.setParameter("idPersona", idPersona)
+        		.getResultList();
     }
     
 }

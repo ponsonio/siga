@@ -5,7 +5,11 @@
  */
 package com.b2mind.siga.session;
 
+import com.b2mind.siga.jpa.Asignacion;
 import com.b2mind.siga.jpa.AsignacionAlumno;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +31,16 @@ public class AsignacionAlumnoFacade extends AbstractFacade<AsignacionAlumno> {
     public AsignacionAlumnoFacade() {
         super(AsignacionAlumno.class);
     }
+    
+	public List<Asignacion> obtenerAsignacionesAlumnoSubPeriodo(long idPersona,
+			long idSubPeriodo) {
+		return (List<Asignacion>)em.createQuery("select a from Asignacion a , AsignacionAlumno aa " +
+				"where aa.alumno.idPersona = :idPersona " +
+				"and aa.asignacion.idAsignacion = a.idAsignacion " +
+				"and aa.periodoAcademico.idPeriodoAcademico = :idSubPeriodo")
+        		.setParameter("idPersona", idPersona)
+				.setParameter("idSubPeriodo",idSubPeriodo)
+        		.getResultList();
+	}
     
 }
