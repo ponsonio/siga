@@ -69,7 +69,7 @@ public class LoggerBO {
     private void escribirConsola(String nombreClase, String mensaje , String mensajeDetallado,
     		String referencia, String severidad , String usuario, String operacion){
 
-    	System.out.println("********* Log SIGA ***************");
+    	System.out.println("*********Inicio Log SIGA ***************");
     	System.out.println("severidad:"+severidad);
     	System.out.println("usuario:"+usuario);
     	System.out.println("nombreClase:"+nombreClase);
@@ -77,7 +77,7 @@ public class LoggerBO {
     	System.out.println("mensajeDetallado:"+mensajeDetallado);
     	System.out.println("referencia:"+referencia);
     	System.out.println("operacion:"+operacion);
-    	System.out.println("********* Log SIGA ***************");
+    	System.out.println("********* Fin Log SIGA ***************");
 
     }
     

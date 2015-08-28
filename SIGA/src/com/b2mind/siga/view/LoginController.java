@@ -19,6 +19,7 @@ import com.b2mind.siga.exception.InconsistenciaDatosException;
 import com.b2mind.siga.exception.LoginException;
 import com.b2mind.siga.jpa.Alumno;
 import com.b2mind.siga.jpa.Colegio;
+import com.b2mind.siga.jpa.PeriodoAcademico;
 import com.b2mind.siga.jpa.Persona;
 import com.b2mind.siga.jpa.ResumenAlumno;
 import com.b2mind.siga.jpa.Rol;
@@ -39,23 +40,29 @@ public class LoginController implements Serializable {
     @EJB
     private com.b2mind.siga.bo.ColegioBO   ejbColegio;
     
+    @EJB
+    private com.b2mind.siga.bo.PeriodoAcademicoBO   ejbPeriodoAcademico;
+    
+    
+	private Usuario usuario;
 
-    
-    private Usuario usuario ;
-    
-   private Persona persona ;
-   
-   private Alumno alumno ;
-   
-   private ResumenAlumno resumenAlumno;
-   
-   private Collection<Rol> collectionRoles ;
-   
+	private Persona persona;
+
+	private Alumno alumno;
+
+	private ResumenAlumno resumenAlumno;
+
+	private PeriodoAcademico periodoAcademico;
+
+	private PeriodoAcademico subPeriodoAcademico;
+
+	private Collection<Rol> collectionRoles;
+
 	private String username;
-    
-    private String password;
-    
-    private long idColegio ;
+
+	private String password;
+
+	private long idColegio;
  
     
 	public LoginController() {
@@ -73,25 +80,13 @@ public class LoginController implements Serializable {
         boolean loggedIn = false;
         
 	        try{
-	        	
-	        	ejbLog.insertarLogDEBUG(this.getClass().getName(),
-	        			"verificando usuario", "["+this.password+ "][" +this.username + "][" + this.idColegio+ "]" 
-	        					, null, null, "login"); 
-	        	
 	        	usuario = ejbLogin.login(this.password, this.username , this.idColegio) ;
 	        	loggedIn = true;
 	            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", username);
-
-	            //context.addCallbackParam("loggedIn", loggedIn);
-	            //collectionRoles = usuario.getRolCollection() ;
-	            
-	           // System.out.println("roles :" + collectionRoles.toString());
-	            
 	            cargarDatosPrincipales() ;
-	            System.out.println("LOGUEADO!!");
-	            
-	            
-	            System.out.println("LOGUEADO!!");
+	            ejbLog.insertarLogINFO(this.getClass().getName(), 
+	            		"Inicio de sesiòn", "["+this.password+ "][" +this.username + "][" + this.idColegio+ "]" 
+	            		, null, this.username, "Login" ) ;
 	            
 	        }catch(LoginException e){ 
 	            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verifique el usuario, colegio y/o contraseña " ,"Error de inicio de sesiòn");
@@ -113,41 +108,71 @@ public class LoginController implements Serializable {
 	            e.printStackTrace();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesiòn");
 	            FacesContext.getCurrentInstance().addMessage(null, message);
+			}catch (Exception  e) {
+	            ejbLog.insertarLogERROR(this.getClass().getName(), 
+	            		"Error de inicio de sesiòn", e.getMessage()
+	            		, null, this.username, "Login" ) ;
+	            e.printStackTrace();
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesiòn");
+	            FacesContext.getCurrentInstance().addMessage(null, message);
 			}
 
     }   
     
-    void cargarDatosPrincipales(){
+    void cargarDatosPrincipales() throws InconsistenciaDatosException , BaseDatosException{
     	try{
-    		usuario.getRolCollection().size();
-    		collectionRoles = usuario.getRolCollection() ;
-    		System.out.println("collectionRoles:"+collectionRoles);		
-            persona = usuario.getIdPersona() ;
+       		persona = usuario.getIdPersona() ;
             persona.getPersonaMedioContactoCollection();
-            
-            System.out.println("numeroMediosContacto:"+persona.getPersonaMedioContactoCollection().size());
-            //System.out.println("persona:"+persona.toString());
             alumno = persona.getAlumno();
-            
-            //System.out.println("alumno:"+alumno.toString());
-            
-            //System.out.println("resumenes : "+alumno.getResumenAlumnoCollection().size());
-            
-            Iterator<ResumenAlumno> it =  alumno.getResumenAlumnoCollection().iterator();
-            while (it.hasNext()){
-            	resumenAlumno = it.next();
-            	System.out.println("resumenAlumno:"+resumenAlumno.toString());
-            }
-
+            cargarRoles();
+            cargarPeriodosAcademicos();
+            cargarResumenAlumno();
     	}catch(Exception e){
-            ejbLog.insertarLogERROR(this.getClass().getName(), 
-            		"Error cargando datos", e.getMessage()
-            		, null, this.username, "Login-carga datos" ) ;
-            e.printStackTrace();
+    		throw e ;
     	}
-
-        
     }
+    
+    public void cargarRoles() throws InconsistenciaDatosException{
+    	try{
+			if (usuario.getRolCollection().size() == 0) throw new InconsistenciaDatosException("Error Cargando Roles, usuario sin roles "); ;
+			collectionRoles = usuario.getRolCollection() ;
+			
+            ejbLog.insertarLogINFO(this.getClass().getName(), 
+            		"Cargando Roles", collectionRoles.toString()
+            		, null, this.username, "Cargar Roles" ) ;
+            
+    	}catch(Exception e){
+    		throw new InconsistenciaDatosException("Error Cargando Roles : " + e.getMessage(), e);
+    	}
+    }
+    
+    public void cargarPeriodosAcademicos() throws InconsistenciaDatosException {
+    	try{
+    		periodoAcademico  =  ejbPeriodoAcademico.obtenerPeriodoAcademicoEnCursoCalendario(alumno.getIdColegio().getIdColegio());
+    		subPeriodoAcademico =  ejbPeriodoAcademico.obtenerPeriodoAcademicoEnCursoCalendario(alumno.getIdColegio().getIdColegio());
+            ejbLog.insertarLogINFO(this.getClass().getName(), 
+            		"Cargando Peridos Academicos", periodoAcademico.toString() + subPeriodoAcademico.toString()
+            		, null, this.username, "Cargar Periodo Academico" ) ;
+    	}catch (Exception e) {    		
+    		throw new InconsistenciaDatosException("Error Cargando Resumen : " + e.getMessage(), e);
+		}  	
+    }
+    
+    public void cargarResumenAlumno() throws InconsistenciaDatosException{
+    	try{
+	        Iterator<ResumenAlumno> it =  alumno.getResumenAlumnoCollection().iterator();
+	        while (it.hasNext()){
+	        	resumenAlumno = it.next();
+	        }
+            ejbLog.insertarLogINFO(this.getClass().getName(), 
+            		"Cargando Resumen", resumenAlumno.toString()
+            		, null, this.username, "Cargar Resumen" ) ;
+            
+    	}catch (Exception e) {
+    		throw new InconsistenciaDatosException("Error Cargando Resumen : " + e.getMessage(), e);
+		}  
+    }
+    
     
 	public void setUsername(String username) {
 		this.username = username;
@@ -217,6 +242,26 @@ public class LoginController implements Serializable {
 
 	public void setResumenAlumno(ResumenAlumno resumenAlumno) {
 		this.resumenAlumno = resumenAlumno;
+	}
+
+
+	public PeriodoAcademico getPeriodoAcademico() {
+		return periodoAcademico;
+	}
+
+
+	public void setPeriodoAcademico(PeriodoAcademico periodoAcademico) {
+		this.periodoAcademico = periodoAcademico;
+	}
+
+
+	public PeriodoAcademico getSubPeriodoAcademico() {
+		return subPeriodoAcademico;
+	}
+
+
+	public void setSubPeriodoAcademico(PeriodoAcademico subPeriodoAcademico) {
+		this.subPeriodoAcademico = subPeriodoAcademico;
 	}
 	
 	
