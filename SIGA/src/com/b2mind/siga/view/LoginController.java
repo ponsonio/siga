@@ -73,7 +73,10 @@ public class LoginController implements Serializable {
 		return username;
 	}
 
-
+	/**
+	 * Realiza el email
+	 * @param event
+	 */
     public void login(ActionEvent event) {
         //RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
@@ -117,8 +120,15 @@ public class LoginController implements Serializable {
 	            FacesContext.getCurrentInstance().addMessage(null, message);
 			}
 
-    }   
+    }  
     
+    
+    
+    /**
+     * Carga los datos Principales
+     * @throws InconsistenciaDatosException
+     * @throws BaseDatosException
+     */
     void cargarDatosPrincipales() throws InconsistenciaDatosException , BaseDatosException{
     	try{
        		persona = usuario.getIdPersona() ;
@@ -132,6 +142,10 @@ public class LoginController implements Serializable {
     	}
     }
     
+    /**
+     * Carga los Roles
+     * @throws InconsistenciaDatosException
+     */
     public void cargarRoles() throws InconsistenciaDatosException{
     	try{
 			if (usuario.getRolCollection().size() == 0) throw new InconsistenciaDatosException("Error Cargando Roles, usuario sin roles "); ;
@@ -146,6 +160,10 @@ public class LoginController implements Serializable {
     	}
     }
     
+    /**
+     * Public carga el periodo y subPerido Académico
+     * @throws InconsistenciaDatosException
+     */
     public void cargarPeriodosAcademicos() throws InconsistenciaDatosException {
     	try{
     		periodoAcademico  =  ejbPeriodoAcademico.obtenerPeriodoAcademicoEnCursoCalendario(alumno.getIdColegio().getIdColegio());
@@ -158,6 +176,10 @@ public class LoginController implements Serializable {
 		}  	
     }
     
+    /**
+     * Carga el resumen del alumno
+     * @throws InconsistenciaDatosException
+     */
     public void cargarResumenAlumno() throws InconsistenciaDatosException{
     	try{
 	        Iterator<ResumenAlumno> it =  alumno.getResumenAlumnoCollection().iterator();
