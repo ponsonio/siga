@@ -77,7 +77,7 @@ public class LoggerBO {
     	System.out.println("mensajeDetallado:"+mensajeDetallado);
     	System.out.println("referencia:"+referencia);
     	System.out.println("operacion:"+operacion);
-    	System.out.println("********* Log SIGA ***************");
+    	System.out.println("********* Fin Log SIGA ***************");
 
     }
     
