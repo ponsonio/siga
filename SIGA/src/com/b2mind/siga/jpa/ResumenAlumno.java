@@ -33,9 +33,13 @@ public class ResumenAlumno implements Serializable {
     @JoinColumn(name = "ID_SECCION", referencedColumnName = "ID_SECCION")
     @ManyToOne(optional = false)
     private Seccion idSeccion;
+    
+    
     @JoinColumn(name = "ID_PERIODO_ACADEMICO", referencedColumnName = "ID_PERIODO_ACADEMICO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PeriodoAcademico periodoAcademico;
+    
+    
     @JoinColumn(name = "ID_GRADO", referencedColumnName = "ID_GRADO")
     @ManyToOne(optional = false)
     private Grado idGrado;

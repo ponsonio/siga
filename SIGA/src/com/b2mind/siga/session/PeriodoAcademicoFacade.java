@@ -5,9 +5,16 @@
  */
 package com.b2mind.siga.session;
 
+import com.b2mind.siga.exception.BaseDatosException;
+import com.b2mind.siga.exception.InconsistenciaDatosException;
 import com.b2mind.siga.jpa.PeriodoAcademico;
+
+import java.util.Date;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -28,4 +35,43 @@ public class PeriodoAcademicoFacade extends AbstractFacade<PeriodoAcademico> {
         super(PeriodoAcademico.class);
     }
     
+    /**
+     * Obtiene el perido academico en curso segun calendario
+     * @param idColegio
+     * @return
+     */
+    public PeriodoAcademico obtenerPeriodoAcademicoVigenteCalendario(long idColegio) throws InconsistenciaDatosException , BaseDatosException{
+    	try{
+    		return (PeriodoAcademico)em.createQuery(				
+					" SELECT p FROM PeriodoAcademico p WHERE CURRENT_DATE BETWEEN p.fechaInicio AND p.fechaFin and p.idColegio = :idColegio ")
+	        		.setParameter("idColegio", idColegio)
+	        		.getSingleResult();
+		    	}catch(NoResultException nre) {
+		    		throw new InconsistenciaDatosException("No se encuentra Periodo Académico : "+ nre.getMessage() , nre);
+		    	}catch (NonUniqueResultException e) {
+					throw new InconsistenciaDatosException("Múltiples usuarios : " + e.getMessage(), e);
+				}catch (Exception e) {
+					throw new BaseDatosException("Error de Base de Datos :"+e.getMessage(),e);
+				}
+    }
+    
+    /**
+     * Obtiene el subperido academico en curso segun calendario
+     * @param idColegio
+     * @return
+     */
+    public PeriodoAcademico obtenerSubPeriodoAcademicoVigenteCalendario(long idColegio) throws InconsistenciaDatosException , BaseDatosException{
+		try{
+		    	return (PeriodoAcademico)em.createQuery(				
+						" SELECT p FROM PeriodoAcademico p WHERE CURRENT_DATE BETWEEN p.fechaInicio AND p.fechaFin and p.idColegio = :idColegio and p.idParent != null ")
+		        		.setParameter("idColegio", idColegio)
+		        		.getSingleResult();
+		    }catch(NoResultException nre) {
+	    		throw new InconsistenciaDatosException("No se encuentra Periodo Académico : "+ nre.getMessage() , nre);
+	    	}catch (NonUniqueResultException e) {
+				throw new InconsistenciaDatosException("Múltiples usuarios : " + e.getMessage(), e);
+			}catch (Exception e) {
+				throw new BaseDatosException("Error de Base de Datos :"+e.getMessage(),e);
+			}
+    }
 }
