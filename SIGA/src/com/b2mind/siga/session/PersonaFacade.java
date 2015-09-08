@@ -5,7 +5,11 @@
  */
 package com.b2mind.siga.session;
 
+import com.b2mind.siga.jpa.Alumno;
 import com.b2mind.siga.jpa.Persona;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +31,16 @@ public class PersonaFacade extends AbstractFacade<Persona> {
     public PersonaFacade() {
         super(Persona.class);
     }
+    
+    /**
+     * Obtiene los dependientes de un apoderado
+     * @param idpersona
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+	public List<Alumno> obtenerDependientesPersona(long idpersona){
+		return (List<Alumno>)em.createQuery("select ap.alumnos from Apoderado ap where ap.idPersona = :idpersona")
+        		.setParameter("idpersona", idpersona).getResultList();
+	}
     
 }
