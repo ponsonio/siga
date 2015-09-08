@@ -19,8 +19,9 @@ public class PersonaMedioContactoControllerSiga {
 	@ManagedProperty(value="#{loginController}")
 	LoginController loginController ;
 
+	private PersonaMedioContacto selected;
     
-	List<PersonaMedioContacto> listPersonaMedioContacto ;
+	private List<PersonaMedioContacto> listPersonaMedioContacto ;
 	
 	
     public LoginController getLoginController() {
@@ -43,6 +44,14 @@ public class PersonaMedioContactoControllerSiga {
 
 	public void setListPersonaMedioContacto(List<PersonaMedioContacto> listPersonaMedioContacto) {
 		this.listPersonaMedioContacto = listPersonaMedioContacto;
+	}
+
+	public PersonaMedioContacto getSelected() {
+		return selected;
+	}
+
+	public void setSelected(PersonaMedioContacto selected) {
+		this.selected = selected;
 	}
 	
 	

@@ -34,9 +34,9 @@ public class PersonaMedioContactoFacade extends AbstractFacade<PersonaMedioConta
     }
     
     public List<PersonaMedioContacto> obtenerMedioContactoPersona(long idPersona){
-		return (List<PersonaMedioContacto>)em.createQuery("select pmc from PersonaMedioContacto pmc ")
-				//"where pmc.personaMedioContactoPK.idPersona = :idPersona " )
-        		//.setParameter("idPersona", idPersona)
+		return (List<PersonaMedioContacto>)em.createQuery("select pmc from PersonaMedioContacto pmc "
+				+ "where pmc.personaMedioContactoPK.idPersona = :idPersona " )
+        		.setParameter("idPersona", idPersona)
         		.getResultList();
     }
     

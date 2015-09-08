@@ -32,6 +32,8 @@ public class MatriculaAlumnoFacade extends AbstractFacade<MatriculaAlumno> {
     }
     
     
+    /**
+    
 	@SuppressWarnings("unchecked")
 	public List<PeriodoAcademicoSeccionCurso> obtenerMatriculaAlumno(long idAlumno,
 			long idPeriodoAcademico) {
@@ -47,6 +49,7 @@ public class MatriculaAlumnoFacade extends AbstractFacade<MatriculaAlumno> {
 				.setParameter("idPeriodoAcademico", idPeriodoAcademico)
 				.getResultList();
 	}
+	**/
 
     
 }
