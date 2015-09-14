@@ -17,14 +17,12 @@
         <div class="ui-grid ui-grid-responsive">
             <h:form id="datosPrincipalesForm">
             	<h:panelGrid columns="2" cellpadding="5" columnClasses="ui-grid-col-5,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
-            				        
 					<h:outputText value="#{bundle.codigo}" />
 					<h:outputText value="#{loginController.persona.codigo}" />
 				 	<h:outputText value="#{bundle.nombre}" />
 				 	<h:outputText value="#{loginController.persona.primerNombre}"/>
 				 	<h:outputText value="#{bundle.apellidos}" />
 				 	<h:outputText value="#{loginController.persona.apellidoPaterno} #{loginController.persona.apellidoMaterno}"/>	
-
 				</h:panelGrid>
             </h:form>
 		</div>

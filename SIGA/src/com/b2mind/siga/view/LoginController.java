@@ -167,12 +167,12 @@ public class LoginController implements Serializable {
     public void cargarPeriodosAcademicos() throws InconsistenciaDatosException {
     	try{
     		periodoAcademico  =  ejbPeriodoAcademico.obtenerPeriodoAcademicoEnCursoCalendario(alumno.getIdColegio().getIdColegio());
-    		subPeriodoAcademico =  ejbPeriodoAcademico.obtenerPeriodoAcademicoEnCursoCalendario(alumno.getIdColegio().getIdColegio());
+    		subPeriodoAcademico =  ejbPeriodoAcademico.obtenerSubPeriodoAcademicoEnCursoCalendario(alumno.getIdColegio().getIdColegio());
             ejbLog.insertarLogINFO(this.getClass().getName(), 
-            		"Cargando Peridos Academicos", periodoAcademico.toString() + subPeriodoAcademico.toString()
+            		"Cargando Peridos Academicos", "Periodo:" +periodoAcademico.toString() + "Sub Periodo:" +subPeriodoAcademico.toString()
             		, null, this.username, "Cargar Periodo Academico" ) ;
     	}catch (Exception e) {    		
-    		throw new InconsistenciaDatosException("Error Cargando Resumen : " + e.getMessage(), e);
+    		throw new InconsistenciaDatosException("Error Cargando Periodos Académicos : " + e.getMessage(), e);
 		}  	
     }
     

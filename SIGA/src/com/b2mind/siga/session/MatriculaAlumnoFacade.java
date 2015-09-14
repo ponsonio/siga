@@ -6,6 +6,9 @@
 package com.b2mind.siga.session;
 
 import com.b2mind.siga.jpa.MatriculaAlumno;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +30,26 @@ public class MatriculaAlumnoFacade extends AbstractFacade<MatriculaAlumno> {
     public MatriculaAlumnoFacade() {
         super(MatriculaAlumno.class);
     }
+    
+    
+    /**
+    
+	@SuppressWarnings("unchecked")
+	public List<PeriodoAcademicoSeccionCurso> obtenerMatriculaAlumno(long idAlumno,
+			long idPeriodoAcademico) {
+		//log.info("obteniendo matricula para idAlumno:"
+			//+idAlumno+" idPeriodoAcademico:"+idPeriodoAcademico);
+		
+		return (List<PeriodoAcademicoSeccionCurso> )em.createQuery(
+				"select ma.periodoAcademicoSeccion.periodoAcademicoSeccionCursos " +
+				"from MatriculaAlumno ma " +
+				"where ma.alumno.idPersona = :idAlumno " +
+				"and ma.periodoAcademicoSeccion.periodoAcademico.idPeriodoAcademico = :idPeriodoAcademico ")
+        		.setParameter("idAlumno", idAlumno)
+				.setParameter("idPeriodoAcademico", idPeriodoAcademico)
+				.getResultList();
+	}
+	**/
+
     
 }

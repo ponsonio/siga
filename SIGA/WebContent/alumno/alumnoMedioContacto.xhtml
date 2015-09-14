@@ -17,26 +17,36 @@
         <div class="ui-grid ui-grid-responsive">
             <h:form id="AvisoListForm">
                 <p:panel header="#{bundle.ListAvisoTitle}">
-                    <p:dataTable id="datalist" value="#{personaMedioContactoControllerSiga.obtenerPersonaMedioContactoPersona()}" var="personaMedioContacto"
-                                 
-                                 paginator="true"
-                                 rowKey="#{personaMedioContacto.personaMedioContactoPK.idPersona}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-                                  
-				        <h:column>
-				           <f:facet name="header">
-				              <h:outputText value="#{bundle.ListPersonaMedioContactoTitle_referencia}"/>
-				           </f:facet>
-				           <h:outputText value="#{personaMedioContacto.medioContacto.nombre}"/>
-				        </h:column>
-				        <h:column>
-				           <f:facet name="header">
-				              <h:outputText value="#{bundle.ListPersonaMedioContactoTitle_referencia}"/>
-				           </f:facet>
-				           <h:outputText value="#{personaMedioContacto.id.referencia}"/>
-				        </h:column>
+
+			<p:dataTable id="datalist" value="#{personaMedioContactoControllerSiga.obtenerPersonaMedioContactoPersona()}" var="item"
+			                                 selectionMode="single" selection="#{personaMedioContactoController.selected}"
+			                                 paginator="true"
+			                                 rowKey="#{item.personaMedioContactoPK}"
+			                                 rows="10"
+			                                 rowsPerPageTemplate="10,20,30,40,50"
+			                                 >
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPersonaMedioContactoTitle_personaMedioContactoPK_idMedioContacto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.personaMedioContactoPK.idMedioContacto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPersonaMedioContactoTitle_referencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.referencia}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPersonaMedioContactoTitle_persona}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.persona}"/>
+                        </p:column>
+				        
+				        
+				        
                     </p:dataTable>
                 </p:panel>
             </h:form>
