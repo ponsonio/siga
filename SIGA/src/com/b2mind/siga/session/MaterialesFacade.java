@@ -6,6 +6,9 @@
 package com.b2mind.siga.session;
 
 import com.b2mind.siga.jpa.Materiales;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +30,21 @@ public class MaterialesFacade extends AbstractFacade<Materiales> {
     public MaterialesFacade() {
         super(Materiales.class);
     }
+    
+    
+    /**
+     * Retorna nulo!!
+     * @param idAlumno
+     * @param idPeriodoAcademico
+     * @return
+     */
+	public List<Materiales> obtenerMaterialesAlumnoCiclo(long idAlumno,
+			long idPeriodoAcademico) {
+		// TODO Auto-generated method stub
+		/*return (List<Materiales>)entityManager.createQuery("select libreta from LibretaNotas libreta where libreta.alumno.idPersona = :idAlumno")
+        		.setParameter("idAlumno", idAlumno).getResultList();*/
+		return null;
+	}
+
     
 }

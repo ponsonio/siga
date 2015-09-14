@@ -17,7 +17,11 @@ import javax.validation.constraints.NotNull;
  */
 @Embeddable
 public class PersonaMedioContactoPK implements Serializable {
-    @Basic(optional = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Basic(optional = false)
     @NotNull
     @Column(name = "ID_PERSONA")
     private long idPersona;
@@ -77,6 +81,10 @@ public class PersonaMedioContactoPK implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.PersonaMedioContactoPK[ idPersona=" + idPersona + ", idMedioContacto=" + idMedioContacto + " ]";
+    }
+    
+    public int getKey(){
+    	return this.hashCode();
     }
     
 }

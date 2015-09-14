@@ -43,13 +43,13 @@ public class PeriodoAcademicoFacade extends AbstractFacade<PeriodoAcademico> {
     public PeriodoAcademico obtenerPeriodoAcademicoVigenteCalendario(long idColegio) throws InconsistenciaDatosException , BaseDatosException{
     	try{
     		return (PeriodoAcademico)em.createQuery(				
-					" SELECT p FROM PeriodoAcademico p WHERE CURRENT_DATE BETWEEN p.fechaInicio AND p.fechaFin and p.idColegio = :idColegio ")
+					" SELECT p FROM PeriodoAcademico p WHERE CURRENT_DATE BETWEEN p.fechaInicio AND p.fechaFin  and p.idColegio.idColegio = :idColegio  and p.idParent IS NULL  ")
 	        		.setParameter("idColegio", idColegio)
 	        		.getSingleResult();
 		    	}catch(NoResultException nre) {
 		    		throw new InconsistenciaDatosException("No se encuentra Periodo Académico : "+ nre.getMessage() , nre);
 		    	}catch (NonUniqueResultException e) {
-					throw new InconsistenciaDatosException("Múltiples usuarios : " + e.getMessage(), e);
+					throw new InconsistenciaDatosException("Múltiples periodos : " + e.getMessage(), e);
 				}catch (Exception e) {
 					throw new BaseDatosException("Error de Base de Datos :"+e.getMessage(),e);
 				}
@@ -63,13 +63,13 @@ public class PeriodoAcademicoFacade extends AbstractFacade<PeriodoAcademico> {
     public PeriodoAcademico obtenerSubPeriodoAcademicoVigenteCalendario(long idColegio) throws InconsistenciaDatosException , BaseDatosException{
 		try{
 		    	return (PeriodoAcademico)em.createQuery(				
-						" SELECT p FROM PeriodoAcademico p WHERE CURRENT_DATE BETWEEN p.fechaInicio AND p.fechaFin and p.idColegio = :idColegio and p.idParent != null ")
+						" SELECT p FROM PeriodoAcademico p WHERE CURRENT_DATE BETWEEN p.fechaInicio AND p.fechaFin and p.idColegio.idColegio = :idColegio and p.idParent IS NOT NULL  ")
 		        		.setParameter("idColegio", idColegio)
 		        		.getSingleResult();
 		    }catch(NoResultException nre) {
-	    		throw new InconsistenciaDatosException("No se encuentra Periodo Académico : "+ nre.getMessage() , nre);
+	    		throw new InconsistenciaDatosException("No se encuentra Sub Periodo Académico : "+ nre.getMessage() , nre);
 	    	}catch (NonUniqueResultException e) {
-				throw new InconsistenciaDatosException("Múltiples usuarios : " + e.getMessage(), e);
+				throw new InconsistenciaDatosException("Múltiples Sub periodos : " + e.getMessage(), e);
 			}catch (Exception e) {
 				throw new BaseDatosException("Error de Base de Datos :"+e.getMessage(),e);
 			}

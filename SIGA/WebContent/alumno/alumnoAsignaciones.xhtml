@@ -15,10 +15,10 @@
 		<!--  
 		<h:outputText value="#{messages['label.sin_infomacion']}" rendered="#{mediosContactoLista.rowCount==0}"/>
 		-->
-		
+
         <ui:define name="body">
         <div class="ui-grid ui-grid-responsive">
-            <h:form id="AvisoListForm">
+            <h:form id="MedioContactoListForm">
                 <p:panel header="#{bundle.ListAvisoTitle}">
                     <p:dataTable id="datalist" value="#{asignacionAlumnoControllerSiga.obtenerAsignacionesAlumnoSubPeriodo()}" var="item"
                                  selectionMode="single" selection="#{asignacionAlumnoControllerSiga.selected}"
