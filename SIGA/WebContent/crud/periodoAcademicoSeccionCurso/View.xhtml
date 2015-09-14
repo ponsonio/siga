@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoLabel_periodoAcademicoSeccionCursoPK_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoController.selected.periodoAcademicoSeccionCursoPK.idPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoTitle_periodoAcademicoSeccionCursoPK_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoLabel_formulaNotaFinal}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoController.selected.formulaNotaFinal}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoTitle_formulaNotaFinal}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoLabel_idSeccion}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoController.selected.idSeccion}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoTitle_idSeccion}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoLabel_periodoAcademicoSeccion}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoController.selected.periodoAcademicoSeccion}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoTitle_periodoAcademicoSeccion}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoLabel_idDocente}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoController.selected.idDocente}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoTitle_idDocente}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoLabel_idCurso}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoController.selected.idCurso}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoTitle_idCurso}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoController.destroyAndView}" value="#{bundle.ViewPeriodoAcademicoSeccionCursoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPeriodoAcademicoSeccionCursoEditLink}"/>
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoController.prepareCreate}" value="#{bundle.ViewPeriodoAcademicoSeccionCursoCreateLink}" />
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoController.prepareList}" value="#{bundle.ViewPeriodoAcademicoSeccionCursoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPeriodoAcademicoSeccionCursoIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

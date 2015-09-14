@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePeriodoAcademicoSeccionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
+                    <h:inputText id="idPeriodoAcademicoSeccion" value="#{periodoAcademicoSeccionController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.CreatePeriodoAcademicoSeccionTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionRequiredMessage_idPeriodoAcademicoSeccion}"/>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionLabel_idDocenteTutor}" for="idDocenteTutor" />
+                    <h:inputText id="idDocenteTutor" value="#{periodoAcademicoSeccionController.selected.idDocenteTutor}" title="#{bundle.CreatePeriodoAcademicoSeccionTitle_idDocenteTutor}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionRequiredMessage_idDocenteTutor}"/>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionLabel_idSeccion}" for="idSeccion" />
+                    <h:selectOneMenu id="idSeccion" value="#{periodoAcademicoSeccionController.selected.idSeccion}" title="#{bundle.CreatePeriodoAcademicoSeccionTitle_idSeccion}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionRequiredMessage_idSeccion}">
+                        <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionLabel_idPeriodoAcademico}" for="idPeriodoAcademico" />
+                    <h:selectOneMenu id="idPeriodoAcademico" value="#{periodoAcademicoSeccionController.selected.idPeriodoAcademico}" title="#{bundle.CreatePeriodoAcademicoSeccionTitle_idPeriodoAcademico}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionRequiredMessage_idPeriodoAcademico}">
+                        <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionController.create}" value="#{bundle.CreatePeriodoAcademicoSeccionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionController.prepareList}" value="#{bundle.CreatePeriodoAcademicoSeccionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePeriodoAcademicoSeccionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

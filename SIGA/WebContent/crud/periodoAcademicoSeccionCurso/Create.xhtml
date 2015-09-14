@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePeriodoAcademicoSeccionCursoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoLabel_periodoAcademicoSeccionCursoPK_idPeriodoAcademicoSeccionCurso}" for="periodoAcademicoSeccionCursoPK_idPeriodoAcademicoSeccionCurso" />
+                    <h:inputText id="periodoAcademicoSeccionCursoPK_idPeriodoAcademicoSeccionCurso" value="#{periodoAcademicoSeccionCursoController.selected.periodoAcademicoSeccionCursoPK.idPeriodoAcademicoSeccionCurso}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoTitle_periodoAcademicoSeccionCursoPK_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoRequiredMessage_periodoAcademicoSeccionCursoPK_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoLabel_formulaNotaFinal}" for="formulaNotaFinal" />
+                    <h:inputText id="formulaNotaFinal" value="#{periodoAcademicoSeccionCursoController.selected.formulaNotaFinal}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoTitle_formulaNotaFinal}" />
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoLabel_idSeccion}" for="idSeccion" />
+                    <h:selectOneMenu id="idSeccion" value="#{periodoAcademicoSeccionCursoController.selected.idSeccion}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoTitle_idSeccion}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoRequiredMessage_idSeccion}">
+                        <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoLabel_periodoAcademicoSeccion}" for="periodoAcademicoSeccion" />
+                    <h:selectOneMenu id="periodoAcademicoSeccion" value="#{periodoAcademicoSeccionCursoController.selected.periodoAcademicoSeccion}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoTitle_periodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoRequiredMessage_periodoAcademicoSeccion}">
+                        <f:selectItems value="#{periodoAcademicoSeccionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoLabel_idDocente}" for="idDocente" />
+                    <h:selectOneMenu id="idDocente" value="#{periodoAcademicoSeccionCursoController.selected.idDocente}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoTitle_idDocente}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoRequiredMessage_idDocente}">
+                        <f:selectItems value="#{docenteController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoLabel_idCurso}" for="idCurso" />
+                    <h:selectOneMenu id="idCurso" value="#{periodoAcademicoSeccionCursoController.selected.idCurso}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoTitle_idCurso}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoRequiredMessage_idCurso}">
+                        <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoController.create}" value="#{bundle.CreatePeriodoAcademicoSeccionCursoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoController.prepareList}" value="#{bundle.CreatePeriodoAcademicoSeccionCursoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePeriodoAcademicoSeccionCursoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
