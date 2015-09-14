@@ -3,34 +3,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_formulaNotaSubPeriodo}"/>
+                    <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.formulaNotaSubPeriodo}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_formulaNotaSubPeriodo}"/>
+                    <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccion}"/>
+                    <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccion}"/>
+                    <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idSeccion}"/>
+                    <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idSeccion}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idSeccion}"/>
+                    <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademico}"/>
+                    <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademico}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademico}"/>
+                    <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idCurso}"/>
+                    <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idCurso}"/>
+                    <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_periodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.periodoAcademicoSeccionCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_periodoAcademicoSeccionCurso}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.destroyAndView}" value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoEditLink}"/>
+                <br />
+                <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.prepareCreate}" value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoCreateLink}" />
+                <br />
+                <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.prepareList}" value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoIndexLink}"/>
 
-        <p:dialog id="SubPeriodoAcademicoSeccionCursoViewDlg" widgetVar="SubPeriodoAcademicoSeccionCursoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle}">
-            <h:form id="SubPeriodoAcademicoSeccionCursoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{subPeriodoAcademicoSeccionCursoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_formulaNotaSubPeriodo}"/>
-                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.formulaNotaSubPeriodo}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_formulaNotaSubPeriodo}"/>
-                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccion}"/>
-                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccion}"/>
-                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idSeccion}"/>
-                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idSeccion}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idSeccion}"/>
-                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademico}"/>
-                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademico}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademico}"/>
-                        <h:outputText value="#{bundle.ViewSubPeriodoAcademicoSeccionCursoLabel_idCurso}"/>
-                        <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.selected.idCurso}" title="#{bundle.ViewSubPeriodoAcademicoSeccionCursoTitle_idCurso}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="SubPeriodoAcademicoSeccionCursoViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

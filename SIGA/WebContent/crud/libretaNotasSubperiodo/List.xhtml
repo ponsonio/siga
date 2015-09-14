@@ -3,79 +3,77 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListLibretaNotasSubperiodoTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="LibretaNotasSubperiodoListForm">
-                <p:panel header="#{bundle.ListLibretaNotasSubperiodoTitle}">
-                    <p:dataTable id="datalist" value="#{libretaNotasSubperiodoController.items}" var="item"
-                                 selectionMode="single" selection="#{libretaNotasSubperiodoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idLibretaNotasSubperiodo}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListLibretaNotasSubperiodoEmpty}" rendered="#{libretaNotasSubperiodoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{libretaNotasSubperiodoController.items.rowCount > 0}">
+                    <h:outputText value="#{libretaNotasSubperiodoController.pagination.pageFirstItem + 1}..#{libretaNotasSubperiodoController.pagination.pageLastItem + 1}/#{libretaNotasSubperiodoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{libretaNotasSubperiodoController.previous}" value="#{bundle.Previous} #{libretaNotasSubperiodoController.pagination.pageSize}" rendered="#{libretaNotasSubperiodoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{libretaNotasSubperiodoController.next}" value="#{bundle.Next} #{libretaNotasSubperiodoController.pagination.pageSize}" rendered="#{libretaNotasSubperiodoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{libretaNotasSubperiodoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLibretaNotasSubperiodoTitle_idLibretaNotasSubperiodo}"/>
                             </f:facet>
                             <h:outputText value="#{item.idLibretaNotasSubperiodo}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLibretaNotasSubperiodoTitle_nota}"/>
                             </f:facet>
                             <h:outputText value="#{item.nota}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLibretaNotasSubperiodoTitle_idSubPeriodoAcademicoSeccionCurso}"/>
                             </f:facet>
                             <h:outputText value="#{item.idSubPeriodoAcademicoSeccionCurso}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLibretaNotasSubperiodoTitle_idSubPeriodo}"/>
                             </f:facet>
                             <h:outputText value="#{item.idSubPeriodo}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLibretaNotasSubperiodoTitle_idLibretaNotas}"/>
                             </f:facet>
                             <h:outputText value="#{item.idLibretaNotas}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLibretaNotasSubperiodoTitle_idCurso}"/>
                             </f:facet>
                             <h:outputText value="#{item.idCurso}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{libretaNotasSubperiodoController.prepareCreate}" update=":LibretaNotasSubperiodoCreateForm" oncomplete="PF('LibretaNotasSubperiodoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LibretaNotasSubperiodoViewForm" oncomplete="PF('LibretaNotasSubperiodoViewDialog').show()" disabled="#{empty libretaNotasSubperiodoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LibretaNotasSubperiodoEditForm" oncomplete="PF('LibretaNotasSubperiodoEditDialog').show()" disabled="#{empty libretaNotasSubperiodoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{libretaNotasSubperiodoController.destroy}" update=":growl,datalist" disabled="#{empty libretaNotasSubperiodoController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{libretaNotasSubperiodoController.prepareView}" value="#{bundle.ListLibretaNotasSubperiodoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{libretaNotasSubperiodoController.prepareEdit}" value="#{bundle.ListLibretaNotasSubperiodoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{libretaNotasSubperiodoController.destroy}" value="#{bundle.ListLibretaNotasSubperiodoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{libretaNotasSubperiodoController.prepareCreate}" value="#{bundle.ListLibretaNotasSubperiodoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListLibretaNotasSubperiodoIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

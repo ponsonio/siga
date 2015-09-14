@@ -38,6 +38,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MatriculaAlumno.findByFecha", query = "SELECT m FROM MatriculaAlumno m WHERE m.fecha = :fecha"),
     @NamedQuery(name = "MatriculaAlumno.findByIdPeriodoAcademicoSeccion", query = "SELECT m FROM MatriculaAlumno m WHERE m.idPeriodoAcademicoSeccion = :idPeriodoAcademicoSeccion")})
 public class MatriculaAlumno implements Serializable {
+    @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION")
+    @ManyToOne(optional = false)
+    private PeriodoAcademicoSeccion idPeriodoAcademicoSeccion;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -139,6 +142,14 @@ public class MatriculaAlumno implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.MatriculaAlumno[ idMatricula=" + idMatricula + " ]";
+    }
+
+    public PeriodoAcademicoSeccion getIdPeriodoAcademicoSeccion() {
+        return idPeriodoAcademicoSeccion;
+    }
+
+    public void setIdPeriodoAcademicoSeccion(PeriodoAcademicoSeccion idPeriodoAcademicoSeccion) {
+        this.idPeriodoAcademicoSeccion = idPeriodoAcademicoSeccion;
     }
     
 }

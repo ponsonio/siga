@@ -3,73 +3,77 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="PeriodoAcademicoSeccionCursoNotaListForm">
-                <p:panel header="#{bundle.ListPeriodoAcademicoSeccionCursoNotaTitle}">
-                    <p:dataTable id="datalist" value="#{periodoAcademicoSeccionCursoNotaController.items}" var="item"
-                                 selectionMode="single" selection="#{periodoAcademicoSeccionCursoNotaController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idPersona}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaEmpty}" rendered="#{periodoAcademicoSeccionCursoNotaController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{periodoAcademicoSeccionCursoNotaController.items.rowCount > 0}">
+                    <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.pagination.pageFirstItem + 1}..#{periodoAcademicoSeccionCursoNotaController.pagination.pageLastItem + 1}/#{periodoAcademicoSeccionCursoNotaController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.previous}" value="#{bundle.Previous} #{periodoAcademicoSeccionCursoNotaController.pagination.pageSize}" rendered="#{periodoAcademicoSeccionCursoNotaController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.next}" value="#{bundle.Next} #{periodoAcademicoSeccionCursoNotaController.pagination.pageSize}" rendered="#{periodoAcademicoSeccionCursoNotaController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{periodoAcademicoSeccionCursoNotaController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaTitle_idPersona}"/>
                             </f:facet>
                             <h:outputText value="#{item.idPersona}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccionCurso}"/>
                             </f:facet>
                             <h:outputText value="#{item.idPeriodoAcademicoSeccionCurso}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaTitle_notaFinalCurso}"/>
                             </f:facet>
                             <h:outputText value="#{item.notaFinalCurso}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccion}"/>
                             </f:facet>
                             <h:outputText value="#{item.idPeriodoAcademicoSeccion}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaTitle_alumno}"/>
                             </f:facet>
                             <h:outputText value="#{item.alumno}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{periodoAcademicoSeccionCursoNotaController.prepareCreate}" update=":PeriodoAcademicoSeccionCursoNotaCreateForm" oncomplete="PF('PeriodoAcademicoSeccionCursoNotaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PeriodoAcademicoSeccionCursoNotaViewForm" oncomplete="PF('PeriodoAcademicoSeccionCursoNotaViewDialog').show()" disabled="#{empty periodoAcademicoSeccionCursoNotaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PeriodoAcademicoSeccionCursoNotaEditForm" oncomplete="PF('PeriodoAcademicoSeccionCursoNotaEditDialog').show()" disabled="#{empty periodoAcademicoSeccionCursoNotaController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{periodoAcademicoSeccionCursoNotaController.destroy}" update=":growl,datalist" disabled="#{empty periodoAcademicoSeccionCursoNotaController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaTitle_periodoAcademicoSeccionCurso}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodoAcademicoSeccionCurso}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.prepareView}" value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.prepareEdit}" value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.destroy}" value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.prepareCreate}" value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListPeriodoAcademicoSeccionCursoNotaIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

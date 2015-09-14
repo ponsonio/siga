@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Seccion.findByCorrelativo", query = "SELECT s FROM Seccion s WHERE s.correlativo = :correlativo"),
     @NamedQuery(name = "Seccion.findByEtiqueta", query = "SELECT s FROM Seccion s WHERE s.etiqueta = :etiqueta")})
 public class Seccion implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSeccion")
+    private Collection<PeriodoAcademicoSeccion> periodoAcademicoSeccionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSeccion")
+    private Collection<PeriodoAcademicoSeccionCurso> periodoAcademicoSeccionCursoCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -181,6 +185,24 @@ public class Seccion implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.Seccion[ idSeccion=" + idSeccion + " ]";
+    }
+
+    @XmlTransient
+    public Collection<PeriodoAcademicoSeccion> getPeriodoAcademicoSeccionCollection() {
+        return periodoAcademicoSeccionCollection;
+    }
+
+    public void setPeriodoAcademicoSeccionCollection(Collection<PeriodoAcademicoSeccion> periodoAcademicoSeccionCollection) {
+        this.periodoAcademicoSeccionCollection = periodoAcademicoSeccionCollection;
+    }
+
+    @XmlTransient
+    public Collection<PeriodoAcademicoSeccionCurso> getPeriodoAcademicoSeccionCursoCollection() {
+        return periodoAcademicoSeccionCursoCollection;
+    }
+
+    public void setPeriodoAcademicoSeccionCursoCollection(Collection<PeriodoAcademicoSeccionCurso> periodoAcademicoSeccionCursoCollection) {
+        this.periodoAcademicoSeccionCursoCollection = periodoAcademicoSeccionCursoCollection;
     }
     
 }

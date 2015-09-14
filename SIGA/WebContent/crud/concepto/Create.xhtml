@@ -3,31 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="ConceptoCreateDlg" widgetVar="ConceptoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateConceptoTitle}">
-            <h:form id="ConceptoCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{conceptoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateConceptoLabel_idConcepto}" for="idConcepto" />
-                        <p:inputText id="idConcepto" value="#{conceptoController.selected.idConcepto}" title="#{bundle.CreateConceptoTitle_idConcepto}" required="true" requiredMessage="#{bundle.CreateConceptoRequiredMessage_idConcepto}"/>
-                        <p:outputLabel value="#{bundle.CreateConceptoLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{conceptoController.selected.nombre}" title="#{bundle.CreateConceptoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateConceptoRequiredMessage_nombre}"/>
-                        <p:outputLabel value="#{bundle.CreateConceptoLabel_idColegio}" for="idColegio" />
-                        <p:selectOneMenu id="idColegio" value="#{conceptoController.selected.idColegio}" required="true" requiredMessage="#{bundle.EditConceptoRequiredMessage_idColegio}">
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="idColegioItem"
-                                           itemValue="#{idColegioItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{conceptoController.create}" value="#{bundle.Save}" update="display,:ConceptoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ConceptoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ConceptoCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateConceptoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateConceptoLabel_idConcepto}" for="idConcepto" />
+                    <h:inputText id="idConcepto" value="#{conceptoController.selected.idConcepto}" title="#{bundle.CreateConceptoTitle_idConcepto}" required="true" requiredMessage="#{bundle.CreateConceptoRequiredMessage_idConcepto}"/>
+                    <h:outputLabel value="#{bundle.CreateConceptoLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{conceptoController.selected.nombre}" title="#{bundle.CreateConceptoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateConceptoRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.CreateConceptoLabel_idColegio}" for="idColegio" />
+                    <h:selectOneMenu id="idColegio" value="#{conceptoController.selected.idColegio}" title="#{bundle.CreateConceptoTitle_idColegio}" required="true" requiredMessage="#{bundle.CreateConceptoRequiredMessage_idColegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{conceptoController.create}" value="#{bundle.CreateConceptoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{conceptoController.prepareList}" value="#{bundle.CreateConceptoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateConceptoIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

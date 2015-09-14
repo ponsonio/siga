@@ -3,30 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFotoPersonaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFotoPersonaLabel_idFoto}"/>
+                    <h:outputText value="#{fotoPersonaController.selected.idFoto}" title="#{bundle.ViewFotoPersonaTitle_idFoto}"/>
+                    <h:outputText value="#{bundle.ViewFotoPersonaLabel_vigente}"/>
+                    <h:outputText value="#{fotoPersonaController.selected.vigente}" title="#{bundle.ViewFotoPersonaTitle_vigente}"/>
+                    <h:outputText value="#{bundle.ViewFotoPersonaLabel_nombreArchivo}"/>
+                    <h:outputText value="#{fotoPersonaController.selected.nombreArchivo}" title="#{bundle.ViewFotoPersonaTitle_nombreArchivo}"/>
+                    <h:outputText value="#{bundle.ViewFotoPersonaLabel_idRepositorio}"/>
+                    <h:outputText value="#{fotoPersonaController.selected.idRepositorio}" title="#{bundle.ViewFotoPersonaTitle_idRepositorio}"/>
+                    <h:outputText value="#{bundle.ViewFotoPersonaLabel_idPersona}"/>
+                    <h:outputText value="#{fotoPersonaController.selected.idPersona}" title="#{bundle.ViewFotoPersonaTitle_idPersona}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{fotoPersonaController.destroyAndView}" value="#{bundle.ViewFotoPersonaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewFotoPersonaEditLink}"/>
+                <br />
+                <h:commandLink action="#{fotoPersonaController.prepareCreate}" value="#{bundle.ViewFotoPersonaCreateLink}" />
+                <br />
+                <h:commandLink action="#{fotoPersonaController.prepareList}" value="#{bundle.ViewFotoPersonaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewFotoPersonaIndexLink}"/>
 
-        <p:dialog id="FotoPersonaViewDlg" widgetVar="FotoPersonaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFotoPersonaTitle}">
-            <h:form id="FotoPersonaViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{fotoPersonaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewFotoPersonaLabel_idFoto}"/>
-                        <h:outputText value="#{fotoPersonaController.selected.idFoto}" title="#{bundle.ViewFotoPersonaTitle_idFoto}"/>
-                        <h:outputText value="#{bundle.ViewFotoPersonaLabel_vigente}"/>
-                        <h:outputText value="#{fotoPersonaController.selected.vigente}" title="#{bundle.ViewFotoPersonaTitle_vigente}"/>
-                        <h:outputText value="#{bundle.ViewFotoPersonaLabel_nombreArchivo}"/>
-                        <h:outputText value="#{fotoPersonaController.selected.nombreArchivo}" title="#{bundle.ViewFotoPersonaTitle_nombreArchivo}"/>
-                        <h:outputText value="#{bundle.ViewFotoPersonaLabel_idRepositorio}"/>
-                        <h:outputText value="#{fotoPersonaController.selected.idRepositorio}" title="#{bundle.ViewFotoPersonaTitle_idRepositorio}"/>
-                        <h:outputText value="#{bundle.ViewFotoPersonaLabel_idPersona}"/>
-                        <h:outputText value="#{fotoPersonaController.selected.idPersona}" title="#{bundle.ViewFotoPersonaTitle_idPersona}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="FotoPersonaViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

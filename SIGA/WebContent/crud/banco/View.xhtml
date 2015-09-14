@@ -3,26 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewBancoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewBancoLabel_idBanco}"/>
+                    <h:outputText value="#{bancoController.selected.idBanco}" title="#{bundle.ViewBancoTitle_idBanco}"/>
+                    <h:outputText value="#{bundle.ViewBancoLabel_nombre}"/>
+                    <h:outputText value="#{bancoController.selected.nombre}" title="#{bundle.ViewBancoTitle_nombre}"/>
+                    <h:outputText value="#{bundle.ViewBancoLabel_abreviatura}"/>
+                    <h:outputText value="#{bancoController.selected.abreviatura}" title="#{bundle.ViewBancoTitle_abreviatura}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{bancoController.destroyAndView}" value="#{bundle.ViewBancoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewBancoEditLink}"/>
+                <br />
+                <h:commandLink action="#{bancoController.prepareCreate}" value="#{bundle.ViewBancoCreateLink}" />
+                <br />
+                <h:commandLink action="#{bancoController.prepareList}" value="#{bundle.ViewBancoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewBancoIndexLink}"/>
 
-        <p:dialog id="BancoViewDlg" widgetVar="BancoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBancoTitle}">
-            <h:form id="BancoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{bancoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewBancoLabel_idBanco}"/>
-                        <h:outputText value="#{bancoController.selected.idBanco}" title="#{bundle.ViewBancoTitle_idBanco}"/>
-                        <h:outputText value="#{bundle.ViewBancoLabel_nombre}"/>
-                        <h:outputText value="#{bancoController.selected.nombre}" title="#{bundle.ViewBancoTitle_nombre}"/>
-                        <h:outputText value="#{bundle.ViewBancoLabel_abreviatura}"/>
-                        <h:outputText value="#{bancoController.selected.abreviatura}" title="#{bundle.ViewBancoTitle_abreviatura}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="BancoViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

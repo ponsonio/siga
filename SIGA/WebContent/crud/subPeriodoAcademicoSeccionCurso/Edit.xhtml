@@ -3,50 +3,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="SubPeriodoAcademicoSeccionCursoEditDlg" widgetVar="SubPeriodoAcademicoSeccionCursoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle}">
-            <h:form id="SubPeriodoAcademicoSeccionCursoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{subPeriodoAcademicoSeccionCursoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademicoSeccionCurso}" for="idSubPeriodoAcademicoSeccionCurso" />
-                        <p:inputText id="idSubPeriodoAcademicoSeccionCurso" value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idSubPeriodoAcademicoSeccionCurso}"/>
-                        <p:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_formulaNotaSubPeriodo}" for="formulaNotaSubPeriodo" />
-                        <p:inputText id="formulaNotaSubPeriodo" value="#{subPeriodoAcademicoSeccionCursoController.selected.formulaNotaSubPeriodo}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_formulaNotaSubPeriodo}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_formulaNotaSubPeriodo}"/>
-                        <p:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccionCurso}" for="idPeriodoAcademicoSeccionCurso" />
-                        <p:inputText id="idPeriodoAcademicoSeccionCurso" value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idPeriodoAcademicoSeccionCurso}"/>
-                        <p:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
-                        <p:inputText id="idPeriodoAcademicoSeccion" value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idPeriodoAcademicoSeccion}"/>
-                        <p:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idSeccion}" for="idSeccion" />
-                        <p:selectOneMenu id="idSeccion" value="#{subPeriodoAcademicoSeccionCursoController.selected.idSeccion}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idSeccion}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"
-                                           var="idSeccionItem"
-                                           itemValue="#{idSeccionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademico}" for="idSubPeriodoAcademico" />
-                        <p:selectOneMenu id="idSubPeriodoAcademico" value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademico}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idSubPeriodoAcademico}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"
-                                           var="idSubPeriodoAcademicoItem"
-                                           itemValue="#{idSubPeriodoAcademicoItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idCurso}" for="idCurso" />
-                        <p:selectOneMenu id="idCurso" value="#{subPeriodoAcademicoSeccionCursoController.selected.idCurso}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idCurso}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"
-                                           var="idCursoItem"
-                                           itemValue="#{idCursoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{subPeriodoAcademicoSeccionCursoController.update}" value="#{bundle.Save}" update="display,:SubPeriodoAcademicoSeccionCursoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SubPeriodoAcademicoSeccionCursoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="SubPeriodoAcademicoSeccionCursoEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademicoSeccionCurso}" for="idSubPeriodoAcademicoSeccionCurso" />
+                    <h:inputText id="idSubPeriodoAcademicoSeccionCurso" value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idSubPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_formulaNotaSubPeriodo}" for="formulaNotaSubPeriodo" />
+                    <h:inputText id="formulaNotaSubPeriodo" value="#{subPeriodoAcademicoSeccionCursoController.selected.formulaNotaSubPeriodo}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_formulaNotaSubPeriodo}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_formulaNotaSubPeriodo}"/>
+                    <h:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccionCurso}" for="idPeriodoAcademicoSeccionCurso" />
+                    <h:inputText id="idPeriodoAcademicoSeccionCurso" value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
+                    <h:inputText id="idPeriodoAcademicoSeccion" value="#{subPeriodoAcademicoSeccionCursoController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idPeriodoAcademicoSeccion}"/>
+                    <h:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idSeccion}" for="idSeccion" />
+                    <h:selectOneMenu id="idSeccion" value="#{subPeriodoAcademicoSeccionCursoController.selected.idSeccion}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_idSeccion}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idSeccion}">
+                        <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idSubPeriodoAcademico}" for="idSubPeriodoAcademico" />
+                    <h:selectOneMenu id="idSubPeriodoAcademico" value="#{subPeriodoAcademicoSeccionCursoController.selected.idSubPeriodoAcademico}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademico}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idSubPeriodoAcademico}">
+                        <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_idCurso}" for="idCurso" />
+                    <h:selectOneMenu id="idCurso" value="#{subPeriodoAcademicoSeccionCursoController.selected.idCurso}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_idCurso}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_idCurso}">
+                        <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditSubPeriodoAcademicoSeccionCursoLabel_periodoAcademicoSeccionCurso}" for="periodoAcademicoSeccionCurso" />
+                    <h:selectOneMenu id="periodoAcademicoSeccionCurso" value="#{subPeriodoAcademicoSeccionCursoController.selected.periodoAcademicoSeccionCurso}" title="#{bundle.EditSubPeriodoAcademicoSeccionCursoTitle_periodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditSubPeriodoAcademicoSeccionCursoRequiredMessage_periodoAcademicoSeccionCurso}">
+                        <f:selectItems value="#{periodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.update}" value="#{bundle.EditSubPeriodoAcademicoSeccionCursoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSubPeriodoAcademicoSeccionCursoViewLink}"/>
+                <br />
+                <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.prepareList}" value="#{bundle.EditSubPeriodoAcademicoSeccionCursoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSubPeriodoAcademicoSeccionCursoIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

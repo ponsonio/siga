@@ -3,61 +3,59 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListMaterialSeccionCursoPeriodoTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="MaterialSeccionCursoPeriodoListForm">
-                <p:panel header="#{bundle.ListMaterialSeccionCursoPeriodoTitle}">
-                    <p:dataTable id="datalist" value="#{materialSeccionCursoPeriodoController.items}" var="item"
-                                 selectionMode="single" selection="#{materialSeccionCursoPeriodoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.materialSeccionCursoPeriodoPK}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListMaterialSeccionCursoPeriodoEmpty}" rendered="#{materialSeccionCursoPeriodoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{materialSeccionCursoPeriodoController.items.rowCount > 0}">
+                    <h:outputText value="#{materialSeccionCursoPeriodoController.pagination.pageFirstItem + 1}..#{materialSeccionCursoPeriodoController.pagination.pageLastItem + 1}/#{materialSeccionCursoPeriodoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{materialSeccionCursoPeriodoController.previous}" value="#{bundle.Previous} #{materialSeccionCursoPeriodoController.pagination.pageSize}" rendered="#{materialSeccionCursoPeriodoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{materialSeccionCursoPeriodoController.next}" value="#{bundle.Next} #{materialSeccionCursoPeriodoController.pagination.pageSize}" rendered="#{materialSeccionCursoPeriodoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{materialSeccionCursoPeriodoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}"/>
                             </f:facet>
                             <h:outputText value="#{item.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccionCurso}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}"/>
                             </f:facet>
                             <h:outputText value="#{item.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccion}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMaterialSeccionCursoPeriodoTitle_materiales}"/>
                             </f:facet>
                             <h:outputText value="#{item.materiales}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{materialSeccionCursoPeriodoController.prepareCreate}" update=":MaterialSeccionCursoPeriodoCreateForm" oncomplete="PF('MaterialSeccionCursoPeriodoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MaterialSeccionCursoPeriodoViewForm" oncomplete="PF('MaterialSeccionCursoPeriodoViewDialog').show()" disabled="#{empty materialSeccionCursoPeriodoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MaterialSeccionCursoPeriodoEditForm" oncomplete="PF('MaterialSeccionCursoPeriodoEditDialog').show()" disabled="#{empty materialSeccionCursoPeriodoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{materialSeccionCursoPeriodoController.destroy}" update=":growl,datalist" disabled="#{empty materialSeccionCursoPeriodoController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{materialSeccionCursoPeriodoController.prepareView}" value="#{bundle.ListMaterialSeccionCursoPeriodoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{materialSeccionCursoPeriodoController.prepareEdit}" value="#{bundle.ListMaterialSeccionCursoPeriodoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{materialSeccionCursoPeriodoController.destroy}" value="#{bundle.ListMaterialSeccionCursoPeriodoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{materialSeccionCursoPeriodoController.prepareCreate}" value="#{bundle.ListMaterialSeccionCursoPeriodoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListMaterialSeccionCursoPeriodoIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

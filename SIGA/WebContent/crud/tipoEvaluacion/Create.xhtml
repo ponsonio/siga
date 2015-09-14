@@ -3,35 +3,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="TipoEvaluacionCreateDlg" widgetVar="TipoEvaluacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoEvaluacionTitle}">
-            <h:form id="TipoEvaluacionCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{tipoEvaluacionController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_idTipoEvaluacion}" for="idTipoEvaluacion" />
-                        <p:inputText id="idTipoEvaluacion" value="#{tipoEvaluacionController.selected.idTipoEvaluacion}" title="#{bundle.CreateTipoEvaluacionTitle_idTipoEvaluacion}" required="true" requiredMessage="#{bundle.CreateTipoEvaluacionRequiredMessage_idTipoEvaluacion}"/>
-                        <p:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{tipoEvaluacionController.selected.nombre}" title="#{bundle.CreateTipoEvaluacionTitle_nombre}" required="true" requiredMessage="#{bundle.CreateTipoEvaluacionRequiredMessage_nombre}"/>
-                        <p:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{tipoEvaluacionController.selected.descripcion}" title="#{bundle.CreateTipoEvaluacionTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTipoEvaluacionRequiredMessage_descripcion}"/>
-                        <p:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_codigo}" for="codigo" />
-                        <p:inputText id="codigo" value="#{tipoEvaluacionController.selected.codigo}" title="#{bundle.CreateTipoEvaluacionTitle_codigo}" required="true" requiredMessage="#{bundle.CreateTipoEvaluacionRequiredMessage_codigo}"/>
-                        <p:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_idColegio}" for="idColegio" />
-                        <p:selectOneMenu id="idColegio" value="#{tipoEvaluacionController.selected.idColegio}" required="true" requiredMessage="#{bundle.EditTipoEvaluacionRequiredMessage_idColegio}">
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="idColegioItem"
-                                           itemValue="#{idColegioItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{tipoEvaluacionController.create}" value="#{bundle.Save}" update="display,:TipoEvaluacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoEvaluacionCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoEvaluacionCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTipoEvaluacionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_idTipoEvaluacion}" for="idTipoEvaluacion" />
+                    <h:inputText id="idTipoEvaluacion" value="#{tipoEvaluacionController.selected.idTipoEvaluacion}" title="#{bundle.CreateTipoEvaluacionTitle_idTipoEvaluacion}" required="true" requiredMessage="#{bundle.CreateTipoEvaluacionRequiredMessage_idTipoEvaluacion}"/>
+                    <h:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{tipoEvaluacionController.selected.nombre}" title="#{bundle.CreateTipoEvaluacionTitle_nombre}" required="true" requiredMessage="#{bundle.CreateTipoEvaluacionRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{tipoEvaluacionController.selected.descripcion}" title="#{bundle.CreateTipoEvaluacionTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTipoEvaluacionRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_codigo}" for="codigo" />
+                    <h:inputText id="codigo" value="#{tipoEvaluacionController.selected.codigo}" title="#{bundle.CreateTipoEvaluacionTitle_codigo}" required="true" requiredMessage="#{bundle.CreateTipoEvaluacionRequiredMessage_codigo}"/>
+                    <h:outputLabel value="#{bundle.CreateTipoEvaluacionLabel_idColegio}" for="idColegio" />
+                    <h:selectOneMenu id="idColegio" value="#{tipoEvaluacionController.selected.idColegio}" title="#{bundle.CreateTipoEvaluacionTitle_idColegio}" required="true" requiredMessage="#{bundle.CreateTipoEvaluacionRequiredMessage_idColegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tipoEvaluacionController.create}" value="#{bundle.CreateTipoEvaluacionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{tipoEvaluacionController.prepareList}" value="#{bundle.CreateTipoEvaluacionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTipoEvaluacionIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

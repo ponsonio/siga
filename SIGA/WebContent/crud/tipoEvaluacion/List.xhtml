@@ -3,73 +3,71 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListTipoEvaluacionTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="TipoEvaluacionListForm">
-                <p:panel header="#{bundle.ListTipoEvaluacionTitle}">
-                    <p:dataTable id="datalist" value="#{tipoEvaluacionController.items}" var="item"
-                                 selectionMode="single" selection="#{tipoEvaluacionController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idTipoEvaluacion}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListTipoEvaluacionEmpty}" rendered="#{tipoEvaluacionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tipoEvaluacionController.items.rowCount > 0}">
+                    <h:outputText value="#{tipoEvaluacionController.pagination.pageFirstItem + 1}..#{tipoEvaluacionController.pagination.pageLastItem + 1}/#{tipoEvaluacionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tipoEvaluacionController.previous}" value="#{bundle.Previous} #{tipoEvaluacionController.pagination.pageSize}" rendered="#{tipoEvaluacionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tipoEvaluacionController.next}" value="#{bundle.Next} #{tipoEvaluacionController.pagination.pageSize}" rendered="#{tipoEvaluacionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{tipoEvaluacionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoEvaluacionTitle_idTipoEvaluacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.idTipoEvaluacion}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoEvaluacionTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoEvaluacionTitle_descripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.descripcion}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoEvaluacionTitle_codigo}"/>
                             </f:facet>
                             <h:outputText value="#{item.codigo}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoEvaluacionTitle_idColegio}"/>
                             </f:facet>
                             <h:outputText value="#{item.idColegio}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tipoEvaluacionController.prepareCreate}" update=":TipoEvaluacionCreateForm" oncomplete="PF('TipoEvaluacionCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TipoEvaluacionViewForm" oncomplete="PF('TipoEvaluacionViewDialog').show()" disabled="#{empty tipoEvaluacionController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TipoEvaluacionEditForm" oncomplete="PF('TipoEvaluacionEditDialog').show()" disabled="#{empty tipoEvaluacionController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{tipoEvaluacionController.destroy}" update=":growl,datalist" disabled="#{empty tipoEvaluacionController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tipoEvaluacionController.prepareView}" value="#{bundle.ListTipoEvaluacionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tipoEvaluacionController.prepareEdit}" value="#{bundle.ListTipoEvaluacionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tipoEvaluacionController.destroy}" value="#{bundle.ListTipoEvaluacionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tipoEvaluacionController.prepareCreate}" value="#{bundle.ListTipoEvaluacionCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListTipoEvaluacionIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

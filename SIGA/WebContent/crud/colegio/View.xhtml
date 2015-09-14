@@ -3,28 +3,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewColegioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewColegioLabel_idColegio}"/>
+                    <h:outputText value="#{colegioController.selected.idColegio}" title="#{bundle.ViewColegioTitle_idColegio}"/>
+                    <h:outputText value="#{bundle.ViewColegioLabel_codigo}"/>
+                    <h:outputText value="#{colegioController.selected.codigo}" title="#{bundle.ViewColegioTitle_codigo}"/>
+                    <h:outputText value="#{bundle.ViewColegioLabel_direccion}"/>
+                    <h:outputText value="#{colegioController.selected.direccion}" title="#{bundle.ViewColegioTitle_direccion}"/>
+                    <h:outputText value="#{bundle.ViewColegioLabel_nombre}"/>
+                    <h:outputText value="#{colegioController.selected.nombre}" title="#{bundle.ViewColegioTitle_nombre}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{colegioController.destroyAndView}" value="#{bundle.ViewColegioDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewColegioEditLink}"/>
+                <br />
+                <h:commandLink action="#{colegioController.prepareCreate}" value="#{bundle.ViewColegioCreateLink}" />
+                <br />
+                <h:commandLink action="#{colegioController.prepareList}" value="#{bundle.ViewColegioShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewColegioIndexLink}"/>
 
-        <p:dialog id="ColegioViewDlg" widgetVar="ColegioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewColegioTitle}">
-            <h:form id="ColegioViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{colegioController.selected != null}">
-                        <h:outputText value="#{bundle.ViewColegioLabel_idColegio}"/>
-                        <h:outputText value="#{colegioController.selected.idColegio}" title="#{bundle.ViewColegioTitle_idColegio}"/>
-                        <h:outputText value="#{bundle.ViewColegioLabel_codigo}"/>
-                        <h:outputText value="#{colegioController.selected.codigo}" title="#{bundle.ViewColegioTitle_codigo}"/>
-                        <h:outputText value="#{bundle.ViewColegioLabel_direccion}"/>
-                        <h:outputText value="#{colegioController.selected.direccion}" title="#{bundle.ViewColegioTitle_direccion}"/>
-                        <h:outputText value="#{bundle.ViewColegioLabel_nombre}"/>
-                        <h:outputText value="#{colegioController.selected.nombre}" title="#{bundle.ViewColegioTitle_nombre}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ColegioViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

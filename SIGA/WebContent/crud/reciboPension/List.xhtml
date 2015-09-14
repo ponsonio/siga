@@ -3,115 +3,113 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListReciboPensionTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="ReciboPensionListForm">
-                <p:panel header="#{bundle.ListReciboPensionTitle}">
-                    <p:dataTable id="datalist" value="#{reciboPensionController.items}" var="item"
-                                 selectionMode="single" selection="#{reciboPensionController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idReciboPension}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListReciboPensionEmpty}" rendered="#{reciboPensionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{reciboPensionController.items.rowCount > 0}">
+                    <h:outputText value="#{reciboPensionController.pagination.pageFirstItem + 1}..#{reciboPensionController.pagination.pageLastItem + 1}/#{reciboPensionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{reciboPensionController.previous}" value="#{bundle.Previous} #{reciboPensionController.pagination.pageSize}" rendered="#{reciboPensionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{reciboPensionController.next}" value="#{bundle.Next} #{reciboPensionController.pagination.pageSize}" rendered="#{reciboPensionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{reciboPensionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_idReciboPension}"/>
                             </f:facet>
                             <h:outputText value="#{item.idReciboPension}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_fechaEmision}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaEmision}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_fechaMaximaPago}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaMaximaPago}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_fechaPago}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaPago}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_idColegio}"/>
                             </f:facet>
                             <h:outputText value="#{item.idColegio}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_mora}"/>
                             </f:facet>
                             <h:outputText value="#{item.mora}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_monto}"/>
                             </f:facet>
                             <h:outputText value="#{item.monto}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_idBanco}"/>
                             </f:facet>
                             <h:outputText value="#{item.idBanco}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_idPeriodoAcademico}"/>
                             </f:facet>
                             <h:outputText value="#{item.idPeriodoAcademico}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_idMoneda}"/>
                             </f:facet>
                             <h:outputText value="#{item.idMoneda}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReciboPensionTitle_idAlumno}"/>
                             </f:facet>
                             <h:outputText value="#{item.idAlumno}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{reciboPensionController.prepareCreate}" update=":ReciboPensionCreateForm" oncomplete="PF('ReciboPensionCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ReciboPensionViewForm" oncomplete="PF('ReciboPensionViewDialog').show()" disabled="#{empty reciboPensionController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ReciboPensionEditForm" oncomplete="PF('ReciboPensionEditDialog').show()" disabled="#{empty reciboPensionController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{reciboPensionController.destroy}" update=":growl,datalist" disabled="#{empty reciboPensionController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{reciboPensionController.prepareView}" value="#{bundle.ListReciboPensionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{reciboPensionController.prepareEdit}" value="#{bundle.ListReciboPensionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{reciboPensionController.destroy}" value="#{bundle.ListReciboPensionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{reciboPensionController.prepareCreate}" value="#{bundle.ListReciboPensionCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListReciboPensionIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

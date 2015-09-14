@@ -3,83 +3,81 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListEvaluacionTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="EvaluacionListForm">
-                <p:panel header="#{bundle.ListEvaluacionTitle}">
-                    <p:dataTable id="datalist" value="#{evaluacionController.items}" var="item"
-                                 selectionMode="single" selection="#{evaluacionController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idEvaluacion}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListEvaluacionEmpty}" rendered="#{evaluacionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{evaluacionController.items.rowCount > 0}">
+                    <h:outputText value="#{evaluacionController.pagination.pageFirstItem + 1}..#{evaluacionController.pagination.pageLastItem + 1}/#{evaluacionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{evaluacionController.previous}" value="#{bundle.Previous} #{evaluacionController.pagination.pageSize}" rendered="#{evaluacionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{evaluacionController.next}" value="#{bundle.Next} #{evaluacionController.pagination.pageSize}" rendered="#{evaluacionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{evaluacionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEvaluacionTitle_idEvaluacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.idEvaluacion}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEvaluacionTitle_fechaProgramada}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaProgramada}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEvaluacionTitle_etiqueta}"/>
                             </f:facet>
                             <h:outputText value="#{item.etiqueta}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEvaluacionTitle_fechaEvaluacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaEvaluacion}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEvaluacionTitle_idTipoEvaluacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.idTipoEvaluacion}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEvaluacionTitle_idSubPeriodoAcademicoSeccionCurso}"/>
                             </f:facet>
                             <h:outputText value="#{item.idSubPeriodoAcademicoSeccionCurso}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{evaluacionController.prepareCreate}" update=":EvaluacionCreateForm" oncomplete="PF('EvaluacionCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EvaluacionViewForm" oncomplete="PF('EvaluacionViewDialog').show()" disabled="#{empty evaluacionController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EvaluacionEditForm" oncomplete="PF('EvaluacionEditDialog').show()" disabled="#{empty evaluacionController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{evaluacionController.destroy}" update=":growl,datalist" disabled="#{empty evaluacionController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{evaluacionController.prepareView}" value="#{bundle.ListEvaluacionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{evaluacionController.prepareEdit}" value="#{bundle.ListEvaluacionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{evaluacionController.destroy}" value="#{bundle.ListEvaluacionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{evaluacionController.prepareCreate}" value="#{bundle.ListEvaluacionCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListEvaluacionIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

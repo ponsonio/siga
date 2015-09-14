@@ -3,30 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewResumenAlumnoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewResumenAlumnoLabel_idSeccion}"/>
+                    <h:outputText value="#{resumenAlumnoController.selected.idSeccion}" title="#{bundle.ViewResumenAlumnoTitle_idSeccion}"/>
+                    <h:outputText value="#{bundle.ViewResumenAlumnoLabel_periodoAcademico}"/>
+                    <h:outputText value="#{resumenAlumnoController.selected.periodoAcademico}" title="#{bundle.ViewResumenAlumnoTitle_periodoAcademico}"/>
+                    <h:outputText value="#{bundle.ViewResumenAlumnoLabel_idGrado}"/>
+                    <h:outputText value="#{resumenAlumnoController.selected.idGrado}" title="#{bundle.ViewResumenAlumnoTitle_idGrado}"/>
+                    <h:outputText value="#{bundle.ViewResumenAlumnoLabel_idColegio}"/>
+                    <h:outputText value="#{resumenAlumnoController.selected.idColegio}" title="#{bundle.ViewResumenAlumnoTitle_idColegio}"/>
+                    <h:outputText value="#{bundle.ViewResumenAlumnoLabel_alumno}"/>
+                    <h:outputText value="#{resumenAlumnoController.selected.alumno}" title="#{bundle.ViewResumenAlumnoTitle_alumno}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{resumenAlumnoController.destroyAndView}" value="#{bundle.ViewResumenAlumnoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewResumenAlumnoEditLink}"/>
+                <br />
+                <h:commandLink action="#{resumenAlumnoController.prepareCreate}" value="#{bundle.ViewResumenAlumnoCreateLink}" />
+                <br />
+                <h:commandLink action="#{resumenAlumnoController.prepareList}" value="#{bundle.ViewResumenAlumnoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewResumenAlumnoIndexLink}"/>
 
-        <p:dialog id="ResumenAlumnoViewDlg" widgetVar="ResumenAlumnoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewResumenAlumnoTitle}">
-            <h:form id="ResumenAlumnoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{resumenAlumnoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_idSeccion}"/>
-                        <h:outputText value="#{resumenAlumnoController.selected.idSeccion}" title="#{bundle.ViewResumenAlumnoTitle_idSeccion}"/>
-                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_periodoAcademico}"/>
-                        <h:outputText value="#{resumenAlumnoController.selected.periodoAcademico}" title="#{bundle.ViewResumenAlumnoTitle_periodoAcademico}"/>
-                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_idGrado}"/>
-                        <h:outputText value="#{resumenAlumnoController.selected.idGrado}" title="#{bundle.ViewResumenAlumnoTitle_idGrado}"/>
-                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_idColegio}"/>
-                        <h:outputText value="#{resumenAlumnoController.selected.idColegio}" title="#{bundle.ViewResumenAlumnoTitle_idColegio}"/>
-                        <h:outputText value="#{bundle.ViewResumenAlumnoLabel_alumno}"/>
-                        <h:outputText value="#{resumenAlumnoController.selected.alumno}" title="#{bundle.ViewResumenAlumnoTitle_alumno}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ResumenAlumnoViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -12,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -33,6 +35,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PeriodoAcademicoSeccionCursoNota.findByNotaFinalCurso", query = "SELECT p FROM PeriodoAcademicoSeccionCursoNota p WHERE p.notaFinalCurso = :notaFinalCurso"),
     @NamedQuery(name = "PeriodoAcademicoSeccionCursoNota.findByIdPeriodoAcademicoSeccion", query = "SELECT p FROM PeriodoAcademicoSeccionCursoNota p WHERE p.idPeriodoAcademicoSeccion = :idPeriodoAcademicoSeccion")})
 public class PeriodoAcademicoSeccionCursoNota implements Serializable {
+    @JoinColumns({
+        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION"),
+        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION_CURSO", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION_CURSO")})
+    @ManyToOne(optional = false)
+    private PeriodoAcademicoSeccionCurso periodoAcademicoSeccionCurso;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -133,6 +140,14 @@ public class PeriodoAcademicoSeccionCursoNota implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.PeriodoAcademicoSeccionCursoNota[ idPersona=" + idPersona + " ]";
+    }
+
+    public PeriodoAcademicoSeccionCurso getPeriodoAcademicoSeccionCurso() {
+        return periodoAcademicoSeccionCurso;
+    }
+
+    public void setPeriodoAcademicoSeccionCurso(PeriodoAcademicoSeccionCurso periodoAcademicoSeccionCurso) {
+        this.periodoAcademicoSeccionCurso = periodoAcademicoSeccionCurso;
     }
     
 }

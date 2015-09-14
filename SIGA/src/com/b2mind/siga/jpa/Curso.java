@@ -40,6 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curso.findByNombre", query = "SELECT c FROM Curso c WHERE c.nombre = :nombre"),
     @NamedQuery(name = "Curso.findByVigente", query = "SELECT c FROM Curso c WHERE c.vigente = :vigente")})
 public class Curso implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCurso")
+    private Collection<PeriodoAcademicoSeccionCurso> periodoAcademicoSeccionCursoCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -185,6 +187,15 @@ public class Curso implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.Curso[ idCurso=" + idCurso + " ]";
+    }
+
+    @XmlTransient
+    public Collection<PeriodoAcademicoSeccionCurso> getPeriodoAcademicoSeccionCursoCollection() {
+        return periodoAcademicoSeccionCursoCollection;
+    }
+
+    public void setPeriodoAcademicoSeccionCursoCollection(Collection<PeriodoAcademicoSeccionCurso> periodoAcademicoSeccionCursoCollection) {
+        this.periodoAcademicoSeccionCursoCollection = periodoAcademicoSeccionCursoCollection;
     }
     
 }

@@ -3,32 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idLibretaNotasSubperiodo}"/>
+                    <h:outputText value="#{libretaNotasSubperiodoController.selected.idLibretaNotasSubperiodo}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idLibretaNotasSubperiodo}"/>
+                    <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_nota}"/>
+                    <h:outputText value="#{libretaNotasSubperiodoController.selected.nota}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_nota}"/>
+                    <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idSubPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{libretaNotasSubperiodoController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idSubPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idSubPeriodo}"/>
+                    <h:outputText value="#{libretaNotasSubperiodoController.selected.idSubPeriodo}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idSubPeriodo}"/>
+                    <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idLibretaNotas}"/>
+                    <h:outputText value="#{libretaNotasSubperiodoController.selected.idLibretaNotas}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idLibretaNotas}"/>
+                    <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idCurso}"/>
+                    <h:outputText value="#{libretaNotasSubperiodoController.selected.idCurso}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idCurso}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{libretaNotasSubperiodoController.destroyAndView}" value="#{bundle.ViewLibretaNotasSubperiodoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewLibretaNotasSubperiodoEditLink}"/>
+                <br />
+                <h:commandLink action="#{libretaNotasSubperiodoController.prepareCreate}" value="#{bundle.ViewLibretaNotasSubperiodoCreateLink}" />
+                <br />
+                <h:commandLink action="#{libretaNotasSubperiodoController.prepareList}" value="#{bundle.ViewLibretaNotasSubperiodoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewLibretaNotasSubperiodoIndexLink}"/>
 
-        <p:dialog id="LibretaNotasSubperiodoViewDlg" widgetVar="LibretaNotasSubperiodoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLibretaNotasSubperiodoTitle}">
-            <h:form id="LibretaNotasSubperiodoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{libretaNotasSubperiodoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idLibretaNotasSubperiodo}"/>
-                        <h:outputText value="#{libretaNotasSubperiodoController.selected.idLibretaNotasSubperiodo}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idLibretaNotasSubperiodo}"/>
-                        <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_nota}"/>
-                        <h:outputText value="#{libretaNotasSubperiodoController.selected.nota}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_nota}"/>
-                        <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idSubPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{libretaNotasSubperiodoController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idSubPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idSubPeriodo}"/>
-                        <h:outputText value="#{libretaNotasSubperiodoController.selected.idSubPeriodo}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idSubPeriodo}"/>
-                        <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idLibretaNotas}"/>
-                        <h:outputText value="#{libretaNotasSubperiodoController.selected.idLibretaNotas}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idLibretaNotas}"/>
-                        <h:outputText value="#{bundle.ViewLibretaNotasSubperiodoLabel_idCurso}"/>
-                        <h:outputText value="#{libretaNotasSubperiodoController.selected.idCurso}" title="#{bundle.ViewLibretaNotasSubperiodoTitle_idCurso}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="LibretaNotasSubperiodoViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

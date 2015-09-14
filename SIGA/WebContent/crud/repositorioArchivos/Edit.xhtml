@@ -3,32 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="RepositorioArchivosEditDlg" widgetVar="RepositorioArchivosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRepositorioArchivosTitle}">
-            <h:form id="RepositorioArchivosEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{repositorioArchivosController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditRepositorioArchivosLabel_idRepositorio}" for="idRepositorio" />
-                        <p:inputText id="idRepositorio" value="#{repositorioArchivosController.selected.idRepositorio}" title="#{bundle.EditRepositorioArchivosTitle_idRepositorio}" required="true" requiredMessage="#{bundle.EditRepositorioArchivosRequiredMessage_idRepositorio}"/>
-                        <p:outputLabel value="#{bundle.EditRepositorioArchivosLabel_url}" for="url" />
-                        <p:inputText id="url" value="#{repositorioArchivosController.selected.url}" title="#{bundle.EditRepositorioArchivosTitle_url}" required="true" requiredMessage="#{bundle.EditRepositorioArchivosRequiredMessage_url}"/>
-                        <p:outputLabel value="#{bundle.EditRepositorioArchivosLabel_idColegio}" for="idColegio" />
-                        <p:selectOneMenu id="idColegio" value="#{repositorioArchivosController.selected.idColegio}" required="true" requiredMessage="#{bundle.EditRepositorioArchivosRequiredMessage_idColegio}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="idColegioItem"
-                                           itemValue="#{idColegioItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{repositorioArchivosController.update}" value="#{bundle.Save}" update="display,:RepositorioArchivosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RepositorioArchivosEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="RepositorioArchivosEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditRepositorioArchivosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditRepositorioArchivosLabel_idRepositorio}" for="idRepositorio" />
+                    <h:inputText id="idRepositorio" value="#{repositorioArchivosController.selected.idRepositorio}" title="#{bundle.EditRepositorioArchivosTitle_idRepositorio}" required="true" requiredMessage="#{bundle.EditRepositorioArchivosRequiredMessage_idRepositorio}"/>
+                    <h:outputLabel value="#{bundle.EditRepositorioArchivosLabel_url}" for="url" />
+                    <h:inputText id="url" value="#{repositorioArchivosController.selected.url}" title="#{bundle.EditRepositorioArchivosTitle_url}" required="true" requiredMessage="#{bundle.EditRepositorioArchivosRequiredMessage_url}"/>
+                    <h:outputLabel value="#{bundle.EditRepositorioArchivosLabel_idColegio}" for="idColegio" />
+                    <h:selectOneMenu id="idColegio" value="#{repositorioArchivosController.selected.idColegio}" title="#{bundle.EditRepositorioArchivosTitle_idColegio}" required="true" requiredMessage="#{bundle.EditRepositorioArchivosRequiredMessage_idColegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{repositorioArchivosController.update}" value="#{bundle.EditRepositorioArchivosSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditRepositorioArchivosViewLink}"/>
+                <br />
+                <h:commandLink action="#{repositorioArchivosController.prepareList}" value="#{bundle.EditRepositorioArchivosShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditRepositorioArchivosIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

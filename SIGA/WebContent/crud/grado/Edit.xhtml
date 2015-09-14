@@ -3,36 +3,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="GradoEditDlg" widgetVar="GradoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGradoTitle}">
-            <h:form id="GradoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{gradoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditGradoLabel_idGrado}" for="idGrado" />
-                        <p:inputText id="idGrado" value="#{gradoController.selected.idGrado}" title="#{bundle.EditGradoTitle_idGrado}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_idGrado}"/>
-                        <p:outputLabel value="#{bundle.EditGradoLabel_correlativo}" for="correlativo" />
-                        <p:inputText id="correlativo" value="#{gradoController.selected.correlativo}" title="#{bundle.EditGradoTitle_correlativo}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_correlativo}"/>
-                        <p:outputLabel value="#{bundle.EditGradoLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{gradoController.selected.nombre}" title="#{bundle.EditGradoTitle_nombre}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_nombre}"/>
-                        <p:outputLabel value="#{bundle.EditGradoLabel_etiqueta}" for="etiqueta" />
-                        <p:inputText id="etiqueta" value="#{gradoController.selected.etiqueta}" title="#{bundle.EditGradoTitle_etiqueta}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_etiqueta}"/>
-                        <p:outputLabel value="#{bundle.EditGradoLabel_idColegio}" for="idColegio" />
-                        <p:selectOneMenu id="idColegio" value="#{gradoController.selected.idColegio}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_idColegio}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="idColegioItem"
-                                           itemValue="#{idColegioItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{gradoController.update}" value="#{bundle.Save}" update="display,:GradoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GradoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="GradoEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditGradoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditGradoLabel_idGrado}" for="idGrado" />
+                    <h:inputText id="idGrado" value="#{gradoController.selected.idGrado}" title="#{bundle.EditGradoTitle_idGrado}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_idGrado}"/>
+                    <h:outputLabel value="#{bundle.EditGradoLabel_correlativo}" for="correlativo" />
+                    <h:inputText id="correlativo" value="#{gradoController.selected.correlativo}" title="#{bundle.EditGradoTitle_correlativo}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_correlativo}"/>
+                    <h:outputLabel value="#{bundle.EditGradoLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{gradoController.selected.nombre}" title="#{bundle.EditGradoTitle_nombre}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.EditGradoLabel_etiqueta}" for="etiqueta" />
+                    <h:inputText id="etiqueta" value="#{gradoController.selected.etiqueta}" title="#{bundle.EditGradoTitle_etiqueta}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_etiqueta}"/>
+                    <h:outputLabel value="#{bundle.EditGradoLabel_idColegio}" for="idColegio" />
+                    <h:selectOneMenu id="idColegio" value="#{gradoController.selected.idColegio}" title="#{bundle.EditGradoTitle_idColegio}" required="true" requiredMessage="#{bundle.EditGradoRequiredMessage_idColegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{gradoController.update}" value="#{bundle.EditGradoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditGradoViewLink}"/>
+                <br />
+                <h:commandLink action="#{gradoController.prepareList}" value="#{bundle.EditGradoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditGradoIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

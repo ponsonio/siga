@@ -280,17 +280,8 @@ public class Persona implements Serializable {
     }
 
     @Override
-	public String toString() {
-		return "Persona [idPersona=" + idPersona + ", primerNombre=" + primerNombre + ", fechaNacimiento="
-				+ fechaNacimiento + ", segundoNombre=" + segundoNombre + ", apellidoPaterno=" + apellidoPaterno
-				+ ", apellidoMaterno=" + apellidoMaterno + ", codigo=" + codigo + ", mensajeCollection="
-				+ mensajeCollection + ", personaMedioContactoCollection=" + personaMedioContactoCollection
-				+ ", docente=" + docente + ", fotoPersonaCollection=" + fotoPersonaCollection + ", apoderado="
-				+ apoderado + ", permisoCollection=" + permisoCollection + ", permisoCollection1=" + permisoCollection1
-				+ ", usuarioCollection=" + usuarioCollection + ", alumno=" + alumno + ", mensajeCollection1="
-				+ mensajeCollection1 + "]";
-	}
-    
-    
+    public String toString() {
+        return "com.b2mind.siga.jpa.Persona[ idPersona=" + idPersona + " ]";
+    }
     
 }

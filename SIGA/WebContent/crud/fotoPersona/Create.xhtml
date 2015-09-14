@@ -3,39 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="FotoPersonaCreateDlg" widgetVar="FotoPersonaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFotoPersonaTitle}">
-            <h:form id="FotoPersonaCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{fotoPersonaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateFotoPersonaLabel_idFoto}" for="idFoto" />
-                        <p:inputText id="idFoto" value="#{fotoPersonaController.selected.idFoto}" title="#{bundle.CreateFotoPersonaTitle_idFoto}" required="true" requiredMessage="#{bundle.CreateFotoPersonaRequiredMessage_idFoto}"/>
-                        <p:outputLabel value="#{bundle.CreateFotoPersonaLabel_vigente}" for="vigente" />
-                        <p:inputText id="vigente" value="#{fotoPersonaController.selected.vigente}" title="#{bundle.CreateFotoPersonaTitle_vigente}" required="true" requiredMessage="#{bundle.CreateFotoPersonaRequiredMessage_vigente}"/>
-                        <p:outputLabel value="#{bundle.CreateFotoPersonaLabel_nombreArchivo}" for="nombreArchivo" />
-                        <p:inputText id="nombreArchivo" value="#{fotoPersonaController.selected.nombreArchivo}" title="#{bundle.CreateFotoPersonaTitle_nombreArchivo}" required="true" requiredMessage="#{bundle.CreateFotoPersonaRequiredMessage_nombreArchivo}"/>
-                        <p:outputLabel value="#{bundle.CreateFotoPersonaLabel_idRepositorio}" for="idRepositorio" />
-                        <p:selectOneMenu id="idRepositorio" value="#{fotoPersonaController.selected.idRepositorio}" required="true" requiredMessage="#{bundle.EditFotoPersonaRequiredMessage_idRepositorio}">
-                            <f:selectItems value="#{repositorioArchivosController.itemsAvailableSelectOne}"
-                                           var="idRepositorioItem"
-                                           itemValue="#{idRepositorioItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateFotoPersonaLabel_idPersona}" for="idPersona" />
-                        <p:selectOneMenu id="idPersona" value="#{fotoPersonaController.selected.idPersona}" required="true" requiredMessage="#{bundle.EditFotoPersonaRequiredMessage_idPersona}">
-                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
-                                           var="idPersonaItem"
-                                           itemValue="#{idPersonaItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{fotoPersonaController.create}" value="#{bundle.Save}" update="display,:FotoPersonaListForm:datalist,:growl" oncomplete="handleSubmit(args,'FotoPersonaCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="FotoPersonaCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateFotoPersonaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateFotoPersonaLabel_idFoto}" for="idFoto" />
+                    <h:inputText id="idFoto" value="#{fotoPersonaController.selected.idFoto}" title="#{bundle.CreateFotoPersonaTitle_idFoto}" required="true" requiredMessage="#{bundle.CreateFotoPersonaRequiredMessage_idFoto}"/>
+                    <h:outputLabel value="#{bundle.CreateFotoPersonaLabel_vigente}" for="vigente" />
+                    <h:inputText id="vigente" value="#{fotoPersonaController.selected.vigente}" title="#{bundle.CreateFotoPersonaTitle_vigente}" required="true" requiredMessage="#{bundle.CreateFotoPersonaRequiredMessage_vigente}"/>
+                    <h:outputLabel value="#{bundle.CreateFotoPersonaLabel_nombreArchivo}" for="nombreArchivo" />
+                    <h:inputText id="nombreArchivo" value="#{fotoPersonaController.selected.nombreArchivo}" title="#{bundle.CreateFotoPersonaTitle_nombreArchivo}" required="true" requiredMessage="#{bundle.CreateFotoPersonaRequiredMessage_nombreArchivo}"/>
+                    <h:outputLabel value="#{bundle.CreateFotoPersonaLabel_idRepositorio}" for="idRepositorio" />
+                    <h:selectOneMenu id="idRepositorio" value="#{fotoPersonaController.selected.idRepositorio}" title="#{bundle.CreateFotoPersonaTitle_idRepositorio}" required="true" requiredMessage="#{bundle.CreateFotoPersonaRequiredMessage_idRepositorio}">
+                        <f:selectItems value="#{repositorioArchivosController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateFotoPersonaLabel_idPersona}" for="idPersona" />
+                    <h:selectOneMenu id="idPersona" value="#{fotoPersonaController.selected.idPersona}" title="#{bundle.CreateFotoPersonaTitle_idPersona}" required="true" requiredMessage="#{bundle.CreateFotoPersonaRequiredMessage_idPersona}">
+                        <f:selectItems value="#{personaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{fotoPersonaController.create}" value="#{bundle.CreateFotoPersonaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{fotoPersonaController.prepareList}" value="#{bundle.CreateFotoPersonaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateFotoPersonaIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

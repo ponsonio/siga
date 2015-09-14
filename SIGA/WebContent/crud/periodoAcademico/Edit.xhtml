@@ -3,45 +3,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="PeriodoAcademicoEditDlg" widgetVar="PeriodoAcademicoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPeriodoAcademicoTitle}">
-            <h:form id="PeriodoAcademicoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{periodoAcademicoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_idPeriodoAcademico}" for="idPeriodoAcademico" />
-                        <p:inputText id="idPeriodoAcademico" value="#{periodoAcademicoController.selected.idPeriodoAcademico}" title="#{bundle.EditPeriodoAcademicoTitle_idPeriodoAcademico}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_idPeriodoAcademico}"/>
-                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_enCurso}" for="enCurso" />
-                        <p:inputText id="enCurso" value="#{periodoAcademicoController.selected.enCurso}" title="#{bundle.EditPeriodoAcademicoTitle_enCurso}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_enCurso}"/>
-                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_etiqueta}" for="etiqueta" />
-                        <p:inputText id="etiqueta" value="#{periodoAcademicoController.selected.etiqueta}" title="#{bundle.EditPeriodoAcademicoTitle_etiqueta}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_etiqueta}"/>
-                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_fechaInicio}" for="fechaInicio" />
-                        <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{periodoAcademicoController.selected.fechaInicio}" title="#{bundle.EditPeriodoAcademicoTitle_fechaInicio}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_fechaInicio}" showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_fechaFin}" for="fechaFin" />
-                        <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{periodoAcademicoController.selected.fechaFin}" title="#{bundle.EditPeriodoAcademicoTitle_fechaFin}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_fechaFin}" showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_idParent}" for="idParent" />
-                        <p:selectOneMenu id="idParent" value="#{periodoAcademicoController.selected.idParent}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_idParent}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"
-                                           var="idParentItem"
-                                           itemValue="#{idParentItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_idColegio}" for="idColegio" />
-                        <p:selectOneMenu id="idColegio" value="#{periodoAcademicoController.selected.idColegio}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_idColegio}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="idColegioItem"
-                                           itemValue="#{idColegioItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{periodoAcademicoController.update}" value="#{bundle.Save}" update="display,:PeriodoAcademicoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PeriodoAcademicoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PeriodoAcademicoEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPeriodoAcademicoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_idPeriodoAcademico}" for="idPeriodoAcademico" />
+                    <h:inputText id="idPeriodoAcademico" value="#{periodoAcademicoController.selected.idPeriodoAcademico}" title="#{bundle.EditPeriodoAcademicoTitle_idPeriodoAcademico}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_idPeriodoAcademico}"/>
+                    <h:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_enCurso}" for="enCurso" />
+                    <h:inputText id="enCurso" value="#{periodoAcademicoController.selected.enCurso}" title="#{bundle.EditPeriodoAcademicoTitle_enCurso}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_enCurso}"/>
+                    <h:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_etiqueta}" for="etiqueta" />
+                    <h:inputText id="etiqueta" value="#{periodoAcademicoController.selected.etiqueta}" title="#{bundle.EditPeriodoAcademicoTitle_etiqueta}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_etiqueta}"/>
+                    <h:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_fechaInicio}" for="fechaInicio" />
+                    <h:inputText id="fechaInicio" value="#{periodoAcademicoController.selected.fechaInicio}" title="#{bundle.EditPeriodoAcademicoTitle_fechaInicio}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_fechaInicio}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_fechaFin}" for="fechaFin" />
+                    <h:inputText id="fechaFin" value="#{periodoAcademicoController.selected.fechaFin}" title="#{bundle.EditPeriodoAcademicoTitle_fechaFin}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_fechaFin}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_idParent}" for="idParent" />
+                    <h:selectOneMenu id="idParent" value="#{periodoAcademicoController.selected.idParent}" title="#{bundle.EditPeriodoAcademicoTitle_idParent}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_idParent}">
+                        <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPeriodoAcademicoLabel_idColegio}" for="idColegio" />
+                    <h:selectOneMenu id="idColegio" value="#{periodoAcademicoController.selected.idColegio}" title="#{bundle.EditPeriodoAcademicoTitle_idColegio}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoRequiredMessage_idColegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{periodoAcademicoController.update}" value="#{bundle.EditPeriodoAcademicoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditPeriodoAcademicoViewLink}"/>
+                <br />
+                <h:commandLink action="#{periodoAcademicoController.prepareList}" value="#{bundle.EditPeriodoAcademicoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditPeriodoAcademicoIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

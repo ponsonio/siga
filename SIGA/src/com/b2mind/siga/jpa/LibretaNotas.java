@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "LibretaNotas.findByIdLibretaNotas", query = "SELECT l FROM LibretaNotas l WHERE l.idLibretaNotas = :idLibretaNotas"),
     @NamedQuery(name = "LibretaNotas.findByIdPeriodoAcademicoSeccion", query = "SELECT l FROM LibretaNotas l WHERE l.idPeriodoAcademicoSeccion = :idPeriodoAcademicoSeccion")})
 public class LibretaNotas implements Serializable {
+    @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION")
+    @ManyToOne(optional = false)
+    private PeriodoAcademicoSeccion idPeriodoAcademicoSeccion;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -153,6 +156,14 @@ public class LibretaNotas implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.LibretaNotas[ idLibretaNotas=" + idLibretaNotas + " ]";
+    }
+
+    public PeriodoAcademicoSeccion getIdPeriodoAcademicoSeccion() {
+        return idPeriodoAcademicoSeccion;
+    }
+
+    public void setIdPeriodoAcademicoSeccion(PeriodoAcademicoSeccion idPeriodoAcademicoSeccion) {
+        this.idPeriodoAcademicoSeccion = idPeriodoAcademicoSeccion;
     }
     
 }

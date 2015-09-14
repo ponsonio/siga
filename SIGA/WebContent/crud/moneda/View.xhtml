@@ -3,26 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewMonedaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewMonedaLabel_idMoneda}"/>
+                    <h:outputText value="#{monedaController.selected.idMoneda}" title="#{bundle.ViewMonedaTitle_idMoneda}"/>
+                    <h:outputText value="#{bundle.ViewMonedaLabel_nombre}"/>
+                    <h:outputText value="#{monedaController.selected.nombre}" title="#{bundle.ViewMonedaTitle_nombre}"/>
+                    <h:outputText value="#{bundle.ViewMonedaLabel_codigo}"/>
+                    <h:outputText value="#{monedaController.selected.codigo}" title="#{bundle.ViewMonedaTitle_codigo}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{monedaController.destroyAndView}" value="#{bundle.ViewMonedaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewMonedaEditLink}"/>
+                <br />
+                <h:commandLink action="#{monedaController.prepareCreate}" value="#{bundle.ViewMonedaCreateLink}" />
+                <br />
+                <h:commandLink action="#{monedaController.prepareList}" value="#{bundle.ViewMonedaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewMonedaIndexLink}"/>
 
-        <p:dialog id="MonedaViewDlg" widgetVar="MonedaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMonedaTitle}">
-            <h:form id="MonedaViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{monedaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewMonedaLabel_idMoneda}"/>
-                        <h:outputText value="#{monedaController.selected.idMoneda}" title="#{bundle.ViewMonedaTitle_idMoneda}"/>
-                        <h:outputText value="#{bundle.ViewMonedaLabel_nombre}"/>
-                        <h:outputText value="#{monedaController.selected.nombre}" title="#{bundle.ViewMonedaTitle_nombre}"/>
-                        <h:outputText value="#{bundle.ViewMonedaLabel_codigo}"/>
-                        <h:outputText value="#{monedaController.selected.codigo}" title="#{bundle.ViewMonedaTitle_codigo}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="MonedaViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -3,73 +3,71 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListAsignacionAlumnoTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="AsignacionAlumnoListForm">
-                <p:panel header="#{bundle.ListAsignacionAlumnoTitle}">
-                    <p:dataTable id="datalist" value="#{asignacionAlumnoController.items}" var="item"
-                                 selectionMode="single" selection="#{asignacionAlumnoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idAsignacionAlumno}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListAsignacionAlumnoEmpty}" rendered="#{asignacionAlumnoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{asignacionAlumnoController.items.rowCount > 0}">
+                    <h:outputText value="#{asignacionAlumnoController.pagination.pageFirstItem + 1}..#{asignacionAlumnoController.pagination.pageLastItem + 1}/#{asignacionAlumnoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{asignacionAlumnoController.previous}" value="#{bundle.Previous} #{asignacionAlumnoController.pagination.pageSize}" rendered="#{asignacionAlumnoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{asignacionAlumnoController.next}" value="#{bundle.Next} #{asignacionAlumnoController.pagination.pageSize}" rendered="#{asignacionAlumnoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{asignacionAlumnoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAsignacionAlumnoTitle_idAsignacionAlumno}"/>
                             </f:facet>
                             <h:outputText value="#{item.idAsignacionAlumno}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAsignacionAlumnoTitle_nota}"/>
                             </f:facet>
                             <h:outputText value="#{item.nota}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAsignacionAlumnoTitle_idSubPeriodo}"/>
                             </f:facet>
                             <h:outputText value="#{item.idSubPeriodo}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAsignacionAlumnoTitle_idAsignacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.idAsignacion}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAsignacionAlumnoTitle_idAlumno}"/>
                             </f:facet>
                             <h:outputText value="#{item.idAlumno}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{asignacionAlumnoController.prepareCreate}" update=":AsignacionAlumnoCreateForm" oncomplete="PF('AsignacionAlumnoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AsignacionAlumnoViewForm" oncomplete="PF('AsignacionAlumnoViewDialog').show()" disabled="#{empty asignacionAlumnoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AsignacionAlumnoEditForm" oncomplete="PF('AsignacionAlumnoEditDialog').show()" disabled="#{empty asignacionAlumnoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{asignacionAlumnoController.destroy}" update=":growl,datalist" disabled="#{empty asignacionAlumnoController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{asignacionAlumnoController.prepareView}" value="#{bundle.ListAsignacionAlumnoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{asignacionAlumnoController.prepareEdit}" value="#{bundle.ListAsignacionAlumnoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{asignacionAlumnoController.destroy}" value="#{bundle.ListAsignacionAlumnoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{asignacionAlumnoController.prepareCreate}" value="#{bundle.ListAsignacionAlumnoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListAsignacionAlumnoIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

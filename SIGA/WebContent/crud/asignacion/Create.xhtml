@@ -3,41 +3,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="AsignacionCreateDlg" widgetVar="AsignacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAsignacionTitle}">
-            <h:form id="AsignacionCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{asignacionController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateAsignacionLabel_idAsignacion}" for="idAsignacion" />
-                        <p:inputText id="idAsignacion" value="#{asignacionController.selected.idAsignacion}" title="#{bundle.CreateAsignacionTitle_idAsignacion}" required="true" requiredMessage="#{bundle.CreateAsignacionRequiredMessage_idAsignacion}"/>
-                        <p:outputLabel value="#{bundle.CreateAsignacionLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{asignacionController.selected.descripcion}" title="#{bundle.CreateAsignacionTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateAsignacionRequiredMessage_descripcion}"/>
-                        <p:outputLabel value="#{bundle.CreateAsignacionLabel_fechaEntrega}" for="fechaEntrega" />
-                        <p:calendar id="fechaEntrega" pattern="MM/dd/yyyy" value="#{asignacionController.selected.fechaEntrega}" title="#{bundle.EditAsignacionTitle_fechaEntrega}" required="true" requiredMessage="#{bundle.EditAsignacionRequiredMessage_fechaEntrega}" showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateAsignacionLabel_etiqueta}" for="etiqueta" />
-                        <p:inputText id="etiqueta" value="#{asignacionController.selected.etiqueta}" title="#{bundle.CreateAsignacionTitle_etiqueta}" required="true" requiredMessage="#{bundle.CreateAsignacionRequiredMessage_etiqueta}"/>
-                        <p:outputLabel value="#{bundle.CreateAsignacionLabel_idTipoAsignacion}" for="idTipoAsignacion" />
-                        <p:selectOneMenu id="idTipoAsignacion" value="#{asignacionController.selected.idTipoAsignacion}" required="true" requiredMessage="#{bundle.EditAsignacionRequiredMessage_idTipoAsignacion}">
-                            <f:selectItems value="#{tipoAsignacionController.itemsAvailableSelectOne}"
-                                           var="idTipoAsignacionItem"
-                                           itemValue="#{idTipoAsignacionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateAsignacionLabel_idSubPeriodoAcademicoSeccionCurso}" for="idSubPeriodoAcademicoSeccionCurso" />
-                        <p:selectOneMenu id="idSubPeriodoAcademicoSeccionCurso" value="#{asignacionController.selected.idSubPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditAsignacionRequiredMessage_idSubPeriodoAcademicoSeccionCurso}">
-                            <f:selectItems value="#{subPeriodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"
-                                           var="idSubPeriodoAcademicoSeccionCursoItem"
-                                           itemValue="#{idSubPeriodoAcademicoSeccionCursoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{asignacionController.create}" value="#{bundle.Save}" update="display,:AsignacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'AsignacionCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="AsignacionCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAsignacionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAsignacionLabel_idAsignacion}" for="idAsignacion" />
+                    <h:inputText id="idAsignacion" value="#{asignacionController.selected.idAsignacion}" title="#{bundle.CreateAsignacionTitle_idAsignacion}" required="true" requiredMessage="#{bundle.CreateAsignacionRequiredMessage_idAsignacion}"/>
+                    <h:outputLabel value="#{bundle.CreateAsignacionLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{asignacionController.selected.descripcion}" title="#{bundle.CreateAsignacionTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateAsignacionRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.CreateAsignacionLabel_fechaEntrega}" for="fechaEntrega" />
+                    <h:inputText id="fechaEntrega" value="#{asignacionController.selected.fechaEntrega}" title="#{bundle.CreateAsignacionTitle_fechaEntrega}" required="true" requiredMessage="#{bundle.CreateAsignacionRequiredMessage_fechaEntrega}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAsignacionLabel_etiqueta}" for="etiqueta" />
+                    <h:inputText id="etiqueta" value="#{asignacionController.selected.etiqueta}" title="#{bundle.CreateAsignacionTitle_etiqueta}" required="true" requiredMessage="#{bundle.CreateAsignacionRequiredMessage_etiqueta}"/>
+                    <h:outputLabel value="#{bundle.CreateAsignacionLabel_idTipoAsignacion}" for="idTipoAsignacion" />
+                    <h:selectOneMenu id="idTipoAsignacion" value="#{asignacionController.selected.idTipoAsignacion}" title="#{bundle.CreateAsignacionTitle_idTipoAsignacion}" required="true" requiredMessage="#{bundle.CreateAsignacionRequiredMessage_idTipoAsignacion}">
+                        <f:selectItems value="#{tipoAsignacionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateAsignacionLabel_idSubPeriodoAcademicoSeccionCurso}" for="idSubPeriodoAcademicoSeccionCurso" />
+                    <h:selectOneMenu id="idSubPeriodoAcademicoSeccionCurso" value="#{asignacionController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.CreateAsignacionTitle_idSubPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.CreateAsignacionRequiredMessage_idSubPeriodoAcademicoSeccionCurso}">
+                        <f:selectItems value="#{subPeriodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{asignacionController.create}" value="#{bundle.CreateAsignacionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{asignacionController.prepareList}" value="#{bundle.CreateAsignacionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAsignacionIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

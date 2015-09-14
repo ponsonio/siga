@@ -3,41 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="SeccionEditDlg" widgetVar="SeccionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSeccionTitle}">
-            <h:form id="SeccionEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{seccionController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditSeccionLabel_idSeccion}" for="idSeccion" />
-                        <p:inputText id="idSeccion" value="#{seccionController.selected.idSeccion}" title="#{bundle.EditSeccionTitle_idSeccion}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_idSeccion}"/>
-                        <p:outputLabel value="#{bundle.EditSeccionLabel_correlativo}" for="correlativo" />
-                        <p:inputText id="correlativo" value="#{seccionController.selected.correlativo}" title="#{bundle.EditSeccionTitle_correlativo}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_correlativo}"/>
-                        <p:outputLabel value="#{bundle.EditSeccionLabel_etiqueta}" for="etiqueta" />
-                        <p:inputText id="etiqueta" value="#{seccionController.selected.etiqueta}" title="#{bundle.EditSeccionTitle_etiqueta}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_etiqueta}"/>
-                        <p:outputLabel value="#{bundle.EditSeccionLabel_idGrado}" for="idGrado" />
-                        <p:selectOneMenu id="idGrado" value="#{seccionController.selected.idGrado}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_idGrado}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{gradoController.itemsAvailableSelectOne}"
-                                           var="idGradoItem"
-                                           itemValue="#{idGradoItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditSeccionLabel_idColegio}" for="idColegio" />
-                        <p:selectOneMenu id="idColegio" value="#{seccionController.selected.idColegio}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_idColegio}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="idColegioItem"
-                                           itemValue="#{idColegioItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{seccionController.update}" value="#{bundle.Save}" update="display,:SeccionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SeccionEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="SeccionEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSeccionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSeccionLabel_idSeccion}" for="idSeccion" />
+                    <h:inputText id="idSeccion" value="#{seccionController.selected.idSeccion}" title="#{bundle.EditSeccionTitle_idSeccion}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_idSeccion}"/>
+                    <h:outputLabel value="#{bundle.EditSeccionLabel_correlativo}" for="correlativo" />
+                    <h:inputText id="correlativo" value="#{seccionController.selected.correlativo}" title="#{bundle.EditSeccionTitle_correlativo}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_correlativo}"/>
+                    <h:outputLabel value="#{bundle.EditSeccionLabel_etiqueta}" for="etiqueta" />
+                    <h:inputText id="etiqueta" value="#{seccionController.selected.etiqueta}" title="#{bundle.EditSeccionTitle_etiqueta}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_etiqueta}"/>
+                    <h:outputLabel value="#{bundle.EditSeccionLabel_idGrado}" for="idGrado" />
+                    <h:selectOneMenu id="idGrado" value="#{seccionController.selected.idGrado}" title="#{bundle.EditSeccionTitle_idGrado}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_idGrado}">
+                        <f:selectItems value="#{gradoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditSeccionLabel_idColegio}" for="idColegio" />
+                    <h:selectOneMenu id="idColegio" value="#{seccionController.selected.idColegio}" title="#{bundle.EditSeccionTitle_idColegio}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_idColegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{seccionController.update}" value="#{bundle.EditSeccionSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSeccionViewLink}"/>
+                <br />
+                <h:commandLink action="#{seccionController.prepareList}" value="#{bundle.EditSeccionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSeccionIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

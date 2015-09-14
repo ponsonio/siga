@@ -3,41 +3,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="EvaluacionCreateDlg" widgetVar="EvaluacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEvaluacionTitle}">
-            <h:form id="EvaluacionCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{evaluacionController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_idEvaluacion}" for="idEvaluacion" />
-                        <p:inputText id="idEvaluacion" value="#{evaluacionController.selected.idEvaluacion}" title="#{bundle.CreateEvaluacionTitle_idEvaluacion}" required="true" requiredMessage="#{bundle.CreateEvaluacionRequiredMessage_idEvaluacion}"/>
-                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_fechaProgramada}" for="fechaProgramada" />
-                        <p:calendar id="fechaProgramada" pattern="MM/dd/yyyy" value="#{evaluacionController.selected.fechaProgramada}" title="#{bundle.EditEvaluacionTitle_fechaProgramada}" required="true" requiredMessage="#{bundle.EditEvaluacionRequiredMessage_fechaProgramada}" showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_etiqueta}" for="etiqueta" />
-                        <p:inputText id="etiqueta" value="#{evaluacionController.selected.etiqueta}" title="#{bundle.CreateEvaluacionTitle_etiqueta}" required="true" requiredMessage="#{bundle.CreateEvaluacionRequiredMessage_etiqueta}"/>
-                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_fechaEvaluacion}" for="fechaEvaluacion" />
-                        <p:calendar id="fechaEvaluacion" pattern="MM/dd/yyyy" value="#{evaluacionController.selected.fechaEvaluacion}" title="#{bundle.EditEvaluacionTitle_fechaEvaluacion}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_idTipoEvaluacion}" for="idTipoEvaluacion" />
-                        <p:selectOneMenu id="idTipoEvaluacion" value="#{evaluacionController.selected.idTipoEvaluacion}" required="true" requiredMessage="#{bundle.EditEvaluacionRequiredMessage_idTipoEvaluacion}">
-                            <f:selectItems value="#{tipoEvaluacionController.itemsAvailableSelectOne}"
-                                           var="idTipoEvaluacionItem"
-                                           itemValue="#{idTipoEvaluacionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateEvaluacionLabel_idSubPeriodoAcademicoSeccionCurso}" for="idSubPeriodoAcademicoSeccionCurso" />
-                        <p:selectOneMenu id="idSubPeriodoAcademicoSeccionCurso" value="#{evaluacionController.selected.idSubPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditEvaluacionRequiredMessage_idSubPeriodoAcademicoSeccionCurso}">
-                            <f:selectItems value="#{subPeriodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"
-                                           var="idSubPeriodoAcademicoSeccionCursoItem"
-                                           itemValue="#{idSubPeriodoAcademicoSeccionCursoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{evaluacionController.create}" value="#{bundle.Save}" update="display,:EvaluacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'EvaluacionCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="EvaluacionCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEvaluacionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateEvaluacionLabel_idEvaluacion}" for="idEvaluacion" />
+                    <h:inputText id="idEvaluacion" value="#{evaluacionController.selected.idEvaluacion}" title="#{bundle.CreateEvaluacionTitle_idEvaluacion}" required="true" requiredMessage="#{bundle.CreateEvaluacionRequiredMessage_idEvaluacion}"/>
+                    <h:outputLabel value="#{bundle.CreateEvaluacionLabel_fechaProgramada}" for="fechaProgramada" />
+                    <h:inputText id="fechaProgramada" value="#{evaluacionController.selected.fechaProgramada}" title="#{bundle.CreateEvaluacionTitle_fechaProgramada}" required="true" requiredMessage="#{bundle.CreateEvaluacionRequiredMessage_fechaProgramada}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateEvaluacionLabel_etiqueta}" for="etiqueta" />
+                    <h:inputText id="etiqueta" value="#{evaluacionController.selected.etiqueta}" title="#{bundle.CreateEvaluacionTitle_etiqueta}" required="true" requiredMessage="#{bundle.CreateEvaluacionRequiredMessage_etiqueta}"/>
+                    <h:outputLabel value="#{bundle.CreateEvaluacionLabel_fechaEvaluacion}" for="fechaEvaluacion" />
+                    <h:inputText id="fechaEvaluacion" value="#{evaluacionController.selected.fechaEvaluacion}" title="#{bundle.CreateEvaluacionTitle_fechaEvaluacion}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateEvaluacionLabel_idTipoEvaluacion}" for="idTipoEvaluacion" />
+                    <h:selectOneMenu id="idTipoEvaluacion" value="#{evaluacionController.selected.idTipoEvaluacion}" title="#{bundle.CreateEvaluacionTitle_idTipoEvaluacion}" required="true" requiredMessage="#{bundle.CreateEvaluacionRequiredMessage_idTipoEvaluacion}">
+                        <f:selectItems value="#{tipoEvaluacionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateEvaluacionLabel_idSubPeriodoAcademicoSeccionCurso}" for="idSubPeriodoAcademicoSeccionCurso" />
+                    <h:selectOneMenu id="idSubPeriodoAcademicoSeccionCurso" value="#{evaluacionController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.CreateEvaluacionTitle_idSubPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.CreateEvaluacionRequiredMessage_idSubPeriodoAcademicoSeccionCurso}">
+                        <f:selectItems value="#{subPeriodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{evaluacionController.create}" value="#{bundle.CreateEvaluacionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{evaluacionController.prepareList}" value="#{bundle.CreateEvaluacionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateEvaluacionIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -3,46 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="AsignacionAlumnoEditDlg" widgetVar="AsignacionAlumnoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAsignacionAlumnoTitle}">
-            <h:form id="AsignacionAlumnoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{asignacionAlumnoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_idAsignacionAlumno}" for="idAsignacionAlumno" />
-                        <p:inputText id="idAsignacionAlumno" value="#{asignacionAlumnoController.selected.idAsignacionAlumno}" title="#{bundle.EditAsignacionAlumnoTitle_idAsignacionAlumno}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idAsignacionAlumno}"/>
-                        <p:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_nota}" for="nota" />
-                        <p:inputText id="nota" value="#{asignacionAlumnoController.selected.nota}" title="#{bundle.EditAsignacionAlumnoTitle_nota}" />
-                        <p:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_idSubPeriodo}" for="idSubPeriodo" />
-                        <p:selectOneMenu id="idSubPeriodo" value="#{asignacionAlumnoController.selected.idSubPeriodo}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idSubPeriodo}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"
-                                           var="idSubPeriodoItem"
-                                           itemValue="#{idSubPeriodoItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_idAsignacion}" for="idAsignacion" />
-                        <p:selectOneMenu id="idAsignacion" value="#{asignacionAlumnoController.selected.idAsignacion}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idAsignacion}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{asignacionController.itemsAvailableSelectOne}"
-                                           var="idAsignacionItem"
-                                           itemValue="#{idAsignacionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_idAlumno}" for="idAlumno" />
-                        <p:selectOneMenu id="idAlumno" value="#{asignacionAlumnoController.selected.idAlumno}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idAlumno}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
-                                           var="idAlumnoItem"
-                                           itemValue="#{idAlumnoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{asignacionAlumnoController.update}" value="#{bundle.Save}" update="display,:AsignacionAlumnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AsignacionAlumnoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="AsignacionAlumnoEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditAsignacionAlumnoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_idAsignacionAlumno}" for="idAsignacionAlumno" />
+                    <h:inputText id="idAsignacionAlumno" value="#{asignacionAlumnoController.selected.idAsignacionAlumno}" title="#{bundle.EditAsignacionAlumnoTitle_idAsignacionAlumno}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idAsignacionAlumno}"/>
+                    <h:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_nota}" for="nota" />
+                    <h:inputText id="nota" value="#{asignacionAlumnoController.selected.nota}" title="#{bundle.EditAsignacionAlumnoTitle_nota}" />
+                    <h:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_idSubPeriodo}" for="idSubPeriodo" />
+                    <h:selectOneMenu id="idSubPeriodo" value="#{asignacionAlumnoController.selected.idSubPeriodo}" title="#{bundle.EditAsignacionAlumnoTitle_idSubPeriodo}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idSubPeriodo}">
+                        <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_idAsignacion}" for="idAsignacion" />
+                    <h:selectOneMenu id="idAsignacion" value="#{asignacionAlumnoController.selected.idAsignacion}" title="#{bundle.EditAsignacionAlumnoTitle_idAsignacion}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idAsignacion}">
+                        <f:selectItems value="#{asignacionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditAsignacionAlumnoLabel_idAlumno}" for="idAlumno" />
+                    <h:selectOneMenu id="idAlumno" value="#{asignacionAlumnoController.selected.idAlumno}" title="#{bundle.EditAsignacionAlumnoTitle_idAlumno}" required="true" requiredMessage="#{bundle.EditAsignacionAlumnoRequiredMessage_idAlumno}">
+                        <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{asignacionAlumnoController.update}" value="#{bundle.EditAsignacionAlumnoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditAsignacionAlumnoViewLink}"/>
+                <br />
+                <h:commandLink action="#{asignacionAlumnoController.prepareList}" value="#{bundle.EditAsignacionAlumnoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditAsignacionAlumnoIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

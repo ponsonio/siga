@@ -191,16 +191,8 @@ public class Alumno implements Serializable {
     }
 
     @Override
-	public String toString() {
-		return "Alumno [idPersona=" + idPersona + ", apoderadoCollection=" + apoderadoCollection
-				+ ", matriculaAlumnoCollection=" + matriculaAlumnoCollection + ", libretaNotasCollection="
-				+ libretaNotasCollection + ", reciboPensionCollection=" + reciboPensionCollection
-				+ ", resumenAlumnoCollection=" + resumenAlumnoCollection + ", asignacionAlumnoCollection="
-				+ asignacionAlumnoCollection + ", periodoAcademicoSeccionCursoNota=" + periodoAcademicoSeccionCursoNota
-				+ ", asistenciaCollection=" + asistenciaCollection + ", persona=" + persona + ", idColegio=" + idColegio
-				+ "]";
-	}
-    
-    
+    public String toString() {
+        return "com.b2mind.siga.jpa.Alumno[ idPersona=" + idPersona + " ]";
+    }
     
 }

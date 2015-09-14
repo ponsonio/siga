@@ -3,35 +3,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="PeriodoAcademicoSeccionCursoNotaCreateDlg" widgetVar="PeriodoAcademicoSeccionCursoNotaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle}">
-            <h:form id="PeriodoAcademicoSeccionCursoNotaCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{periodoAcademicoSeccionCursoNotaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_idPersona}" for="idPersona" />
-                        <p:inputText id="idPersona" value="#{periodoAcademicoSeccionCursoNotaController.selected.idPersona}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_idPersona}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_idPersona}"/>
-                        <p:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccionCurso}" for="idPeriodoAcademicoSeccionCurso" />
-                        <p:inputText id="idPeriodoAcademicoSeccionCurso" value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_idPeriodoAcademicoSeccionCurso}"/>
-                        <p:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_notaFinalCurso}" for="notaFinalCurso" />
-                        <p:inputText id="notaFinalCurso" value="#{periodoAcademicoSeccionCursoNotaController.selected.notaFinalCurso}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_notaFinalCurso}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_notaFinalCurso}"/>
-                        <p:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
-                        <p:inputText id="idPeriodoAcademicoSeccion" value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_idPeriodoAcademicoSeccion}"/>
-                        <p:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_alumno}" for="alumno" />
-                        <p:selectOneMenu id="alumno" value="#{periodoAcademicoSeccionCursoNotaController.selected.alumno}" required="true" requiredMessage="#{bundle.EditPeriodoAcademicoSeccionCursoNotaRequiredMessage_alumno}">
-                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
-                                           var="alumnoItem"
-                                           itemValue="#{alumnoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{periodoAcademicoSeccionCursoNotaController.create}" value="#{bundle.Save}" update="display,:PeriodoAcademicoSeccionCursoNotaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PeriodoAcademicoSeccionCursoNotaCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PeriodoAcademicoSeccionCursoNotaCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_idPersona}" for="idPersona" />
+                    <h:inputText id="idPersona" value="#{periodoAcademicoSeccionCursoNotaController.selected.idPersona}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_idPersona}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_idPersona}"/>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccionCurso}" for="idPeriodoAcademicoSeccionCurso" />
+                    <h:inputText id="idPeriodoAcademicoSeccionCurso" value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_notaFinalCurso}" for="notaFinalCurso" />
+                    <h:inputText id="notaFinalCurso" value="#{periodoAcademicoSeccionCursoNotaController.selected.notaFinalCurso}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_notaFinalCurso}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_notaFinalCurso}"/>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
+                    <h:inputText id="idPeriodoAcademicoSeccion" value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_idPeriodoAcademicoSeccion}"/>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_alumno}" for="alumno" />
+                    <h:selectOneMenu id="alumno" value="#{periodoAcademicoSeccionCursoNotaController.selected.alumno}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_alumno}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_alumno}">
+                        <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaLabel_periodoAcademicoSeccionCurso}" for="periodoAcademicoSeccionCurso" />
+                    <h:selectOneMenu id="periodoAcademicoSeccionCurso" value="#{periodoAcademicoSeccionCursoNotaController.selected.periodoAcademicoSeccionCurso}" title="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaTitle_periodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaRequiredMessage_periodoAcademicoSeccionCurso}">
+                        <f:selectItems value="#{periodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.create}" value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.prepareList}" value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePeriodoAcademicoSeccionCursoNotaIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

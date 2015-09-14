@@ -3,35 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="DocenteCreateDlg" widgetVar="DocenteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDocenteTitle}">
-            <h:form id="DocenteCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{docenteController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDocenteLabel_idPersona}" for="idPersona" />
-                        <p:inputText id="idPersona" value="#{docenteController.selected.idPersona}" title="#{bundle.CreateDocenteTitle_idPersona}" required="true" requiredMessage="#{bundle.CreateDocenteRequiredMessage_idPersona}"/>
-                        <p:outputLabel value="#{bundle.CreateDocenteLabel_persona}" for="persona" />
-                        <p:selectOneMenu id="persona" value="#{docenteController.selected.persona}" required="true" requiredMessage="#{bundle.EditDocenteRequiredMessage_persona}">
-                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
-                                           var="personaItem"
-                                           itemValue="#{personaItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDocenteLabel_idColegio}" for="idColegio" />
-                        <p:selectOneMenu id="idColegio" value="#{docenteController.selected.idColegio}" required="true" requiredMessage="#{bundle.EditDocenteRequiredMessage_idColegio}">
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="idColegioItem"
-                                           itemValue="#{idColegioItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{docenteController.create}" value="#{bundle.Save}" update="display,:DocenteListForm:datalist,:growl" oncomplete="handleSubmit(args,'DocenteCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DocenteCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDocenteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDocenteLabel_idPersona}" for="idPersona" />
+                    <h:inputText id="idPersona" value="#{docenteController.selected.idPersona}" title="#{bundle.CreateDocenteTitle_idPersona}" required="true" requiredMessage="#{bundle.CreateDocenteRequiredMessage_idPersona}"/>
+                    <h:outputLabel value="#{bundle.CreateDocenteLabel_persona}" for="persona" />
+                    <h:selectOneMenu id="persona" value="#{docenteController.selected.persona}" title="#{bundle.CreateDocenteTitle_persona}" required="true" requiredMessage="#{bundle.CreateDocenteRequiredMessage_persona}">
+                        <f:selectItems value="#{personaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateDocenteLabel_idColegio}" for="idColegio" />
+                    <h:selectOneMenu id="idColegio" value="#{docenteController.selected.idColegio}" title="#{bundle.CreateDocenteTitle_idColegio}" required="true" requiredMessage="#{bundle.CreateDocenteRequiredMessage_idColegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{docenteController.create}" value="#{bundle.CreateDocenteSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{docenteController.prepareList}" value="#{bundle.CreateDocenteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDocenteIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

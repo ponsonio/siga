@@ -3,30 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAsignacionAlumnoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idAsignacionAlumno}"/>
+                    <h:outputText value="#{asignacionAlumnoController.selected.idAsignacionAlumno}" title="#{bundle.ViewAsignacionAlumnoTitle_idAsignacionAlumno}"/>
+                    <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_nota}"/>
+                    <h:outputText value="#{asignacionAlumnoController.selected.nota}" title="#{bundle.ViewAsignacionAlumnoTitle_nota}"/>
+                    <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idSubPeriodo}"/>
+                    <h:outputText value="#{asignacionAlumnoController.selected.idSubPeriodo}" title="#{bundle.ViewAsignacionAlumnoTitle_idSubPeriodo}"/>
+                    <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idAsignacion}"/>
+                    <h:outputText value="#{asignacionAlumnoController.selected.idAsignacion}" title="#{bundle.ViewAsignacionAlumnoTitle_idAsignacion}"/>
+                    <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idAlumno}"/>
+                    <h:outputText value="#{asignacionAlumnoController.selected.idAlumno}" title="#{bundle.ViewAsignacionAlumnoTitle_idAlumno}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{asignacionAlumnoController.destroyAndView}" value="#{bundle.ViewAsignacionAlumnoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAsignacionAlumnoEditLink}"/>
+                <br />
+                <h:commandLink action="#{asignacionAlumnoController.prepareCreate}" value="#{bundle.ViewAsignacionAlumnoCreateLink}" />
+                <br />
+                <h:commandLink action="#{asignacionAlumnoController.prepareList}" value="#{bundle.ViewAsignacionAlumnoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAsignacionAlumnoIndexLink}"/>
 
-        <p:dialog id="AsignacionAlumnoViewDlg" widgetVar="AsignacionAlumnoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAsignacionAlumnoTitle}">
-            <h:form id="AsignacionAlumnoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{asignacionAlumnoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idAsignacionAlumno}"/>
-                        <h:outputText value="#{asignacionAlumnoController.selected.idAsignacionAlumno}" title="#{bundle.ViewAsignacionAlumnoTitle_idAsignacionAlumno}"/>
-                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_nota}"/>
-                        <h:outputText value="#{asignacionAlumnoController.selected.nota}" title="#{bundle.ViewAsignacionAlumnoTitle_nota}"/>
-                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idSubPeriodo}"/>
-                        <h:outputText value="#{asignacionAlumnoController.selected.idSubPeriodo}" title="#{bundle.ViewAsignacionAlumnoTitle_idSubPeriodo}"/>
-                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idAsignacion}"/>
-                        <h:outputText value="#{asignacionAlumnoController.selected.idAsignacion}" title="#{bundle.ViewAsignacionAlumnoTitle_idAsignacion}"/>
-                        <h:outputText value="#{bundle.ViewAsignacionAlumnoLabel_idAlumno}"/>
-                        <h:outputText value="#{asignacionAlumnoController.selected.idAlumno}" title="#{bundle.ViewAsignacionAlumnoTitle_idAlumno}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="AsignacionAlumnoViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

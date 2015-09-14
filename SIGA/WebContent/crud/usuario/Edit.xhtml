@@ -3,43 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
-            <h:form id="UsuarioEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{usuarioController.selected.id}" title="#{bundle.EditUsuarioTitle_id}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_usuario}" for="usuario" />
-                        <p:inputText id="usuario" value="#{usuarioController.selected.usuario}" title="#{bundle.EditUsuarioTitle_usuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_usuario}"/>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{usuarioController.selected.password}" title="#{bundle.EditUsuarioTitle_password}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_password}"/>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_idPersona}" for="idPersona" />
-                        <p:selectOneMenu id="idPersona" value="#{usuarioController.selected.idPersona}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idPersona}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
-                                           var="idPersonaItem"
-                                           itemValue="#{idPersonaItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_idColegio}" for="idColegio" />
-                        <p:selectOneMenu id="idColegio" value="#{usuarioController.selected.idColegio}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idColegio}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="idColegioItem"
-                                           itemValue="#{idColegioItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_bloqueado}" for="bloqueado" />
-                        <p:inputText id="bloqueado" value="#{usuarioController.selected.bloqueado}" title="#{bundle.EditUsuarioTitle_bloqueado}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditUsuarioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{usuarioController.selected.id}" title="#{bundle.EditUsuarioTitle_id}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_usuario}" for="usuario" />
+                    <h:inputText id="usuario" value="#{usuarioController.selected.usuario}" title="#{bundle.EditUsuarioTitle_usuario}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_usuario}"/>
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_password}" for="password" />
+                    <h:inputText id="password" value="#{usuarioController.selected.password}" title="#{bundle.EditUsuarioTitle_password}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_password}"/>
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_idPersona}" for="idPersona" />
+                    <h:selectOneMenu id="idPersona" value="#{usuarioController.selected.idPersona}" title="#{bundle.EditUsuarioTitle_idPersona}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idPersona}">
+                        <f:selectItems value="#{personaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_idColegio}" for="idColegio" />
+                    <h:selectOneMenu id="idColegio" value="#{usuarioController.selected.idColegio}" title="#{bundle.EditUsuarioTitle_idColegio}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_idColegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditUsuarioLabel_bloqueado}" for="bloqueado" />
+                    <h:inputText id="bloqueado" value="#{usuarioController.selected.bloqueado}" title="#{bundle.EditUsuarioTitle_bloqueado}" />
+                </h:panelGrid>
+                <h:commandLink action="#{usuarioController.update}" value="#{bundle.EditUsuarioSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditUsuarioViewLink}"/>
+                <br />
+                <h:commandLink action="#{usuarioController.prepareList}" value="#{bundle.EditUsuarioShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditUsuarioIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

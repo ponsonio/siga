@@ -6,7 +6,9 @@
 package com.b2mind.siga.jpa;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,10 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Docente.findAll", query = "SELECT d FROM Docente d"),
     @NamedQuery(name = "Docente.findByIdPersona", query = "SELECT d FROM Docente d WHERE d.idPersona = :idPersona")})
 public class Docente implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDocente")
+    private Collection<PeriodoAcademicoSeccionCurso> periodoAcademicoSeccionCursoCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -97,6 +103,15 @@ public class Docente implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.Docente[ idPersona=" + idPersona + " ]";
+    }
+
+    @XmlTransient
+    public Collection<PeriodoAcademicoSeccionCurso> getPeriodoAcademicoSeccionCursoCollection() {
+        return periodoAcademicoSeccionCursoCollection;
+    }
+
+    public void setPeriodoAcademicoSeccionCursoCollection(Collection<PeriodoAcademicoSeccionCurso> periodoAcademicoSeccionCursoCollection) {
+        this.periodoAcademicoSeccionCursoCollection = periodoAcademicoSeccionCursoCollection;
     }
     
 }

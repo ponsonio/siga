@@ -3,30 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTipoEvaluacionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_idTipoEvaluacion}"/>
+                    <h:outputText value="#{tipoEvaluacionController.selected.idTipoEvaluacion}" title="#{bundle.ViewTipoEvaluacionTitle_idTipoEvaluacion}"/>
+                    <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_nombre}"/>
+                    <h:outputText value="#{tipoEvaluacionController.selected.nombre}" title="#{bundle.ViewTipoEvaluacionTitle_nombre}"/>
+                    <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_descripcion}"/>
+                    <h:outputText value="#{tipoEvaluacionController.selected.descripcion}" title="#{bundle.ViewTipoEvaluacionTitle_descripcion}"/>
+                    <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_codigo}"/>
+                    <h:outputText value="#{tipoEvaluacionController.selected.codigo}" title="#{bundle.ViewTipoEvaluacionTitle_codigo}"/>
+                    <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_idColegio}"/>
+                    <h:outputText value="#{tipoEvaluacionController.selected.idColegio}" title="#{bundle.ViewTipoEvaluacionTitle_idColegio}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tipoEvaluacionController.destroyAndView}" value="#{bundle.ViewTipoEvaluacionDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTipoEvaluacionEditLink}"/>
+                <br />
+                <h:commandLink action="#{tipoEvaluacionController.prepareCreate}" value="#{bundle.ViewTipoEvaluacionCreateLink}" />
+                <br />
+                <h:commandLink action="#{tipoEvaluacionController.prepareList}" value="#{bundle.ViewTipoEvaluacionShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTipoEvaluacionIndexLink}"/>
 
-        <p:dialog id="TipoEvaluacionViewDlg" widgetVar="TipoEvaluacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTipoEvaluacionTitle}">
-            <h:form id="TipoEvaluacionViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{tipoEvaluacionController.selected != null}">
-                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_idTipoEvaluacion}"/>
-                        <h:outputText value="#{tipoEvaluacionController.selected.idTipoEvaluacion}" title="#{bundle.ViewTipoEvaluacionTitle_idTipoEvaluacion}"/>
-                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_nombre}"/>
-                        <h:outputText value="#{tipoEvaluacionController.selected.nombre}" title="#{bundle.ViewTipoEvaluacionTitle_nombre}"/>
-                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_descripcion}"/>
-                        <h:outputText value="#{tipoEvaluacionController.selected.descripcion}" title="#{bundle.ViewTipoEvaluacionTitle_descripcion}"/>
-                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_codigo}"/>
-                        <h:outputText value="#{tipoEvaluacionController.selected.codigo}" title="#{bundle.ViewTipoEvaluacionTitle_codigo}"/>
-                        <h:outputText value="#{bundle.ViewTipoEvaluacionLabel_idColegio}"/>
-                        <h:outputText value="#{tipoEvaluacionController.selected.idColegio}" title="#{bundle.ViewTipoEvaluacionTitle_idColegio}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="TipoEvaluacionViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

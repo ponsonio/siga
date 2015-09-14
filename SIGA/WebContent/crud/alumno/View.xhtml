@@ -3,28 +3,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAlumnoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAlumnoLabel_idPersona}"/>
+                    <h:outputText value="#{alumnoController.selected.idPersona}" title="#{bundle.ViewAlumnoTitle_idPersona}"/>
+                    <h:outputText value="#{bundle.ViewAlumnoLabel_periodoAcademicoSeccionCursoNota}"/>
+                    <h:outputText value="#{alumnoController.selected.periodoAcademicoSeccionCursoNota}" title="#{bundle.ViewAlumnoTitle_periodoAcademicoSeccionCursoNota}"/>
+                    <h:outputText value="#{bundle.ViewAlumnoLabel_persona}"/>
+                    <h:outputText value="#{alumnoController.selected.persona}" title="#{bundle.ViewAlumnoTitle_persona}"/>
+                    <h:outputText value="#{bundle.ViewAlumnoLabel_idColegio}"/>
+                    <h:outputText value="#{alumnoController.selected.idColegio}" title="#{bundle.ViewAlumnoTitle_idColegio}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{alumnoController.destroyAndView}" value="#{bundle.ViewAlumnoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAlumnoEditLink}"/>
+                <br />
+                <h:commandLink action="#{alumnoController.prepareCreate}" value="#{bundle.ViewAlumnoCreateLink}" />
+                <br />
+                <h:commandLink action="#{alumnoController.prepareList}" value="#{bundle.ViewAlumnoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAlumnoIndexLink}"/>
 
-        <p:dialog id="AlumnoViewDlg" widgetVar="AlumnoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAlumnoTitle}">
-            <h:form id="AlumnoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{alumnoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewAlumnoLabel_idPersona}"/>
-                        <h:outputText value="#{alumnoController.selected.idPersona}" title="#{bundle.ViewAlumnoTitle_idPersona}"/>
-                        <h:outputText value="#{bundle.ViewAlumnoLabel_periodoAcademicoSeccionCursoNota}"/>
-                        <h:outputText value="#{alumnoController.selected.periodoAcademicoSeccionCursoNota}" title="#{bundle.ViewAlumnoTitle_periodoAcademicoSeccionCursoNota}"/>
-                        <h:outputText value="#{bundle.ViewAlumnoLabel_persona}"/>
-                        <h:outputText value="#{alumnoController.selected.persona}" title="#{bundle.ViewAlumnoTitle_persona}"/>
-                        <h:outputText value="#{bundle.ViewAlumnoLabel_idColegio}"/>
-                        <h:outputText value="#{alumnoController.selected.idColegio}" title="#{bundle.ViewAlumnoTitle_idColegio}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="AlumnoViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

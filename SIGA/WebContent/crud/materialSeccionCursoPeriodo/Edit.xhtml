@@ -3,32 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="MaterialSeccionCursoPeriodoEditDlg" widgetVar="MaterialSeccionCursoPeriodoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaterialSeccionCursoPeriodoTitle}">
-            <h:form id="MaterialSeccionCursoPeriodoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{materialSeccionCursoPeriodoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditMaterialSeccionCursoPeriodoLabel_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}" for="materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion" />
-                        <p:inputText id="materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion" value="#{materialSeccionCursoPeriodoController.selected.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccion}" title="#{bundle.EditMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.EditMaterialSeccionCursoPeriodoRequiredMessage_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}"/>
-                        <p:outputLabel value="#{bundle.EditMaterialSeccionCursoPeriodoLabel_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}" for="materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso" />
-                        <p:inputText id="materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso" value="#{materialSeccionCursoPeriodoController.selected.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccionCurso}" title="#{bundle.EditMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditMaterialSeccionCursoPeriodoRequiredMessage_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}"/>
-                        <p:outputLabel value="#{bundle.EditMaterialSeccionCursoPeriodoLabel_materiales}" for="materiales" />
-                        <p:selectOneMenu id="materiales" value="#{materialSeccionCursoPeriodoController.selected.materiales}" required="true" requiredMessage="#{bundle.EditMaterialSeccionCursoPeriodoRequiredMessage_materiales}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{materialesController.itemsAvailableSelectOne}"
-                                           var="materialesItem"
-                                           itemValue="#{materialesItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{materialSeccionCursoPeriodoController.update}" value="#{bundle.Save}" update="display,:MaterialSeccionCursoPeriodoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialSeccionCursoPeriodoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MaterialSeccionCursoPeriodoEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditMaterialSeccionCursoPeriodoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditMaterialSeccionCursoPeriodoLabel_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}" for="materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion" />
+                    <h:inputText id="materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion" value="#{materialSeccionCursoPeriodoController.selected.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccion}" title="#{bundle.EditMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.EditMaterialSeccionCursoPeriodoRequiredMessage_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}"/>
+                    <h:outputLabel value="#{bundle.EditMaterialSeccionCursoPeriodoLabel_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}" for="materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso" />
+                    <h:inputText id="materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso" value="#{materialSeccionCursoPeriodoController.selected.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccionCurso}" title="#{bundle.EditMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.EditMaterialSeccionCursoPeriodoRequiredMessage_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputLabel value="#{bundle.EditMaterialSeccionCursoPeriodoLabel_materiales}" for="materiales" />
+                    <h:selectOneMenu id="materiales" value="#{materialSeccionCursoPeriodoController.selected.materiales}" title="#{bundle.EditMaterialSeccionCursoPeriodoTitle_materiales}" required="true" requiredMessage="#{bundle.EditMaterialSeccionCursoPeriodoRequiredMessage_materiales}">
+                        <f:selectItems value="#{materialesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{materialSeccionCursoPeriodoController.update}" value="#{bundle.EditMaterialSeccionCursoPeriodoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditMaterialSeccionCursoPeriodoViewLink}"/>
+                <br />
+                <h:commandLink action="#{materialSeccionCursoPeriodoController.prepareList}" value="#{bundle.EditMaterialSeccionCursoPeriodoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditMaterialSeccionCursoPeriodoIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -3,41 +3,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="LibretaNotasFinalesCursoCreateDlg" widgetVar="LibretaNotasFinalesCursoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLibretaNotasFinalesCursoTitle}">
-            <h:form id="LibretaNotasFinalesCursoCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{libretaNotasFinalesCursoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{libretaNotasFinalesCursoController.selected.id}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_id}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_nota}" for="nota" />
-                        <p:inputText id="nota" value="#{libretaNotasFinalesCursoController.selected.nota}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_nota}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_nota}"/>
-                        <p:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_idPeriodoAcademicoSeccionCurso}" for="idPeriodoAcademicoSeccionCurso" />
-                        <p:inputText id="idPeriodoAcademicoSeccionCurso" value="#{libretaNotasFinalesCursoController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_idPeriodoAcademicoSeccionCurso}"/>
-                        <p:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
-                        <p:inputText id="idPeriodoAcademicoSeccion" value="#{libretaNotasFinalesCursoController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_idPeriodoAcademicoSeccion}"/>
-                        <p:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_idLibretaNotas}" for="idLibretaNotas" />
-                        <p:selectOneMenu id="idLibretaNotas" value="#{libretaNotasFinalesCursoController.selected.idLibretaNotas}" required="true" requiredMessage="#{bundle.EditLibretaNotasFinalesCursoRequiredMessage_idLibretaNotas}">
-                            <f:selectItems value="#{libretaNotasController.itemsAvailableSelectOne}"
-                                           var="idLibretaNotasItem"
-                                           itemValue="#{idLibretaNotasItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_idCurso}" for="idCurso" />
-                        <p:selectOneMenu id="idCurso" value="#{libretaNotasFinalesCursoController.selected.idCurso}" required="true" requiredMessage="#{bundle.EditLibretaNotasFinalesCursoRequiredMessage_idCurso}">
-                            <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"
-                                           var="idCursoItem"
-                                           itemValue="#{idCursoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{libretaNotasFinalesCursoController.create}" value="#{bundle.Save}" update="display,:LibretaNotasFinalesCursoListForm:datalist,:growl" oncomplete="handleSubmit(args,'LibretaNotasFinalesCursoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="LibretaNotasFinalesCursoCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateLibretaNotasFinalesCursoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{libretaNotasFinalesCursoController.selected.id}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_id}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_nota}" for="nota" />
+                    <h:inputText id="nota" value="#{libretaNotasFinalesCursoController.selected.nota}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_nota}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_nota}"/>
+                    <h:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_idPeriodoAcademicoSeccionCurso}" for="idPeriodoAcademicoSeccionCurso" />
+                    <h:inputText id="idPeriodoAcademicoSeccionCurso" value="#{libretaNotasFinalesCursoController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_idPeriodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
+                    <h:inputText id="idPeriodoAcademicoSeccion" value="#{libretaNotasFinalesCursoController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_idPeriodoAcademicoSeccion}"/>
+                    <h:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_idLibretaNotas}" for="idLibretaNotas" />
+                    <h:selectOneMenu id="idLibretaNotas" value="#{libretaNotasFinalesCursoController.selected.idLibretaNotas}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_idLibretaNotas}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_idLibretaNotas}">
+                        <f:selectItems value="#{libretaNotasController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_idCurso}" for="idCurso" />
+                    <h:selectOneMenu id="idCurso" value="#{libretaNotasFinalesCursoController.selected.idCurso}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_idCurso}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_idCurso}">
+                        <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateLibretaNotasFinalesCursoLabel_periodoAcademicoSeccionCurso}" for="periodoAcademicoSeccionCurso" />
+                    <h:selectOneMenu id="periodoAcademicoSeccionCurso" value="#{libretaNotasFinalesCursoController.selected.periodoAcademicoSeccionCurso}" title="#{bundle.CreateLibretaNotasFinalesCursoTitle_periodoAcademicoSeccionCurso}" required="true" requiredMessage="#{bundle.CreateLibretaNotasFinalesCursoRequiredMessage_periodoAcademicoSeccionCurso}">
+                        <f:selectItems value="#{periodoAcademicoSeccionCursoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{libretaNotasFinalesCursoController.create}" value="#{bundle.CreateLibretaNotasFinalesCursoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{libretaNotasFinalesCursoController.prepareList}" value="#{bundle.CreateLibretaNotasFinalesCursoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateLibretaNotasFinalesCursoIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

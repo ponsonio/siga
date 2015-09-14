@@ -3,46 +3,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="LibretaNotasEditDlg" widgetVar="LibretaNotasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditLibretaNotasTitle}">
-            <h:form id="LibretaNotasEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{libretaNotasController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditLibretaNotasLabel_idLibretaNotas}" for="idLibretaNotas" />
-                        <p:inputText id="idLibretaNotas" value="#{libretaNotasController.selected.idLibretaNotas}" title="#{bundle.EditLibretaNotasTitle_idLibretaNotas}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idLibretaNotas}"/>
-                        <p:outputLabel value="#{bundle.EditLibretaNotasLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
-                        <p:inputText id="idPeriodoAcademicoSeccion" value="#{libretaNotasController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.EditLibretaNotasTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idPeriodoAcademicoSeccion}"/>
-                        <p:outputLabel value="#{bundle.EditLibretaNotasLabel_idSeccion}" for="idSeccion" />
-                        <p:selectOneMenu id="idSeccion" value="#{libretaNotasController.selected.idSeccion}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idSeccion}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"
-                                           var="idSeccionItem"
-                                           itemValue="#{idSeccionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditLibretaNotasLabel_idPeriodoAcademico}" for="idPeriodoAcademico" />
-                        <p:selectOneMenu id="idPeriodoAcademico" value="#{libretaNotasController.selected.idPeriodoAcademico}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idPeriodoAcademico}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"
-                                           var="idPeriodoAcademicoItem"
-                                           itemValue="#{idPeriodoAcademicoItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditLibretaNotasLabel_idAlumno}" for="idAlumno" />
-                        <p:selectOneMenu id="idAlumno" value="#{libretaNotasController.selected.idAlumno}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idAlumno}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
-                                           var="idAlumnoItem"
-                                           itemValue="#{idAlumnoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{libretaNotasController.update}" value="#{bundle.Save}" update="display,:LibretaNotasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LibretaNotasEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="LibretaNotasEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditLibretaNotasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditLibretaNotasLabel_idLibretaNotas}" for="idLibretaNotas" />
+                    <h:inputText id="idLibretaNotas" value="#{libretaNotasController.selected.idLibretaNotas}" title="#{bundle.EditLibretaNotasTitle_idLibretaNotas}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idLibretaNotas}"/>
+                    <h:outputLabel value="#{bundle.EditLibretaNotasLabel_idPeriodoAcademicoSeccion}" for="idPeriodoAcademicoSeccion" />
+                    <h:selectOneMenu id="idPeriodoAcademicoSeccion" value="#{libretaNotasController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.EditLibretaNotasTitle_idPeriodoAcademicoSeccion}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idPeriodoAcademicoSeccion}">
+                        <f:selectItems value="#{}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditLibretaNotasLabel_idSeccion}" for="idSeccion" />
+                    <h:selectOneMenu id="idSeccion" value="#{libretaNotasController.selected.idSeccion}" title="#{bundle.EditLibretaNotasTitle_idSeccion}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idSeccion}">
+                        <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditLibretaNotasLabel_idPeriodoAcademico}" for="idPeriodoAcademico" />
+                    <h:selectOneMenu id="idPeriodoAcademico" value="#{libretaNotasController.selected.idPeriodoAcademico}" title="#{bundle.EditLibretaNotasTitle_idPeriodoAcademico}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idPeriodoAcademico}">
+                        <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditLibretaNotasLabel_idAlumno}" for="idAlumno" />
+                    <h:selectOneMenu id="idAlumno" value="#{libretaNotasController.selected.idAlumno}" title="#{bundle.EditLibretaNotasTitle_idAlumno}" required="true" requiredMessage="#{bundle.EditLibretaNotasRequiredMessage_idAlumno}">
+                        <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{libretaNotasController.update}" value="#{bundle.EditLibretaNotasSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditLibretaNotasViewLink}"/>
+                <br />
+                <h:commandLink action="#{libretaNotasController.prepareList}" value="#{bundle.EditLibretaNotasShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditLibretaNotasIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

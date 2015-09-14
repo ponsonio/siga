@@ -3,36 +3,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewEvaluacionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewEvaluacionLabel_idEvaluacion}"/>
+                    <h:outputText value="#{evaluacionController.selected.idEvaluacion}" title="#{bundle.ViewEvaluacionTitle_idEvaluacion}"/>
+                    <h:outputText value="#{bundle.ViewEvaluacionLabel_fechaProgramada}"/>
+                    <h:outputText value="#{evaluacionController.selected.fechaProgramada}" title="#{bundle.ViewEvaluacionTitle_fechaProgramada}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewEvaluacionLabel_etiqueta}"/>
+                    <h:outputText value="#{evaluacionController.selected.etiqueta}" title="#{bundle.ViewEvaluacionTitle_etiqueta}"/>
+                    <h:outputText value="#{bundle.ViewEvaluacionLabel_fechaEvaluacion}"/>
+                    <h:outputText value="#{evaluacionController.selected.fechaEvaluacion}" title="#{bundle.ViewEvaluacionTitle_fechaEvaluacion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewEvaluacionLabel_idTipoEvaluacion}"/>
+                    <h:outputText value="#{evaluacionController.selected.idTipoEvaluacion}" title="#{bundle.ViewEvaluacionTitle_idTipoEvaluacion}"/>
+                    <h:outputText value="#{bundle.ViewEvaluacionLabel_idSubPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{evaluacionController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewEvaluacionTitle_idSubPeriodoAcademicoSeccionCurso}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{evaluacionController.destroyAndView}" value="#{bundle.ViewEvaluacionDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewEvaluacionEditLink}"/>
+                <br />
+                <h:commandLink action="#{evaluacionController.prepareCreate}" value="#{bundle.ViewEvaluacionCreateLink}" />
+                <br />
+                <h:commandLink action="#{evaluacionController.prepareList}" value="#{bundle.ViewEvaluacionShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewEvaluacionIndexLink}"/>
 
-        <p:dialog id="EvaluacionViewDlg" widgetVar="EvaluacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEvaluacionTitle}">
-            <h:form id="EvaluacionViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{evaluacionController.selected != null}">
-                        <h:outputText value="#{bundle.ViewEvaluacionLabel_idEvaluacion}"/>
-                        <h:outputText value="#{evaluacionController.selected.idEvaluacion}" title="#{bundle.ViewEvaluacionTitle_idEvaluacion}"/>
-                        <h:outputText value="#{bundle.ViewEvaluacionLabel_fechaProgramada}"/>
-                        <h:outputText value="#{evaluacionController.selected.fechaProgramada}" title="#{bundle.ViewEvaluacionTitle_fechaProgramada}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewEvaluacionLabel_etiqueta}"/>
-                        <h:outputText value="#{evaluacionController.selected.etiqueta}" title="#{bundle.ViewEvaluacionTitle_etiqueta}"/>
-                        <h:outputText value="#{bundle.ViewEvaluacionLabel_fechaEvaluacion}"/>
-                        <h:outputText value="#{evaluacionController.selected.fechaEvaluacion}" title="#{bundle.ViewEvaluacionTitle_fechaEvaluacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewEvaluacionLabel_idTipoEvaluacion}"/>
-                        <h:outputText value="#{evaluacionController.selected.idTipoEvaluacion}" title="#{bundle.ViewEvaluacionTitle_idTipoEvaluacion}"/>
-                        <h:outputText value="#{bundle.ViewEvaluacionLabel_idSubPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{evaluacionController.selected.idSubPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewEvaluacionTitle_idSubPeriodoAcademicoSeccionCurso}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="EvaluacionViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

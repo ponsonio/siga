@@ -3,32 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="ApoderadoEditDlg" widgetVar="ApoderadoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditApoderadoTitle}">
-            <h:form id="ApoderadoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{apoderadoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditApoderadoLabel_idPersona}" for="idPersona" />
-                        <p:inputText id="idPersona" value="#{apoderadoController.selected.idPersona}" title="#{bundle.EditApoderadoTitle_idPersona}" required="true" requiredMessage="#{bundle.EditApoderadoRequiredMessage_idPersona}"/>
-                        <p:outputLabel value="#{bundle.EditApoderadoLabel_idTipoApoderado}" for="idTipoApoderado" />
-                        <p:inputText id="idTipoApoderado" value="#{apoderadoController.selected.idTipoApoderado}" title="#{bundle.EditApoderadoTitle_idTipoApoderado}" required="true" requiredMessage="#{bundle.EditApoderadoRequiredMessage_idTipoApoderado}"/>
-                        <p:outputLabel value="#{bundle.EditApoderadoLabel_persona}" for="persona" />
-                        <p:selectOneMenu id="persona" value="#{apoderadoController.selected.persona}" required="true" requiredMessage="#{bundle.EditApoderadoRequiredMessage_persona}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
-                                           var="personaItem"
-                                           itemValue="#{personaItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{apoderadoController.update}" value="#{bundle.Save}" update="display,:ApoderadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ApoderadoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ApoderadoEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditApoderadoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditApoderadoLabel_idPersona}" for="idPersona" />
+                    <h:inputText id="idPersona" value="#{apoderadoController.selected.idPersona}" title="#{bundle.EditApoderadoTitle_idPersona}" required="true" requiredMessage="#{bundle.EditApoderadoRequiredMessage_idPersona}"/>
+                    <h:outputLabel value="#{bundle.EditApoderadoLabel_idTipoApoderado}" for="idTipoApoderado" />
+                    <h:inputText id="idTipoApoderado" value="#{apoderadoController.selected.idTipoApoderado}" title="#{bundle.EditApoderadoTitle_idTipoApoderado}" required="true" requiredMessage="#{bundle.EditApoderadoRequiredMessage_idTipoApoderado}"/>
+                    <h:outputLabel value="#{bundle.EditApoderadoLabel_persona}" for="persona" />
+                    <h:selectOneMenu id="persona" value="#{apoderadoController.selected.persona}" title="#{bundle.EditApoderadoTitle_persona}" required="true" requiredMessage="#{bundle.EditApoderadoRequiredMessage_persona}">
+                        <f:selectItems value="#{personaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{apoderadoController.update}" value="#{bundle.EditApoderadoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditApoderadoViewLink}"/>
+                <br />
+                <h:commandLink action="#{apoderadoController.prepareList}" value="#{bundle.EditApoderadoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditApoderadoIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

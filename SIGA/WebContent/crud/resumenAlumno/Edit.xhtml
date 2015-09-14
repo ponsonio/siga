@@ -3,56 +3,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="ResumenAlumnoEditDlg" widgetVar="ResumenAlumnoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditResumenAlumnoTitle}">
-            <h:form id="ResumenAlumnoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{resumenAlumnoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditResumenAlumnoLabel_idSeccion}" for="idSeccion" />
-                        <p:selectOneMenu id="idSeccion" value="#{resumenAlumnoController.selected.idSeccion}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_idSeccion}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"
-                                           var="idSeccionItem"
-                                           itemValue="#{idSeccionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditResumenAlumnoLabel_periodoAcademico}" for="periodoAcademico" />
-                        <p:selectOneMenu id="periodoAcademico" value="#{resumenAlumnoController.selected.periodoAcademico}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_periodoAcademico}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"
-                                           var="periodoAcademicoItem"
-                                           itemValue="#{periodoAcademicoItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditResumenAlumnoLabel_idGrado}" for="idGrado" />
-                        <p:selectOneMenu id="idGrado" value="#{resumenAlumnoController.selected.idGrado}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_idGrado}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{gradoController.itemsAvailableSelectOne}"
-                                           var="idGradoItem"
-                                           itemValue="#{idGradoItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditResumenAlumnoLabel_idColegio}" for="idColegio" />
-                        <p:selectOneMenu id="idColegio" value="#{resumenAlumnoController.selected.idColegio}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_idColegio}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="idColegioItem"
-                                           itemValue="#{idColegioItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditResumenAlumnoLabel_alumno}" for="alumno" />
-                        <p:selectOneMenu id="alumno" value="#{resumenAlumnoController.selected.alumno}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_alumno}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"
-                                           var="alumnoItem"
-                                           itemValue="#{alumnoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{resumenAlumnoController.update}" value="#{bundle.Save}" update="display,:ResumenAlumnoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ResumenAlumnoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ResumenAlumnoEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditResumenAlumnoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditResumenAlumnoLabel_idSeccion}" for="idSeccion" />
+                    <h:selectOneMenu id="idSeccion" value="#{resumenAlumnoController.selected.idSeccion}" title="#{bundle.EditResumenAlumnoTitle_idSeccion}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_idSeccion}">
+                        <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditResumenAlumnoLabel_periodoAcademico}" for="periodoAcademico" />
+                    <h:selectOneMenu id="periodoAcademico" value="#{resumenAlumnoController.selected.periodoAcademico}" title="#{bundle.EditResumenAlumnoTitle_periodoAcademico}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_periodoAcademico}">
+                        <f:selectItems value="#{periodoAcademicoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditResumenAlumnoLabel_idGrado}" for="idGrado" />
+                    <h:selectOneMenu id="idGrado" value="#{resumenAlumnoController.selected.idGrado}" title="#{bundle.EditResumenAlumnoTitle_idGrado}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_idGrado}">
+                        <f:selectItems value="#{gradoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditResumenAlumnoLabel_idColegio}" for="idColegio" />
+                    <h:selectOneMenu id="idColegio" value="#{resumenAlumnoController.selected.idColegio}" title="#{bundle.EditResumenAlumnoTitle_idColegio}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_idColegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditResumenAlumnoLabel_alumno}" for="alumno" />
+                    <h:selectOneMenu id="alumno" value="#{resumenAlumnoController.selected.alumno}" title="#{bundle.EditResumenAlumnoTitle_alumno}" required="true" requiredMessage="#{bundle.EditResumenAlumnoRequiredMessage_alumno}">
+                        <f:selectItems value="#{alumnoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{resumenAlumnoController.update}" value="#{bundle.EditResumenAlumnoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditResumenAlumnoViewLink}"/>
+                <br />
+                <h:commandLink action="#{resumenAlumnoController.prepareList}" value="#{bundle.EditResumenAlumnoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditResumenAlumnoIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

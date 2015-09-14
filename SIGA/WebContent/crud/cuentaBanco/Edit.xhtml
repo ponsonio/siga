@@ -3,37 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="CuentaBancoEditDlg" widgetVar="CuentaBancoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCuentaBancoTitle}">
-            <h:form id="CuentaBancoEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{cuentaBancoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCuentaBancoLabel_numero}" for="numero" />
-                        <p:inputText id="numero" value="#{cuentaBancoController.selected.numero}" title="#{bundle.EditCuentaBancoTitle_numero}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_numero}"/>
-                        <p:outputLabel value="#{bundle.EditCuentaBancoLabel_colegio}" for="colegio" />
-                        <p:selectOneMenu id="colegio" value="#{cuentaBancoController.selected.colegio}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_colegio}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"
-                                           var="colegioItem"
-                                           itemValue="#{colegioItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditCuentaBancoLabel_banco}" for="banco" />
-                        <p:selectOneMenu id="banco" value="#{cuentaBancoController.selected.banco}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_banco}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{bancoController.itemsAvailableSelectOne}"
-                                           var="bancoItem"
-                                           itemValue="#{bancoItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{cuentaBancoController.update}" value="#{bundle.Save}" update="display,:CuentaBancoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CuentaBancoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CuentaBancoEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditCuentaBancoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditCuentaBancoLabel_numero}" for="numero" />
+                    <h:inputText id="numero" value="#{cuentaBancoController.selected.numero}" title="#{bundle.EditCuentaBancoTitle_numero}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_numero}"/>
+                    <h:outputLabel value="#{bundle.EditCuentaBancoLabel_colegio}" for="colegio" />
+                    <h:selectOneMenu id="colegio" value="#{cuentaBancoController.selected.colegio}" title="#{bundle.EditCuentaBancoTitle_colegio}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_colegio}">
+                        <f:selectItems value="#{colegioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditCuentaBancoLabel_banco}" for="banco" />
+                    <h:selectOneMenu id="banco" value="#{cuentaBancoController.selected.banco}" title="#{bundle.EditCuentaBancoTitle_banco}" required="true" requiredMessage="#{bundle.EditCuentaBancoRequiredMessage_banco}">
+                        <f:selectItems value="#{bancoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{cuentaBancoController.update}" value="#{bundle.EditCuentaBancoSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditCuentaBancoViewLink}"/>
+                <br />
+                <h:commandLink action="#{cuentaBancoController.prepareList}" value="#{bundle.EditCuentaBancoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditCuentaBancoIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

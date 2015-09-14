@@ -3,85 +3,89 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="SubPeriodoAcademicoSeccionCursoListForm">
-                <p:panel header="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle}">
-                    <p:dataTable id="datalist" value="#{subPeriodoAcademicoSeccionCursoController.items}" var="item"
-                                 selectionMode="single" selection="#{subPeriodoAcademicoSeccionCursoController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idSubPeriodoAcademicoSeccionCurso}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSubPeriodoAcademicoSeccionCursoEmpty}" rendered="#{subPeriodoAcademicoSeccionCursoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{subPeriodoAcademicoSeccionCursoController.items.rowCount > 0}">
+                    <h:outputText value="#{subPeriodoAcademicoSeccionCursoController.pagination.pageFirstItem + 1}..#{subPeriodoAcademicoSeccionCursoController.pagination.pageLastItem + 1}/#{subPeriodoAcademicoSeccionCursoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.previous}" value="#{bundle.Previous} #{subPeriodoAcademicoSeccionCursoController.pagination.pageSize}" rendered="#{subPeriodoAcademicoSeccionCursoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.next}" value="#{bundle.Next} #{subPeriodoAcademicoSeccionCursoController.pagination.pageSize}" rendered="#{subPeriodoAcademicoSeccionCursoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{subPeriodoAcademicoSeccionCursoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademicoSeccionCurso}"/>
                             </f:facet>
                             <h:outputText value="#{item.idSubPeriodoAcademicoSeccionCurso}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle_formulaNotaSubPeriodo}"/>
                             </f:facet>
                             <h:outputText value="#{item.formulaNotaSubPeriodo}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccionCurso}"/>
                             </f:facet>
                             <h:outputText value="#{item.idPeriodoAcademicoSeccionCurso}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle_idPeriodoAcademicoSeccion}"/>
                             </f:facet>
                             <h:outputText value="#{item.idPeriodoAcademicoSeccion}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle_idSeccion}"/>
                             </f:facet>
                             <h:outputText value="#{item.idSeccion}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle_idSubPeriodoAcademico}"/>
                             </f:facet>
                             <h:outputText value="#{item.idSubPeriodoAcademico}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle_idCurso}"/>
                             </f:facet>
                             <h:outputText value="#{item.idCurso}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{subPeriodoAcademicoSeccionCursoController.prepareCreate}" update=":SubPeriodoAcademicoSeccionCursoCreateForm" oncomplete="PF('SubPeriodoAcademicoSeccionCursoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SubPeriodoAcademicoSeccionCursoViewForm" oncomplete="PF('SubPeriodoAcademicoSeccionCursoViewDialog').show()" disabled="#{empty subPeriodoAcademicoSeccionCursoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SubPeriodoAcademicoSeccionCursoEditForm" oncomplete="PF('SubPeriodoAcademicoSeccionCursoEditDialog').show()" disabled="#{empty subPeriodoAcademicoSeccionCursoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{subPeriodoAcademicoSeccionCursoController.destroy}" update=":growl,datalist" disabled="#{empty subPeriodoAcademicoSeccionCursoController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSubPeriodoAcademicoSeccionCursoTitle_periodoAcademicoSeccionCurso}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodoAcademicoSeccionCurso}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.prepareView}" value="#{bundle.ListSubPeriodoAcademicoSeccionCursoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.prepareEdit}" value="#{bundle.ListSubPeriodoAcademicoSeccionCursoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.destroy}" value="#{bundle.ListSubPeriodoAcademicoSeccionCursoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{subPeriodoAcademicoSeccionCursoController.prepareCreate}" value="#{bundle.ListSubPeriodoAcademicoSeccionCursoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSubPeriodoAcademicoSeccionCursoIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

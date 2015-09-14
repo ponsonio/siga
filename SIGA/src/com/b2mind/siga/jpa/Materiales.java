@@ -40,6 +40,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Materiales.findByNombreArchivo", query = "SELECT m FROM Materiales m WHERE m.nombreArchivo = :nombreArchivo"),
     @NamedQuery(name = "Materiales.findByDescripcion", query = "SELECT m FROM Materiales m WHERE m.descripcion = :descripcion")})
 public class Materiales implements Serializable {
+    @JoinTable(name = "MATERIAL_SECCION_CURSO_PERIODO", joinColumns = {
+        @JoinColumn(name = "ID_MATERIAL", referencedColumnName = "ID_MATERIAL")}, inverseJoinColumns = {
+        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION"),
+        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION_CURSO", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION_CURSO")})
+    @ManyToMany
+    private Collection<PeriodoAcademicoSeccionCurso> periodoAcademicoSeccionCursoCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -175,6 +181,15 @@ public class Materiales implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.Materiales[ idMaterial=" + idMaterial + " ]";
+    }
+
+    @XmlTransient
+    public Collection<PeriodoAcademicoSeccionCurso> getPeriodoAcademicoSeccionCursoCollection() {
+        return periodoAcademicoSeccionCursoCollection;
+    }
+
+    public void setPeriodoAcademicoSeccionCursoCollection(Collection<PeriodoAcademicoSeccionCurso> periodoAcademicoSeccionCursoCollection) {
+        this.periodoAcademicoSeccionCursoCollection = periodoAcademicoSeccionCursoCollection;
     }
     
 }

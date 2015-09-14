@@ -3,26 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewRepositorioArchivosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewRepositorioArchivosLabel_idRepositorio}"/>
+                    <h:outputText value="#{repositorioArchivosController.selected.idRepositorio}" title="#{bundle.ViewRepositorioArchivosTitle_idRepositorio}"/>
+                    <h:outputText value="#{bundle.ViewRepositorioArchivosLabel_url}"/>
+                    <h:outputText value="#{repositorioArchivosController.selected.url}" title="#{bundle.ViewRepositorioArchivosTitle_url}"/>
+                    <h:outputText value="#{bundle.ViewRepositorioArchivosLabel_idColegio}"/>
+                    <h:outputText value="#{repositorioArchivosController.selected.idColegio}" title="#{bundle.ViewRepositorioArchivosTitle_idColegio}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{repositorioArchivosController.destroyAndView}" value="#{bundle.ViewRepositorioArchivosDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewRepositorioArchivosEditLink}"/>
+                <br />
+                <h:commandLink action="#{repositorioArchivosController.prepareCreate}" value="#{bundle.ViewRepositorioArchivosCreateLink}" />
+                <br />
+                <h:commandLink action="#{repositorioArchivosController.prepareList}" value="#{bundle.ViewRepositorioArchivosShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewRepositorioArchivosIndexLink}"/>
 
-        <p:dialog id="RepositorioArchivosViewDlg" widgetVar="RepositorioArchivosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRepositorioArchivosTitle}">
-            <h:form id="RepositorioArchivosViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{repositorioArchivosController.selected != null}">
-                        <h:outputText value="#{bundle.ViewRepositorioArchivosLabel_idRepositorio}"/>
-                        <h:outputText value="#{repositorioArchivosController.selected.idRepositorio}" title="#{bundle.ViewRepositorioArchivosTitle_idRepositorio}"/>
-                        <h:outputText value="#{bundle.ViewRepositorioArchivosLabel_url}"/>
-                        <h:outputText value="#{repositorioArchivosController.selected.url}" title="#{bundle.ViewRepositorioArchivosTitle_url}"/>
-                        <h:outputText value="#{bundle.ViewRepositorioArchivosLabel_idColegio}"/>
-                        <h:outputText value="#{repositorioArchivosController.selected.idColegio}" title="#{bundle.ViewRepositorioArchivosTitle_idColegio}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="RepositorioArchivosViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -3,34 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="MaterialesEditDlg" widgetVar="MaterialesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaterialesTitle}">
-            <h:form id="MaterialesEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{materialesController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditMaterialesLabel_idMaterial}" for="idMaterial" />
-                        <p:inputText id="idMaterial" value="#{materialesController.selected.idMaterial}" title="#{bundle.EditMaterialesTitle_idMaterial}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_idMaterial}"/>
-                        <p:outputLabel value="#{bundle.EditMaterialesLabel_nombreArchivo}" for="nombreArchivo" />
-                        <p:inputText id="nombreArchivo" value="#{materialesController.selected.nombreArchivo}" title="#{bundle.EditMaterialesTitle_nombreArchivo}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_nombreArchivo}"/>
-                        <p:outputLabel value="#{bundle.EditMaterialesLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{materialesController.selected.descripcion}" title="#{bundle.EditMaterialesTitle_descripcion}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_descripcion}"/>
-                        <p:outputLabel value="#{bundle.EditMaterialesLabel_idRepositorio}" for="idRepositorio" />
-                        <p:selectOneMenu id="idRepositorio" value="#{materialesController.selected.idRepositorio}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_idRepositorio}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{repositorioArchivosController.itemsAvailableSelectOne}"
-                                           var="idRepositorioItem"
-                                           itemValue="#{idRepositorioItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{materialesController.update}" value="#{bundle.Save}" update="display,:MaterialesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialesEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="MaterialesEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditMaterialesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditMaterialesLabel_idMaterial}" for="idMaterial" />
+                    <h:inputText id="idMaterial" value="#{materialesController.selected.idMaterial}" title="#{bundle.EditMaterialesTitle_idMaterial}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_idMaterial}"/>
+                    <h:outputLabel value="#{bundle.EditMaterialesLabel_nombreArchivo}" for="nombreArchivo" />
+                    <h:inputText id="nombreArchivo" value="#{materialesController.selected.nombreArchivo}" title="#{bundle.EditMaterialesTitle_nombreArchivo}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_nombreArchivo}"/>
+                    <h:outputLabel value="#{bundle.EditMaterialesLabel_descripcion}" for="descripcion" />
+                    <h:inputText id="descripcion" value="#{materialesController.selected.descripcion}" title="#{bundle.EditMaterialesTitle_descripcion}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.EditMaterialesLabel_idRepositorio}" for="idRepositorio" />
+                    <h:selectOneMenu id="idRepositorio" value="#{materialesController.selected.idRepositorio}" title="#{bundle.EditMaterialesTitle_idRepositorio}" required="true" requiredMessage="#{bundle.EditMaterialesRequiredMessage_idRepositorio}">
+                        <f:selectItems value="#{repositorioArchivosController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{materialesController.update}" value="#{bundle.EditMaterialesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditMaterialesViewLink}"/>
+                <br />
+                <h:commandLink action="#{materialesController.prepareList}" value="#{bundle.EditMaterialesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditMaterialesIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

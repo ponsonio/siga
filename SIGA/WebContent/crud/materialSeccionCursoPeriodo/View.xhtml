@@ -3,26 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewMaterialSeccionCursoPeriodoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewMaterialSeccionCursoPeriodoLabel_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}"/>
+                    <h:outputText value="#{materialSeccionCursoPeriodoController.selected.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccion}" title="#{bundle.ViewMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}"/>
+                    <h:outputText value="#{bundle.ViewMaterialSeccionCursoPeriodoLabel_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{materialSeccionCursoPeriodoController.selected.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{bundle.ViewMaterialSeccionCursoPeriodoLabel_materiales}"/>
+                    <h:outputText value="#{materialSeccionCursoPeriodoController.selected.materiales}" title="#{bundle.ViewMaterialSeccionCursoPeriodoTitle_materiales}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{materialSeccionCursoPeriodoController.destroyAndView}" value="#{bundle.ViewMaterialSeccionCursoPeriodoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewMaterialSeccionCursoPeriodoEditLink}"/>
+                <br />
+                <h:commandLink action="#{materialSeccionCursoPeriodoController.prepareCreate}" value="#{bundle.ViewMaterialSeccionCursoPeriodoCreateLink}" />
+                <br />
+                <h:commandLink action="#{materialSeccionCursoPeriodoController.prepareList}" value="#{bundle.ViewMaterialSeccionCursoPeriodoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewMaterialSeccionCursoPeriodoIndexLink}"/>
 
-        <p:dialog id="MaterialSeccionCursoPeriodoViewDlg" widgetVar="MaterialSeccionCursoPeriodoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewMaterialSeccionCursoPeriodoTitle}">
-            <h:form id="MaterialSeccionCursoPeriodoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{materialSeccionCursoPeriodoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewMaterialSeccionCursoPeriodoLabel_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}"/>
-                        <h:outputText value="#{materialSeccionCursoPeriodoController.selected.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccion}" title="#{bundle.ViewMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccion}"/>
-                        <h:outputText value="#{bundle.ViewMaterialSeccionCursoPeriodoLabel_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{materialSeccionCursoPeriodoController.selected.materialSeccionCursoPeriodoPK.idPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewMaterialSeccionCursoPeriodoTitle_materialSeccionCursoPeriodoPK_idPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{bundle.ViewMaterialSeccionCursoPeriodoLabel_materiales}"/>
-                        <h:outputText value="#{materialSeccionCursoPeriodoController.selected.materiales}" title="#{bundle.ViewMaterialSeccionCursoPeriodoTitle_materiales}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="MaterialSeccionCursoPeriodoViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

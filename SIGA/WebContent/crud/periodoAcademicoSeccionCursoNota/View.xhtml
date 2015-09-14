@@ -3,30 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_idPersona}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.idPersona}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_idPersona}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_notaFinalCurso}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.notaFinalCurso}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_notaFinalCurso}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccion}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccion}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_alumno}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.alumno}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_alumno}"/>
+                    <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_periodoAcademicoSeccionCurso}"/>
+                    <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.periodoAcademicoSeccionCurso}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_periodoAcademicoSeccionCurso}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.destroyAndView}" value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaEditLink}"/>
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.prepareCreate}" value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaCreateLink}" />
+                <br />
+                <h:commandLink action="#{periodoAcademicoSeccionCursoNotaController.prepareList}" value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaIndexLink}"/>
 
-        <p:dialog id="PeriodoAcademicoSeccionCursoNotaViewDlg" widgetVar="PeriodoAcademicoSeccionCursoNotaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle}">
-            <h:form id="PeriodoAcademicoSeccionCursoNotaViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{periodoAcademicoSeccionCursoNotaController.selected != null}">
-                        <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_idPersona}"/>
-                        <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.idPersona}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_idPersona}"/>
-                        <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccionCurso}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccionCurso}"/>
-                        <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_notaFinalCurso}"/>
-                        <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.notaFinalCurso}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_notaFinalCurso}"/>
-                        <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_idPeriodoAcademicoSeccion}"/>
-                        <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.idPeriodoAcademicoSeccion}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_idPeriodoAcademicoSeccion}"/>
-                        <h:outputText value="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaLabel_alumno}"/>
-                        <h:outputText value="#{periodoAcademicoSeccionCursoNotaController.selected.alumno}" title="#{bundle.ViewPeriodoAcademicoSeccionCursoNotaTitle_alumno}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PeriodoAcademicoSeccionCursoNotaViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

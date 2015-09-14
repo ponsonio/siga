@@ -3,38 +3,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewLogEventoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewLogEventoLabel_idLogEvento}"/>
+                    <h:outputText value="#{logEventoController.selected.idLogEvento}" title="#{bundle.ViewLogEventoTitle_idLogEvento}"/>
+                    <h:outputText value="#{bundle.ViewLogEventoLabel_fecha}"/>
+                    <h:outputText value="#{logEventoController.selected.fecha}" title="#{bundle.ViewLogEventoTitle_fecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewLogEventoLabel_clase}"/>
+                    <h:outputText value="#{logEventoController.selected.clase}" title="#{bundle.ViewLogEventoTitle_clase}"/>
+                    <h:outputText value="#{bundle.ViewLogEventoLabel_usuario}"/>
+                    <h:outputText value="#{logEventoController.selected.usuario}" title="#{bundle.ViewLogEventoTitle_usuario}"/>
+                    <h:outputText value="#{bundle.ViewLogEventoLabel_mensaje}"/>
+                    <h:outputText value="#{logEventoController.selected.mensaje}" title="#{bundle.ViewLogEventoTitle_mensaje}"/>
+                    <h:outputText value="#{bundle.ViewLogEventoLabel_mensajeDetallado}"/>
+                    <h:outputText value="#{logEventoController.selected.mensajeDetallado}" title="#{bundle.ViewLogEventoTitle_mensajeDetallado}"/>
+                    <h:outputText value="#{bundle.ViewLogEventoLabel_severidad}"/>
+                    <h:outputText value="#{logEventoController.selected.severidad}" title="#{bundle.ViewLogEventoTitle_severidad}"/>
+                    <h:outputText value="#{bundle.ViewLogEventoLabel_referencia}"/>
+                    <h:outputText value="#{logEventoController.selected.referencia}" title="#{bundle.ViewLogEventoTitle_referencia}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{logEventoController.destroyAndView}" value="#{bundle.ViewLogEventoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewLogEventoEditLink}"/>
+                <br />
+                <h:commandLink action="#{logEventoController.prepareCreate}" value="#{bundle.ViewLogEventoCreateLink}" />
+                <br />
+                <h:commandLink action="#{logEventoController.prepareList}" value="#{bundle.ViewLogEventoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewLogEventoIndexLink}"/>
 
-        <p:dialog id="LogEventoViewDlg" widgetVar="LogEventoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLogEventoTitle}">
-            <h:form id="LogEventoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{logEventoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewLogEventoLabel_idLogEvento}"/>
-                        <h:outputText value="#{logEventoController.selected.idLogEvento}" title="#{bundle.ViewLogEventoTitle_idLogEvento}"/>
-                        <h:outputText value="#{bundle.ViewLogEventoLabel_fecha}"/>
-                        <h:outputText value="#{logEventoController.selected.fecha}" title="#{bundle.ViewLogEventoTitle_fecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewLogEventoLabel_clase}"/>
-                        <h:outputText value="#{logEventoController.selected.clase}" title="#{bundle.ViewLogEventoTitle_clase}"/>
-                        <h:outputText value="#{bundle.ViewLogEventoLabel_usuario}"/>
-                        <h:outputText value="#{logEventoController.selected.usuario}" title="#{bundle.ViewLogEventoTitle_usuario}"/>
-                        <h:outputText value="#{bundle.ViewLogEventoLabel_mensaje}"/>
-                        <h:outputText value="#{logEventoController.selected.mensaje}" title="#{bundle.ViewLogEventoTitle_mensaje}"/>
-                        <h:outputText value="#{bundle.ViewLogEventoLabel_mensajeDetallado}"/>
-                        <h:outputText value="#{logEventoController.selected.mensajeDetallado}" title="#{bundle.ViewLogEventoTitle_mensajeDetallado}"/>
-                        <h:outputText value="#{bundle.ViewLogEventoLabel_severidad}"/>
-                        <h:outputText value="#{logEventoController.selected.severidad}" title="#{bundle.ViewLogEventoTitle_severidad}"/>
-                        <h:outputText value="#{bundle.ViewLogEventoLabel_referencia}"/>
-                        <h:outputText value="#{logEventoController.selected.referencia}" title="#{bundle.ViewLogEventoTitle_referencia}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="LogEventoViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

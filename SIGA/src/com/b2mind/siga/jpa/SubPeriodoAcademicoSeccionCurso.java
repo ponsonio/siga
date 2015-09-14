@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -40,6 +41,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SubPeriodoAcademicoSeccionCurso.findByIdPeriodoAcademicoSeccionCurso", query = "SELECT s FROM SubPeriodoAcademicoSeccionCurso s WHERE s.idPeriodoAcademicoSeccionCurso = :idPeriodoAcademicoSeccionCurso"),
     @NamedQuery(name = "SubPeriodoAcademicoSeccionCurso.findByIdPeriodoAcademicoSeccion", query = "SELECT s FROM SubPeriodoAcademicoSeccionCurso s WHERE s.idPeriodoAcademicoSeccion = :idPeriodoAcademicoSeccion")})
 public class SubPeriodoAcademicoSeccionCurso implements Serializable {
+    @JoinColumns({
+        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION"),
+        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION_CURSO", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION_CURSO")})
+    @ManyToOne(optional = false)
+    private PeriodoAcademicoSeccionCurso periodoAcademicoSeccionCurso;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -217,6 +223,14 @@ public class SubPeriodoAcademicoSeccionCurso implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.SubPeriodoAcademicoSeccionCurso[ idSubPeriodoAcademicoSeccionCurso=" + idSubPeriodoAcademicoSeccionCurso + " ]";
+    }
+
+    public PeriodoAcademicoSeccionCurso getPeriodoAcademicoSeccionCurso() {
+        return periodoAcademicoSeccionCurso;
+    }
+
+    public void setPeriodoAcademicoSeccionCurso(PeriodoAcademicoSeccionCurso periodoAcademicoSeccionCurso) {
+        this.periodoAcademicoSeccionCurso = periodoAcademicoSeccionCurso;
     }
     
 }

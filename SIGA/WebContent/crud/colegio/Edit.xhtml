@@ -3,29 +3,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="ColegioEditDlg" widgetVar="ColegioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditColegioTitle}">
-            <h:form id="ColegioEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{colegioController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditColegioLabel_idColegio}" for="idColegio" />
-                        <p:inputText id="idColegio" value="#{colegioController.selected.idColegio}" title="#{bundle.EditColegioTitle_idColegio}" required="true" requiredMessage="#{bundle.EditColegioRequiredMessage_idColegio}"/>
-                        <p:outputLabel value="#{bundle.EditColegioLabel_codigo}" for="codigo" />
-                        <p:inputText id="codigo" value="#{colegioController.selected.codigo}" title="#{bundle.EditColegioTitle_codigo}" />
-                        <p:outputLabel value="#{bundle.EditColegioLabel_direccion}" for="direccion" />
-                        <p:inputText id="direccion" value="#{colegioController.selected.direccion}" title="#{bundle.EditColegioTitle_direccion}" required="true" requiredMessage="#{bundle.EditColegioRequiredMessage_direccion}"/>
-                        <p:outputLabel value="#{bundle.EditColegioLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{colegioController.selected.nombre}" title="#{bundle.EditColegioTitle_nombre}" required="true" requiredMessage="#{bundle.EditColegioRequiredMessage_nombre}"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{colegioController.update}" value="#{bundle.Save}" update="display,:ColegioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ColegioEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ColegioEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditColegioTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditColegioLabel_idColegio}" for="idColegio" />
+                    <h:inputText id="idColegio" value="#{colegioController.selected.idColegio}" title="#{bundle.EditColegioTitle_idColegio}" required="true" requiredMessage="#{bundle.EditColegioRequiredMessage_idColegio}"/>
+                    <h:outputLabel value="#{bundle.EditColegioLabel_codigo}" for="codigo" />
+                    <h:inputText id="codigo" value="#{colegioController.selected.codigo}" title="#{bundle.EditColegioTitle_codigo}" />
+                    <h:outputLabel value="#{bundle.EditColegioLabel_direccion}" for="direccion" />
+                    <h:inputText id="direccion" value="#{colegioController.selected.direccion}" title="#{bundle.EditColegioTitle_direccion}" required="true" requiredMessage="#{bundle.EditColegioRequiredMessage_direccion}"/>
+                    <h:outputLabel value="#{bundle.EditColegioLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{colegioController.selected.nombre}" title="#{bundle.EditColegioTitle_nombre}" required="true" requiredMessage="#{bundle.EditColegioRequiredMessage_nombre}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{colegioController.update}" value="#{bundle.EditColegioSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditColegioViewLink}"/>
+                <br />
+                <h:commandLink action="#{colegioController.prepareList}" value="#{bundle.EditColegioShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditColegioIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

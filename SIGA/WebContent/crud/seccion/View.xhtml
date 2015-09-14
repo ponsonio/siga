@@ -3,30 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewSeccionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewSeccionLabel_idSeccion}"/>
+                    <h:outputText value="#{seccionController.selected.idSeccion}" title="#{bundle.ViewSeccionTitle_idSeccion}"/>
+                    <h:outputText value="#{bundle.ViewSeccionLabel_correlativo}"/>
+                    <h:outputText value="#{seccionController.selected.correlativo}" title="#{bundle.ViewSeccionTitle_correlativo}"/>
+                    <h:outputText value="#{bundle.ViewSeccionLabel_etiqueta}"/>
+                    <h:outputText value="#{seccionController.selected.etiqueta}" title="#{bundle.ViewSeccionTitle_etiqueta}"/>
+                    <h:outputText value="#{bundle.ViewSeccionLabel_idGrado}"/>
+                    <h:outputText value="#{seccionController.selected.idGrado}" title="#{bundle.ViewSeccionTitle_idGrado}"/>
+                    <h:outputText value="#{bundle.ViewSeccionLabel_idColegio}"/>
+                    <h:outputText value="#{seccionController.selected.idColegio}" title="#{bundle.ViewSeccionTitle_idColegio}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{seccionController.destroyAndView}" value="#{bundle.ViewSeccionDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewSeccionEditLink}"/>
+                <br />
+                <h:commandLink action="#{seccionController.prepareCreate}" value="#{bundle.ViewSeccionCreateLink}" />
+                <br />
+                <h:commandLink action="#{seccionController.prepareList}" value="#{bundle.ViewSeccionShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewSeccionIndexLink}"/>
 
-        <p:dialog id="SeccionViewDlg" widgetVar="SeccionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSeccionTitle}">
-            <h:form id="SeccionViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{seccionController.selected != null}">
-                        <h:outputText value="#{bundle.ViewSeccionLabel_idSeccion}"/>
-                        <h:outputText value="#{seccionController.selected.idSeccion}" title="#{bundle.ViewSeccionTitle_idSeccion}"/>
-                        <h:outputText value="#{bundle.ViewSeccionLabel_correlativo}"/>
-                        <h:outputText value="#{seccionController.selected.correlativo}" title="#{bundle.ViewSeccionTitle_correlativo}"/>
-                        <h:outputText value="#{bundle.ViewSeccionLabel_etiqueta}"/>
-                        <h:outputText value="#{seccionController.selected.etiqueta}" title="#{bundle.ViewSeccionTitle_etiqueta}"/>
-                        <h:outputText value="#{bundle.ViewSeccionLabel_idGrado}"/>
-                        <h:outputText value="#{seccionController.selected.idGrado}" title="#{bundle.ViewSeccionTitle_idGrado}"/>
-                        <h:outputText value="#{bundle.ViewSeccionLabel_idColegio}"/>
-                        <h:outputText value="#{seccionController.selected.idColegio}" title="#{bundle.ViewSeccionTitle_idColegio}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="SeccionViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

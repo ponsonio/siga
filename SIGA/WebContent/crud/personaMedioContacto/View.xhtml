@@ -3,26 +3,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPersonaMedioContactoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPersonaMedioContactoLabel_personaMedioContactoPK_idMedioContacto}"/>
+                    <h:outputText value="#{personaMedioContactoController.selected.personaMedioContactoPK.idMedioContacto}" title="#{bundle.ViewPersonaMedioContactoTitle_personaMedioContactoPK_idMedioContacto}"/>
+                    <h:outputText value="#{bundle.ViewPersonaMedioContactoLabel_referencia}"/>
+                    <h:outputText value="#{personaMedioContactoController.selected.referencia}" title="#{bundle.ViewPersonaMedioContactoTitle_referencia}"/>
+                    <h:outputText value="#{bundle.ViewPersonaMedioContactoLabel_persona}"/>
+                    <h:outputText value="#{personaMedioContactoController.selected.persona}" title="#{bundle.ViewPersonaMedioContactoTitle_persona}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{personaMedioContactoController.destroyAndView}" value="#{bundle.ViewPersonaMedioContactoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPersonaMedioContactoEditLink}"/>
+                <br />
+                <h:commandLink action="#{personaMedioContactoController.prepareCreate}" value="#{bundle.ViewPersonaMedioContactoCreateLink}" />
+                <br />
+                <h:commandLink action="#{personaMedioContactoController.prepareList}" value="#{bundle.ViewPersonaMedioContactoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPersonaMedioContactoIndexLink}"/>
 
-        <p:dialog id="PersonaMedioContactoViewDlg" widgetVar="PersonaMedioContactoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPersonaMedioContactoTitle}">
-            <h:form id="PersonaMedioContactoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{personaMedioContactoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewPersonaMedioContactoLabel_personaMedioContactoPK_idMedioContacto}"/>
-                        <h:outputText value="#{personaMedioContactoController.selected.personaMedioContactoPK.idMedioContacto}" title="#{bundle.ViewPersonaMedioContactoTitle_personaMedioContactoPK_idMedioContacto}"/>
-                        <h:outputText value="#{bundle.ViewPersonaMedioContactoLabel_referencia}"/>
-                        <h:outputText value="#{personaMedioContactoController.selected.referencia}" title="#{bundle.ViewPersonaMedioContactoTitle_referencia}"/>
-                        <h:outputText value="#{bundle.ViewPersonaMedioContactoLabel_persona}"/>
-                        <h:outputText value="#{personaMedioContactoController.selected.persona}" title="#{bundle.ViewPersonaMedioContactoTitle_persona}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PersonaMedioContactoViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>
