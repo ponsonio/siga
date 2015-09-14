@@ -22,6 +22,8 @@ public class AsistenciaFacade extends AbstractFacade<Asistencia> {
 	
 	static String asistio = "0";
 	
+	static String jutificada = "1";
+	
     @PersistenceContext(unitName = "CrudSIGAPU")
     private EntityManager em;
 
@@ -42,9 +44,8 @@ public class AsistenciaFacade extends AbstractFacade<Asistencia> {
      */
     public List<Asistencia> obtenerAsistenciaAlumnoSubPeriodo(long idAlumno, long idSubPeriodoAcademico) {
 		//return (List<Asistencia>)entityManager.createQuery("select a from Asistencia a")
-		return (List<Asistencia>)em.createQuery("select a from Asistencia a where a.alumno.idPersona = :idalumno and a.asistio = :asistio and a.periodoAcademico.idPeriodoAcademico = :idperiodo")
+		return (List<Asistencia>)em.createQuery("select a from Asistencia a where a.alumno.idPersona = :idalumno and a.periodoAcademico.idPeriodoAcademico = :idperiodo")
         		.setParameter("idperiodo", idSubPeriodoAcademico)
-				.setParameter("asistio", this.asistio)
         		.setParameter("idalumno", idAlumno)
         		.getResultList();
 		
@@ -58,9 +59,8 @@ public class AsistenciaFacade extends AbstractFacade<Asistencia> {
 	 */
 	public List<Asistencia> obtenerAsistenciaAlumnoPeriodo(long idAlumno, long idPeriodoAcademico) {
 		//return (List<Asistencia>)entityManager.createQuery("select a from Asistencia a")
-		return (List<Asistencia>)em.createQuery("select a from Asistencia a where a.asistio = :asistio and a.alumno.idPersona = :idalumno  and a.periodoAcademicoSeccionCurso.periodoAcademicoSeccion.periodoAcademico.idPeriodoAcademico = :idperiodo")
+		return (List<Asistencia>)em.createQuery("select a from Asistencia a where  a.alumno.idPersona = :idalumno  and a.periodoAcademicoSeccionCurso.periodoAcademicoSeccion.periodoAcademico.idPeriodoAcademico = :idperiodo")
         		.setParameter("idperiodo", idPeriodoAcademico)
-				.setParameter("asistio", this.asistio)
         		.setParameter("idalumno", idAlumno)
         		.getResultList();
 		
