@@ -45,10 +45,10 @@ public class LibretaNotas implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID_LIBRETA_NOTAS")
     private Long idLibretaNotas;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_PERIODO_ACADEMICO_SECCION")
-    private long idPeriodoAcademicoSeccion;
+    
+
+    
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLibretaNotas")
     private Collection<LibretaNotasSubperiodo> libretaNotasSubperiodoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLibretaNotas")
@@ -83,13 +83,7 @@ public class LibretaNotas implements Serializable {
         this.idLibretaNotas = idLibretaNotas;
     }
 
-    public long getIdPeriodoAcademicoSeccion() {
-        return idPeriodoAcademicoSeccion;
-    }
 
-    public void setIdPeriodoAcademicoSeccion(long idPeriodoAcademicoSeccion) {
-        this.idPeriodoAcademicoSeccion = idPeriodoAcademicoSeccion;
-    }
 
     @XmlTransient
     public Collection<LibretaNotasSubperiodo> getLibretaNotasSubperiodoCollection() {

@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MatriculaAlumno.findByFecha", query = "SELECT m FROM MatriculaAlumno m WHERE m.fecha = :fecha"),
     @NamedQuery(name = "MatriculaAlumno.findByIdPeriodoAcademicoSeccion", query = "SELECT m FROM MatriculaAlumno m WHERE m.idPeriodoAcademicoSeccion = :idPeriodoAcademicoSeccion")})
 public class MatriculaAlumno implements Serializable {
+	
     @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION")
     @ManyToOne(optional = false)
     private PeriodoAcademicoSeccion idPeriodoAcademicoSeccion;
@@ -57,10 +58,9 @@ public class MatriculaAlumno implements Serializable {
     @Column(name = "FECHA")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_PERIODO_ACADEMICO_SECCION")
-    private long idPeriodoAcademicoSeccion;
+    
+
+    
     @JoinColumn(name = "ID_ALUMNO", referencedColumnName = "ID_PERSONA")
     @ManyToOne(optional = false)
     private Alumno idAlumno;
@@ -103,13 +103,9 @@ public class MatriculaAlumno implements Serializable {
         this.fecha = fecha;
     }
 
-    public long getIdPeriodoAcademicoSeccion() {
-        return idPeriodoAcademicoSeccion;
-    }
 
-    public void setIdPeriodoAcademicoSeccion(long idPeriodoAcademicoSeccion) {
-        this.idPeriodoAcademicoSeccion = idPeriodoAcademicoSeccion;
-    }
+
+
 
     public Alumno getIdAlumno() {
         return idAlumno;

@@ -37,8 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "LibretaNotasFinalesCurso.findByIdPeriodoAcademicoSeccion", query = "SELECT l FROM LibretaNotasFinalesCurso l WHERE l.idPeriodoAcademicoSeccion = :idPeriodoAcademicoSeccion")})
 public class LibretaNotasFinalesCurso implements Serializable {
     @JoinColumns({
-        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION"),
-        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION_CURSO", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION_CURSO")})
+        @JoinColumn(insertable=false, updatable=false ,name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION"),
+        @JoinColumn(insertable=false, updatable=false ,name = "ID_PERIODO_ACADEMICO_SECCION_CURSO", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION_CURSO")})
     @ManyToOne(optional = false)
     private PeriodoAcademicoSeccionCurso periodoAcademicoSeccionCurso;
     private static final long serialVersionUID = 1L;

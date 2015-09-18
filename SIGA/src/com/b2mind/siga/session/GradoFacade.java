@@ -5,7 +5,11 @@
  */
 package com.b2mind.siga.session;
 
+import com.b2mind.siga.exception.BaseDatosException;
 import com.b2mind.siga.jpa.Grado;
+
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +30,54 @@ public class GradoFacade extends AbstractFacade<Grado> {
 
     public GradoFacade() {
         super(Grado.class);
+    }
+    
+    /**
+     * 
+     * @param idColegio
+     * @return
+     * @throws BaseDatosException
+     */
+    public List<Grado> obtenerGradosColegio(long idColegio) throws  BaseDatosException{
+    	try{
+		return (List<Grado>)em.createQuery(
+				" select g from Grado g  where g.idColegio.id = :idColegio ")
+        		.setParameter("idColegio", idColegio)
+        		.getResultList();
+    	}catch (Exception e) {
+			throw new BaseDatosException("Error de Base de Datos :"+e.getMessage(),e);
+		}
+    }
+    
+    /**
+     * 
+     * @param g
+     * @return
+     * @throws BaseDatosException
+     */
+    public Grado crearGrado(Grado g) throws  BaseDatosException{
+    	try{
+    		em.persist(g); 
+		 return g;
+    	}catch (Exception e) {
+			throw new BaseDatosException("Error de Base de Datos :"+e.getMessage(),e);
+		}
+    }
+    
+    
+    /**
+     * 
+     * @param g
+     * @return
+     * @throws BaseDatosException
+     */
+    public Grado modificarGrado(Grado g) throws  BaseDatosException{
+    	try{
+    		em.persist(g); 
+		 return g;
+    	}catch (Exception e) {
+			throw new BaseDatosException("Error de Base de Datos :"+e.getMessage(),e);
+		}
     }
     
 }

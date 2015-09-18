@@ -160,6 +160,8 @@ public class LoginController implements Serializable {
     	}
     }
     
+
+    
     /**
      * Public carga el periodo y subPerido Académico
      * @throws InconsistenciaDatosException
