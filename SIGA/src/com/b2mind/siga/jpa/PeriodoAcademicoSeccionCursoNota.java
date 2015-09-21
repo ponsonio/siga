@@ -35,30 +35,36 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PeriodoAcademicoSeccionCursoNota.findByNotaFinalCurso", query = "SELECT p FROM PeriodoAcademicoSeccionCursoNota p WHERE p.notaFinalCurso = :notaFinalCurso"),
     @NamedQuery(name = "PeriodoAcademicoSeccionCursoNota.findByIdPeriodoAcademicoSeccion", query = "SELECT p FROM PeriodoAcademicoSeccionCursoNota p WHERE p.idPeriodoAcademicoSeccion = :idPeriodoAcademicoSeccion")})
 public class PeriodoAcademicoSeccionCursoNota implements Serializable {
-    @JoinColumns({
-        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION"),
-        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION_CURSO", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION_CURSO")})
+    @JoinColumns( {
+	//@PrimaryKeyJoinColumn({        
+		@JoinColumn(insertable=false, updatable=false ,name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION"),
+        @JoinColumn(insertable=false, updatable=false ,name = "ID_PERIODO_ACADEMICO_SECCION_CURSO", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION_CURSO")})
     @ManyToOne(optional = false)
     private PeriodoAcademicoSeccionCurso periodoAcademicoSeccionCurso;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_PERSONA")
     private Long idPersona;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_PERIODO_ACADEMICO_SECCION_CURSO")
     private long idPeriodoAcademicoSeccionCurso;
+    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "NOTA_FINAL_CURSO")
     private BigDecimal notaFinalCurso;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_PERIODO_ACADEMICO_SECCION")
     private long idPeriodoAcademicoSeccion;
+    
     @JoinColumn(name = "ID_PERSONA", referencedColumnName = "ID_PERSONA", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Alumno alumno;

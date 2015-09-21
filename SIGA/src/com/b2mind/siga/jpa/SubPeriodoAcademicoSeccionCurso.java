@@ -42,8 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SubPeriodoAcademicoSeccionCurso.findByIdPeriodoAcademicoSeccion", query = "SELECT s FROM SubPeriodoAcademicoSeccionCurso s WHERE s.idPeriodoAcademicoSeccion = :idPeriodoAcademicoSeccion")})
 public class SubPeriodoAcademicoSeccionCurso implements Serializable {
     @JoinColumns({
-        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION"),
-        @JoinColumn(name = "ID_PERIODO_ACADEMICO_SECCION_CURSO", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION_CURSO")})
+        @JoinColumn(insertable=false, updatable=false ,name = "ID_PERIODO_ACADEMICO_SECCION", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION"),
+        @JoinColumn(insertable=false, updatable=false ,name = "ID_PERIODO_ACADEMICO_SECCION_CURSO", referencedColumnName = "ID_PERIODO_ACADEMICO_SECCION_CURSO")})
     @ManyToOne(optional = false)
     private PeriodoAcademicoSeccionCurso periodoAcademicoSeccionCurso;
     private static final long serialVersionUID = 1L;
