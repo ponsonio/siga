@@ -45,6 +45,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Persona.findByApellidoMaterno", query = "SELECT p FROM Persona p WHERE p.apellidoMaterno = :apellidoMaterno"),
     @NamedQuery(name = "Persona.findByCodigo", query = "SELECT p FROM Persona p WHERE p.codigo = :codigo")})
 public class Persona implements Serializable {
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "persona")
+    private PersonalAdministrativo personalAdministrativo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -282,6 +284,14 @@ public class Persona implements Serializable {
     @Override
     public String toString() {
         return "com.b2mind.siga.jpa.Persona[ idPersona=" + idPersona + " ]";
+    }
+
+    public PersonalAdministrativo getPersonalAdministrativo() {
+        return personalAdministrativo;
+    }
+
+    public void setPersonalAdministrativo(PersonalAdministrativo personalAdministrativo) {
+        this.personalAdministrativo = personalAdministrativo;
     }
     
 }
