@@ -36,17 +36,25 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         super(Usuario.class);
     }
     
+    /**
+     * Busca un usuario , retorna null de no encontrarlo
+     * @param usuario
+     * @param idColegio
+     * @return
+     * @throws InconsistenciaDatosException
+     * @throws BaseDatosException
+     */
     public Usuario obtenerUsuario(String usuario, Long idColegio)  throws InconsistenciaDatosException , BaseDatosException {
     	try{
-    		/**
-    		return (Usuario)em.createQuery("select u from Usuario u where u.bloqueado = :bloqueado "
+    		
+    		return (Usuario)em.createQuery("select u from Usuario u where u.bloqueado != :bloqueado "
     				+ " and u.usuario = :usuario and  u.idColegio.idColegio = :idColegio ")
             		.setParameter("usuario", usuario)
             		.setParameter("bloqueado", UsuarioFacade.bloqueado)
             		.setParameter("idColegio", idColegio).
             		getSingleResult();
-    		**/
-    		return this.find( new Long(1) );
+    		
+    		//return this.find( new Long(1) );
     	}catch(NoResultException nre) {
     		return null;
     	}catch (NonUniqueResultException e) {

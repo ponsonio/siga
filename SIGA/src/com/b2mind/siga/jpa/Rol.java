@@ -53,6 +53,14 @@ public class Rol implements Serializable {
     @ManyToMany
     private Collection<Usuario> usuarioCollection;
 
+    public static String  alumno = "ALUMNO";
+    public static String  apoderado = "APODERADO"; 
+    public static String  docente = "DOCENTE";  
+    public static String  gestorAcademico = "GESTOR ACADEMICO";
+    public static String  personalAdministrativo = "PERSONAL ADM";
+ 
+    
+    
     public Rol() {
     }
 

@@ -3,6 +3,7 @@ package com.b2mind.siga.view;
 
 import com.b2mind.siga.bo.GradoBO;
 import com.b2mind.siga.exception.BaseDatosException;
+import com.b2mind.siga.exception.InconsistenciaDatosException;
 import com.b2mind.siga.jpa.Grado;
 import com.b2mind.siga.jsf.util.JsfUtil;
 import com.b2mind.siga.jsf.util.PaginationHelper;
@@ -49,20 +50,29 @@ public class GradoControllerSiga implements Serializable {
 	LoginController loginController ;
 	
 	
-	public List<Grado>  listarGradosUsuario(){
-		   
+	public DataModel<Grado>  listarGrados(){
+		
 		try{
 			
-			return ejbGradoBO.obtenerGradosColegio(loginController.getResumenAlumno().getPeriodoAcademico().getIdPeriodoAcademico());
-		}catch (BaseDatosException e){
+			items.setWrappedData(ejbGradoBO.obtenerGradosColegio(loginController.getColegio().getIdColegio())) ;
+		
+
+        }catch (BaseDatosException  e) {
             ejbLog.insertarLogERROR(this.getClass().getName(), 
-            		"Error listado de grados", e.getMessage()
-            		, null, this.username, "Login" ) ;
+            		"Error de inicio de sesiòn", e.getMessage()
+            		, null, loginController.getUsername(), "Login" ) ;
             e.printStackTrace();
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesiòn");
             FacesContext.getCurrentInstance().addMessage(null, message);
-			
+		}catch (Exception  e) {
+            ejbLog.insertarLogERROR(this.getClass().getName(), 
+            		"Error de inicio de sesiòn", e.getMessage()
+            		, null, loginController.getUsername(), "Login" ) ;
+            e.printStackTrace();
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesiòn");
+            FacesContext.getCurrentInstance().addMessage(null, message);
 		}
+		return items;
 	} 
 	
 	

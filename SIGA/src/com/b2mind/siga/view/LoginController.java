@@ -21,6 +21,7 @@ import com.b2mind.siga.jpa.Alumno;
 import com.b2mind.siga.jpa.Colegio;
 import com.b2mind.siga.jpa.PeriodoAcademico;
 import com.b2mind.siga.jpa.Persona;
+import com.b2mind.siga.jpa.PersonalAdministrativo;
 import com.b2mind.siga.jpa.ResumenAlumno;
 import com.b2mind.siga.jpa.Rol;
 import com.b2mind.siga.jpa.Usuario;
@@ -45,10 +46,14 @@ public class LoginController implements Serializable {
     
     
 	private Usuario usuario;
+	
+	private Colegio colegio;
 
 	private Persona persona;
 
 	private Alumno alumno;
+	
+	private PersonalAdministrativo personalAdministrativo ;
 
 	private ResumenAlumno resumenAlumno;
 
@@ -132,14 +137,42 @@ public class LoginController implements Serializable {
     void cargarDatosPrincipales() throws InconsistenciaDatosException , BaseDatosException{
     	try{
        		persona = usuario.getIdPersona() ;
-            persona.getPersonaMedioContactoCollection();
-            alumno = persona.getAlumno();
+       		colegio = usuario.getIdColegio();
+            //persona.getPersonaMedioContactoCollection();
             cargarRoles();
-            cargarPeriodosAcademicos();
-            cargarResumenAlumno();
+            cargarPeriodosAcademicos(colegio.getIdColegio());
+            
+            ejbLog.insertarLogINFO(this.getClass().getName(), 
+            		"cargarDatosPrincipales", persona.toString() + colegio.toString() 
+            		, null, this.username, "Cargar Datos Principales" ) ;
+            
+            if (this.hasRole(Rol.alumno)) {
+	            alumno = persona.getAlumno();
+	            cargarResumenAlumno();
+	            ejbLog.insertarLogINFO(this.getClass().getName(), 
+	            		"cargarDatosPrincipales", alumno.toString() + this.resumenAlumno.toString() 
+	            		, null, this.username, "Cargar Datos Principales - Alumno" ) ;
+
+            } else if (this.hasRole(Rol.personalAdministrativo)){
+            	personalAdministrativo = persona.getPersonalAdministrativo();
+                ejbLog.insertarLogINFO(this.getClass().getName(), 
+	            		"cargarDatosPrincipales", personalAdministrativo.toString()  
+	            		, null, this.username, "Cargar Datos Principales - PERSONAL ADMINISTRATIVO" ) ;
+            }   
     	}catch(Exception e){
     		throw e ;
     	}
+    }
+    
+    public boolean hasRole(String nombreRol){
+    	Iterator<Rol> it = collectionRoles.iterator() ; 
+    	while (it.hasNext()){
+    		Rol r = it.next();
+    		if (r.getNombre().equals(nombreRol)) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     /**
@@ -166,10 +199,10 @@ public class LoginController implements Serializable {
      * Public carga el periodo y subPerido Académico
      * @throws InconsistenciaDatosException
      */
-    public void cargarPeriodosAcademicos() throws InconsistenciaDatosException {
+    public void cargarPeriodosAcademicos(long idColegio) throws InconsistenciaDatosException {
     	try{
-    		periodoAcademico  =  ejbPeriodoAcademico.obtenerPeriodoAcademicoEnCursoCalendario(alumno.getIdColegio().getIdColegio());
-    		subPeriodoAcademico =  ejbPeriodoAcademico.obtenerSubPeriodoAcademicoEnCursoCalendario(alumno.getIdColegio().getIdColegio());
+    		periodoAcademico  =  ejbPeriodoAcademico.obtenerPeriodoAcademicoEnCursoCalendario(idColegio);
+    		subPeriodoAcademico =  ejbPeriodoAcademico.obtenerSubPeriodoAcademicoEnCursoCalendario(idColegio);
             ejbLog.insertarLogINFO(this.getClass().getName(), 
             		"Cargando Peridos Academicos", "Periodo:" +periodoAcademico.toString() + "Sub Periodo:" +subPeriodoAcademico.toString()
             		, null, this.username, "Cargar Periodo Academico" ) ;
@@ -286,6 +319,26 @@ public class LoginController implements Serializable {
 
 	public void setSubPeriodoAcademico(PeriodoAcademico subPeriodoAcademico) {
 		this.subPeriodoAcademico = subPeriodoAcademico;
+	}
+
+
+	public PersonalAdministrativo getPersonalAdministrativo() {
+		return personalAdministrativo;
+	}
+
+
+	public void setPersonalAdministrativo(PersonalAdministrativo personalAdministrativo) {
+		this.personalAdministrativo = personalAdministrativo;
+	}
+
+
+	public Colegio getColegio() {
+		return colegio;
+	}
+
+
+	public void setColegio(Colegio colegio) {
+		this.colegio = colegio;
 	}
 	
 	
