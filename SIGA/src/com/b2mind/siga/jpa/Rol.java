@@ -120,7 +120,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "com.b2mind.siga.jpa.Rol[ id=" + id + " ]";
+        return "com.b2mind.siga.jpa.Rol[ id=" + id + " ][ nombre=" + nombre + " ]";
     }
     
 }

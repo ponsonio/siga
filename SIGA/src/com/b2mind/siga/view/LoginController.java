@@ -158,9 +158,15 @@ public class LoginController implements Serializable {
                 ejbLog.insertarLogINFO(this.getClass().getName(), 
 	            		"cargarDatosPrincipales", personalAdministrativo.toString()  
 	            		, null, this.username, "Cargar Datos Principales - PERSONAL ADMINISTRATIVO" ) ;
-            }   
+            }
+
+    	}catch(InconsistenciaDatosException ex){
+    		throw ex;
     	}catch(Exception e){
-    		throw e ;
+            ejbLog.insertarLogERROR(this.getClass().getName(), 
+            		"Error cargando datos principales", e.getMessage()
+            		, null, this.username, "cargarDatosPrincipales" ) ;
+    		throw new InconsistenciaDatosException("Error Cargando Datos Principales : " + e.getMessage(), e);
     	}
     }
     
@@ -217,6 +223,9 @@ public class LoginController implements Serializable {
      */
     public void cargarResumenAlumno() throws InconsistenciaDatosException{
     	try{
+    		if (alumno.getResumenAlumnoCollection() == null){
+    			throw new InconsistenciaDatosException("Error Cargando Resumen , sin resumenes ");
+    		}
 	        Iterator<ResumenAlumno> it =  alumno.getResumenAlumnoCollection().iterator();
 	        while (it.hasNext()){
 	        	resumenAlumno = it.next();

@@ -59,17 +59,17 @@ public class GradoControllerSiga implements Serializable {
 
         }catch (BaseDatosException  e) {
             ejbLog.insertarLogERROR(this.getClass().getName(), 
-            		"Error de inicio de sesiòn", e.getMessage()
-            		, null, loginController.getUsername(), "Login" ) ;
+            		"Error obteniendo grados :", e.getMessage()
+            		, null, loginController.getUsername(), "listarGrados" ) ;
             e.printStackTrace();
-			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesiòn");
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesi��n");
             FacesContext.getCurrentInstance().addMessage(null, message);
 		}catch (Exception  e) {
             ejbLog.insertarLogERROR(this.getClass().getName(), 
-            		"Error de inicio de sesiòn", e.getMessage()
-            		, null, loginController.getUsername(), "Login" ) ;
+            		"listarGrados :", e.getMessage()
+            		, null, loginController.getUsername(), "listarGrados" ) ;
             e.printStackTrace();
-			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesiòn");
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesi��n");
             FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		return items;
