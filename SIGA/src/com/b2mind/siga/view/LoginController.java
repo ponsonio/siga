@@ -68,6 +68,8 @@ public class LoginController implements Serializable {
 	private String password;
 
 	private long idColegio;
+	
+	private  boolean  admin = false ;
  
     
 	public LoginController() {
@@ -82,7 +84,7 @@ public class LoginController implements Serializable {
 	 * Realiza el email
 	 * @param event
 	 */
-    public void login(ActionEvent event) {
+    public String login() {
         //RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
         boolean loggedIn = false;
@@ -95,13 +97,15 @@ public class LoginController implements Serializable {
 	            ejbLog.insertarLogINFO(this.getClass().getName(), 
 	            		"Inicio de sesiòn", "["+this.password+ "][" +this.username + "][" + this.idColegio+ "]" 
 	            		, null, this.username, "Login" ) ;
+	            return "principal.xthml";
 	            
 	        }catch(LoginException e){ 
 	            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verifique el usuario, colegio y/o contraseña " ,"Error de inicio de sesiòn");
 	            ejbLog.insertarLogINFO(this.getClass().getName(), 
 	            		"Error de inicio de sesiòn", "Verifique el usuario, colegio y/o contraseña "
 	            		, null, this.username, "Login" ) ;
-	            FacesContext.getCurrentInstance().addMessage(null, message);	            
+	            FacesContext.getCurrentInstance().addMessage(null, message);
+	            return "login.xthml";
 	        }catch (InconsistenciaDatosException e) {
 	            ejbLog.insertarLogERROR(this.getClass().getName(), 
 	            		"Error de inicio de sesiòn", e.getMessage()
@@ -109,6 +113,7 @@ public class LoginController implements Serializable {
 	            e.printStackTrace();
 	            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ocurrio un error inesperado, nuestro equipo a sido notificado ", "Error de inicio de sesiòn");
 	            FacesContext.getCurrentInstance().addMessage(null, message);
+	            return "login.xthml";
 	        }catch (BaseDatosException  e) {
 	            ejbLog.insertarLogERROR(this.getClass().getName(), 
 	            		"Error de inicio de sesiòn", e.getMessage()
@@ -116,6 +121,7 @@ public class LoginController implements Serializable {
 	            e.printStackTrace();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesiòn");
 	            FacesContext.getCurrentInstance().addMessage(null, message);
+	            return "login.xthml";
 			}catch (Exception  e) {
 	            ejbLog.insertarLogERROR(this.getClass().getName(), 
 	            		"Error de inicio de sesiòn", e.getMessage()
@@ -123,6 +129,7 @@ public class LoginController implements Serializable {
 	            e.printStackTrace();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, " Ocurrio un error inesperado, nuestro equipo a sido notificado ","Error de inicio de sesiòn");
 	            FacesContext.getCurrentInstance().addMessage(null, message);
+	            return "login.xthml";
 			}
 
     }  
@@ -157,7 +164,12 @@ public class LoginController implements Serializable {
             	personalAdministrativo = persona.getPersonalAdministrativo();
                 ejbLog.insertarLogINFO(this.getClass().getName(), 
 	            		"cargarDatosPrincipales", personalAdministrativo.toString()  
-	            		, null, this.username, "Cargar Datos Principales - PERSONAL ADMINISTRATIVO" ) ;
+	            		, null, this.username, "Cargar Datos Principales - PERSONAL ADMINISTRATIVO COLEGIO" ) ;
+            }else if (this.hasRole(Rol.administradorSistema)){
+            	this.admin = true;
+                ejbLog.insertarLogINFO(this.getClass().getName(), 
+	            		"cargarDatosPrincipales", null  
+	            		, null, this.username, "Cargar Datos Principales - ADMINISTRADOR DE SISTEMA" ) ;
             }
 
     	}catch(InconsistenciaDatosException ex){
@@ -349,6 +361,14 @@ public class LoginController implements Serializable {
 	public void setColegio(Colegio colegio) {
 		this.colegio = colegio;
 	}
+
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+
+
 	
 	
 	

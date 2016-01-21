@@ -57,7 +57,8 @@ public class Rol implements Serializable {
     public static String  apoderado = "APODERADO"; 
     public static String  docente = "DOCENTE";  
     public static String  gestorAcademico = "GESTOR ACADEMICO";
-    public static String  personalAdministrativo = "PERSONAL ADM";
+    public static String  personalAdministrativo = "ADM_COLEGIO";
+    public static String  administradorSistema = "ADM_SISTEMA";
  
     
     

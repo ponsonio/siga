@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <title><ui:insert name="title">"#{bundle.AppName}"</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
@@ -16,11 +16,15 @@
         <p:growl id="growl" life="3000" />
 
         <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
+            <p:layoutUnit position="north" size="65" header="">
                 <h:form id="menuForm">
-                    <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{bundle.Maintenance}">
+                  
+                    <p:menubar rendered="#{loginController.admin}">
+                    	 
+                        <p:menuitem value="" outcome="/index" icon="ui-icon-home"/>
+                        <p:menuitem value="Log Eventos" outcome="/administrador/auditoria/List.xhtml" icon="ui-icon-home"/>
+   
+                        <p:submenu label="CRUD">
                             <p:menuitem value="Alumno" outcome="/crud/alumno/List.xhtml" />
                             <p:menuitem value="Apoderado" outcome="/crud/apoderado/List.xhtml" />
                             <p:menuitem value="Asignacion" outcome="/crud/asignacion/List.xhtml" />
@@ -60,6 +64,7 @@
                             <p:menuitem value="TipoEvaluacion" outcome="/crud/tipoEvaluacion/List.xhtml" />
                         </p:submenu>
                     </p:menubar>
+                   
                 </h:form>
             </p:layoutUnit>
 
